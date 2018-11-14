@@ -1,6 +1,9 @@
 <html>
 <head>
 		<meta charset="UTF-8">
+		
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="preload" type="text/css" href="styles.css">
@@ -37,12 +40,13 @@ font-family: 'Shadows Into Light', cursive;
 font-family: 'Nothing You Could Do', cursive; -->
 
 <style type="text/css">
+	
 
 
 </style>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 //For production:
 //	countdownseconds should be 60
@@ -829,6 +833,12 @@ font-family: 'Nothing You Could Do', cursive; -->
 	}
 
 	function startMemoCountdown(test = false) {
+
+		if (test) {
+			$( function() {				
+    			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'})//.fadeOut(3000);
+  			} );
+		}
 		document.getElementById("logoRow").style = "display:none";
 		document.getElementById("topMargin").style = "display:block";
 		document.getElementById("btnBackToSelection2").style = "display:none";
@@ -11686,7 +11696,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 
 <div id="divInstructions" class="centred text-center">
 	</div>
-<div class="flexParent">
+<div class="flexParent settingsButtons">
     <div class="flexChild"><button class="btn btn-primary" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
     <div class="flexChild"><button class="btn btn-primary glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
     <div class="flexChild"><button class="btn btn-primary" id="btnTest" onclick="testPage();">Test page</button></div>
@@ -11793,5 +11803,9 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 
 </div>
 <div id="hiddenDiv" style="visibility:hidden"></div>
+
+			<div id="dialog" title="">
+				Press Enter to exit test.
+				  </div>
 </body>
 </html>
