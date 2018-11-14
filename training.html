@@ -836,7 +836,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		if (test) {
 			$( function() {				
-    			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'})//.fadeOut(3000);
+    			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'}).fadeOut(3000);
   			} );
 		}
 		document.getElementById("logoRow").style = "display:none";
@@ -11802,9 +11802,9 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 </div>
 
 </div>
-<div id="hiddenDiv" style="visibility:hidden"></div>
+<div id="hiddenDiv"></div>
 
-			<div id="dialog" title="">
+			<div id="dialog"  style="display:none" title="">
 				Press Enter to exit test.
 				  </div>
 </body>
