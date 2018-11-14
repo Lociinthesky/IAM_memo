@@ -3788,7 +3788,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 					for (var i = 0; i < txtArray.length; i++) {
 						if (txtArray[i] !== "") {
 							elements = txtArray[i].split('\t');
-							dateList.push({ year: elements[0], event: elements[1] });
+							dateList.push({ year: elements[0].trim(), event: elements[1].trim() });
 						}
 					}
 					//maybe call these few lines function donePreloading()
@@ -3865,8 +3865,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 							elements = txtArray[i].split(' ');
 							nameList[i] = new nameObject();
 							nameList[i].imageURL = "Data/Names_lkjfsldkjf/" + Number(i + 1) + ".jpg";
-							nameList[i].firstname = elements[0];
-							nameList[i].surname = elements[1];
+							nameList[i].firstname = elements[0].trim();
+							nameList[i].surname = elements[1].trim();
 						}
 					}
 
