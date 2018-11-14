@@ -458,7 +458,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Reset the number of images loaded - we need to load all the backgrounds before we go to the settings page
 		mainImagesLoaded = 0;
 		//**PAPER**
-		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'Green.jpg', 'hugeWoodPaperAMatch.jpg'];
+		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'Green.jpg', 'hugeWoodPaperAMatch.jpg','hugeWoodPaperBMatch.jpg'];
 
 		//Do the preloading if we 
 		if (mainImagesLoaded == 0) {
@@ -3822,7 +3822,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 					for (var i = 0; i < txtArray.length; i++) {
 						if (txtArray[i] !== "") {
 
-							wordList.push(txtArray[i]);
+							wordList.push(txtArray[i].trim());
 						}
 					}
 
@@ -10021,7 +10021,7 @@ function assignFaceImages() {
 
 			var thisIsLastColumn = (i >= lastColumn * wordsPerColumn);
 
-			if (chosenAnswers[i] == wordList[i].toLowerCase()) {
+			if (chosenAnswers[i].toLowerCase() == wordList[i].toLowerCase()) {
 				//correct answer!
 				if (thisIsLastColumn) {
 					sequence++;
