@@ -26,8 +26,12 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
 .analogue1 {
   font-family: 'GFS Neohellenic', sans-serif;
+  color: rgba(48, 18, 18, 0.97);
+
     background-image: url("hugeWoodMatchPlanks2.png");
  font-weight:bold!important;
+   /* -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+  -webkit-mask-size: 40px 94px; */
 }
 
 .digital1 {
@@ -194,7 +198,7 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
       box-shadow:
         /* The top layer shadow */
         /* 0 1px 1px rgba(0,0,0,0.15), */
-        -1px 0px 2px 3px rgba(0, 0, 0, 0.45), 
+        -1px 0px 2px 2px rgba(0, 0, 0, 0.5), 
         /* The second layer */
         -1px -2px 0 0px #fff,
         
@@ -312,7 +316,7 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
   position:absolute;
   content:"";
       z-index:-1;
-      box-shadow:0 -1px 10px rgba(0,0,0,1);
+      box-shadow: 8px -2px 15px 3px rgba(0,0,0,.66);
       top:-1;
       bottom:0;
       left:190px;
@@ -528,16 +532,16 @@ position:relative;
   padding-bottom:2px;
   text-align:center;
 
-  text-shadow: 1px 0px 1px  rgba(30, 30, 30, 0.08);
+  text-shadow: 0px 0px 1px  rgba(50, 32, 32, 0.25);
 
   color: #222222;
-  opacity: .9;
+  opacity: 1;
 }
 
 .analogue1numbersSelected {
 background-color:var(--highlightColor);
   /*background-color: lightblue;*/
-  opacity: .88;
+  opacity: 1;
 }
 
 .analogue1numbersInLocus {
@@ -557,7 +561,7 @@ background-color:var(--highlightColor);
   text-shadow: 0px 0px 1px  rgba(10, 10, 10, 0.05);
 
   color: #000000;
-  opacity: .75;
+  opacity: 1;
 }
 
 .analogue1binarySelected {
@@ -565,7 +569,7 @@ background-color:var(--highlightColor);
   
   background-opacity: .7;*/
   background-color:var(--highlightColor);
-  opacity: .85;
+  opacity: 1;
 }
 
 .analogue1wordsMemo {
@@ -1851,7 +1855,7 @@ filter: brightness(60%);
 */
 
 .glowButton {
-  animation: buttonglow 0.3s linear alternate infinite;
+  animation: buttonglow 0.6s linear alternate infinite;
 
 } 
 
@@ -1873,5 +1877,36 @@ filter: brightness(60%);
   height: 100px;
   line-height: 100px;
 }
+.printerInk {
+  -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+  -webkit-mask-size: 700px 940px;
+}
+
+.stamp {
+    color: rgb(51, 173, 173);
+    font-size: 3rem;
+    font-weight: 700;
+    display: inline-block;
+    text-transform: uppercase;
+    font-family: Courier;
+    -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+    -webkit-mask-size: 944px 604px;
+    mix-blend-mode: multiply;
+    border-width: 0.25rem;
+    border-style: solid;
+    border-color: rgb(51, 173, 173);
+    border-image: initial;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+}
+
+#divGrouping, span, h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #recallContentDiv, #menuRecallDiv, #divInstructions, #scoreContentDiv, #memoContentDiv {
+
+  -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+  -webkit-mask-size: 657px 4px;
+  /* mix-blend-mode: overlay; */
+  /* background: rgb(0, 0, 0, 1) */
+}
+
 
 .no-close .ui-dialog-titlebar-close {display: none }
