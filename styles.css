@@ -26,7 +26,7 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
 .analogue1 {
   font-family: 'GFS Neohellenic', sans-serif;
-  color: rgba(48, 18, 18, 0.97);
+  color: rgba(45, 18, 18, 0.85);
 
     background-image: url("hugeWoodMatchPlanks2.png");
  font-weight:bold!important;
@@ -198,10 +198,12 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
       box-shadow:
         /* The top layer shadow */
         /* 0 1px 1px rgba(0,0,0,0.15), */
-        -1px 0px 2px 2px rgba(0, 0, 0, 0.5), 
-        /* The second layer */
-        -1px -2px 0 0px #fff,
+        4px 5px 8px 9px rgba(0, 0, 0, 0.18), 
+        /* 1px 1px 1px 4px rgba(0, 0, 0, 0.4),  */
         
+        /* The second layer */
+        -1px -2px 0 0px rgb(201, 188, 158),
+      
 
          3px 0px 0 -1px #DDD0AF,
         -1px -10px 1px -7px rgba(0, 0, 0, .55),
@@ -225,23 +227,27 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
     font-weight:bold!important;
     background-image: url("hugeWoodPaperBMatch.jpg");
+    
     background-position: top left;
     background-size: 100% auto;
 
      
-      box-shadow:
-        /* The top layer shadow */
-        /* 0 1px 1px rgba(0,0,0,0.15), */
-        -1px 0px 2px 3px rgba(0, 0, 0, 0.45), 
-        /* The second layer */
-        -1px -2px 0 0px #fff,
-        
+    box-shadow:
+    /* The top layer shadow */
+    /* 0 1px 1px rgba(0,0,0,0.15), */
+    5px 6px 8px 9px rgba(0, 0, 0, 0.18), 
+    /* 1px 1px 1px 4px rgba(0, 0, 0, 0.4),  */
+    
+    /* The second layer */
+    -1px -2px 0 0px rgb(201, 188, 158),
+  
 
-         3px 0px 0 -1px #DDD0AF,
-        -1px -10px 1px -7px rgba(0, 0, 0, .55),
-         
-        4px 2px 0 -1px #DDD0AF,
-        5px 2px 2px -1px rgba(0, 0, 0, .85);
+     3px 0px 0 -1px #DDD0AF,
+    -1px -10px 1px -7px rgba(0, 0, 0, .55),
+     
+    4px 2px 0 -1px #DDD0AF,
+    5px 2px 2px -1px rgba(0, 0, 0, .85);
+     
          
 
 /* 
@@ -316,7 +322,7 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
   position:absolute;
   content:"";
       z-index:-1;
-      box-shadow: 8px -2px 15px 3px rgba(0,0,0,.66);
+      box-shadow: 8px -2px 8px 3px rgba(0,0,0,.52);
       top:-1;
       bottom:0;
       left:190px;
@@ -332,6 +338,17 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 -moz-transform: skew(4deg) rotate(3deg);
 -o-transform: skew(4deg) rotate(3deg);
 -ms-transform: skew(4deg) rotate(3deg);
+}
+
+.analogue1boxA:after, .analogue1boxB:after
+{
+  right:1608px;
+  left:auto;
+  transform:skew(1.6deg) rotate(2deg);
+  -webkit-transform: skew(1.6deg) rotate(2deg);
+-moz-transform: skew(1.6deg) rotate(2deg);
+-o-transform: skew(1.6deg) rotate(2deg);
+-ms-transform: skew(1.6deg) rotate(2deg);
 }
 
 /*
@@ -532,7 +549,7 @@ position:relative;
   padding-bottom:2px;
   text-align:center;
 
-  text-shadow: 0px 0px 1px  rgba(50, 32, 32, 0.25);
+  /* text-shadow: 0px 0px 1px  rgba(50, 32, 32, 0.25); */
 
   color: #222222;
   opacity: 1;
@@ -1881,9 +1898,37 @@ filter: brightness(60%);
   -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
   -webkit-mask-size: 700px 940px;
 }
-
 .stamp {
-    color: rgb(51, 173, 173);
+  color: rgb(51, 173, 173, .95);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: inline-block;
+  text-transform: uppercase;
+  font-family: Courier;
+  -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+  -webkit-mask-size: 1288px 408px;
+  /* mix-blend-mode: color-dodge; */
+  border-width: 0.125rem;
+  border-style: solid;
+  border-color: rgb(51, 173, 173, .75);
+  border-image: initial;
+  padding: 0.25rem 1rem;
+  border-radius: .75rem;
+  background-color: transparent;
+}
+ #divGrouping, h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #divInstructions, #scoreContentDiv, #memoContentDiv {
+
+   /* -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);  */
+   -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 64px 64px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+  /* mix-blend-mode: overlay; */
+  /* background: rgb(0, 0, 0, 1) */
+ 
+
+#divComplexGrouping #likeDivComplexGrouping .btn-primary {
+  color: rgb(51, 173, 173);
     font-size: 3rem;
     font-weight: 700;
     display: inline-block;
@@ -1900,13 +1945,9 @@ filter: brightness(60%);
     border-radius: 1rem;
 }
 
-#divGrouping, span, h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #recallContentDiv, #menuRecallDiv, #divInstructions, #scoreContentDiv, #memoContentDiv {
-
-  -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
-  -webkit-mask-size: 657px 4px;
-  /* mix-blend-mode: overlay; */
-  /* background: rgb(0, 0, 0, 1) */
-}
-
+  /* #btnBackToSelection2 {
+    font-size: 3.5rem;
+    border-width: 0.5rem;
+} */
 
 .no-close .ui-dialog-titlebar-close {display: none }
