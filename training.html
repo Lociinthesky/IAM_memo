@@ -118,7 +118,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		{
 			"ref": "5W",
 			"label": "5-Minute Words",
-			"amount": 180, //WR 140, need 168 -> 180
+			"amount": 180, //WR 145, need 174 -> 180
 			"memoTime": 300,
 			"recallTime": 900
 		},
@@ -138,7 +138,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		{
 			"ref": "D",
 			"label": "5-Minute Dates",
-			"amount": 160, //WR 133, need 160
+			"amount": 167, //WR 139, need 167
 			"memoTime": 300,
 			"recallTime": 900
 		},
@@ -173,14 +173,14 @@ font-family: 'Nothing You Could Do', cursive; -->
 		{
 			"ref": "5I",
 			"label": "5-Minute Images",
-			"amount": 435, //WR 360, need 432
+			"amount": 495, //WR 409, need 490.8 -> 495
 			"memoTime": 300,
 			"recallTime": 900
 		},
 		{
 			"ref": "5B",
 			"label": "5-Minute Binary",
-			"amount": 1410,	//WR 1170, need 1404 -> 1410
+			"amount": 1530,	//WR 1251, need 1501 -> 1530
 			"memoTime": 300,
 			"recallTime": 900
 		},
@@ -11139,6 +11139,11 @@ function assignFaceImages() {
 		//  document.getElementById("preview").className = "centred " + skin + "box";
 		document.getElementById("settingsBox").className = "col-md-10 jumbotron settings text-center " + skin + "boxA " + skin + "memoHeight";
 		document.getElementById("countdownBox").className = "col-md-10 jumbotron countdown text-center " + skin + "boxB " + skin + "memoHeight";
+
+		var contentBoxes = document.getElementsByClassName("paperContent");
+		for (var i = 0; i < contentBoxes.length; i++) {
+			contentBoxes[i].className = skin + "paperContent paperContent";
+		}
 		//document.getElementById("wrapper").className = skin + "memoHeight";
 		//  document.getElementById("memoRow").className = "row " + skin + "container";
 		if (skin.indexOf('analogue') > -1) {
@@ -11570,6 +11575,7 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <div class="row" id="settingsRow0" style="display:none">
 <div class="col-md-1"></div>
 <div id="settingsBox" class="col-md-10 jumbotron settings text-center">
+		<div class="paperContent">
 <h3 class="disciplineTitle"></h3>
 <br />
 <span style="border:1px dotted;padding:4px;"><b>Important:</b> <span style="font-weight:normal">please press <span class="keybutton">F11</span> (Windows) or <span class="keycombo">&Hat; + &#8984; + F (Control+Cmd+F)</span> (Mac) for full screen</span></span>
@@ -11588,6 +11594,7 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <br />
 <!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn btn-primary" onclick="applyImgsPerLocus();">Apply</button>
 <br /><br />-->
+Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 type="text">&nbsp;<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>
 Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 id="inpMiniGroupings" type="text">&nbsp;<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>
 <br /><br />
 Specify line separation, e.g. 3 for a line every 3 digits, or 3-2-3: <input id="inpSeparation" type="text">&nbsp;<button class="btn btn-primary" onclick="applySeparation();">Apply</button>
@@ -11703,12 +11710,15 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 </div>
 </div>
 <div class="col-md-1"></div>
+
+</div>
 </div>
 
 <!--Countdown container row-->
 <div class="row" id="countdownRow">
 <div class="col-md-1"></div>
 <div id="countdownBox" class="col-md-10 jumbotron countdown text-center">
+<div class="paperContent">
 <h3 class="countdownDisciplineTitle"></h3>
 <!--<table class="countdownTable"><tr><td style="margin:0 auto"><span id="countdownText"></span><span style="width:40px" id="countdownTime"></span></td></tr></table>-->
 <table id="countdownTable">
@@ -11729,6 +11739,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
    </div>
 -->
 </div>
+</div>
 <div class="col-md-1"></div>
 </div>
 
@@ -11737,14 +11748,14 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 <!--<div class="row topMargin"></div>-->
 <div class="col-md-1"></div>
 <div id="memoBox" class="col-md-10 jumbotron">
-
+	
   <table class="disciplineHeadingTable"><tr><td class="disciplineTitleMemo textNonCards"></td><!--<td><span id="digital1RecallTimeOuter" style="display:none"><span>Recall time remaining: </span></td>--><td id='digital1MemoTimeOuterTd'><span id='digital1MemoTimeOuter'><span>Memorisation time remaining: </span><span id="digital1MemoTimeInner"></span></span></td><td></td><td></td></tr></table>
   
 <div id="menuDiv"></div>
 <br />
 
 <div id="wrapper">
-<div id="memoContentDiv" class="memoContent"></div>
+<div id="memoContentDiv" class="memoContent paperContent"></div>
 
 <div id="overlayDiv" class="overlay"></div>
 
@@ -11757,6 +11768,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 
 <div class="col-md-1"></div>
 </div>
+
 </div>
 <!--Recall container row-->
 
@@ -11764,6 +11776,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 <!--  <div class="row topMargin"></div>-->
 <div class="col-md-1"></div>
 <div id="recallBox" class="col-md-10">
+		<div class="paperContent">
   <table class="disciplineHeadingTable"><tr><td class="disciplineTitleMemo textNonCards"></td><td><span id="cardsMemoTime"></span></td><td id="digital1RecallTimeOuterTd"><span id="digital1RecallTimeOuter" style="display:none"><span>Recall time remaining: </span><span id="digital1RecallTimeInner"></span></span></td></tr></table>
   <div id="menuRecallDiv"></div>
 
@@ -11779,6 +11792,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <
 </div>
 
 <div class="col-md-1"></div>
+</div>
 </div>
 
 <!--Score container row-->

@@ -1900,8 +1900,9 @@ filter: brightness(60%);
     border-radius: 1rem;
 }
 
-#divGrouping, span, h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #recallContentDiv, #menuRecallDiv, #divInstructions, #scoreContentDiv, #memoContentDiv {
-
+/*#divGrouping, span, h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #recallContentDiv, #menuRecallDiv, #divInstructions, #scoreContentDiv, #memoContentDiv {*/
+  
+.analogue1PaperContent {
   -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
   -webkit-mask-size: 657px 4px;
   /* mix-blend-mode: overlay; */
