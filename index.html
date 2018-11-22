@@ -283,8 +283,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	var fontNow = '';
 	var fontSizeNow = 0;
-	var fontReenieBeanie = ['Reenie Beanie', 38, 42];
-	var fontShadowsIntoLight = ['Shadows Into Light', 24, 26];
+	var fontReenieBeanie = ['Reenie Beanie', 34, 41];
+	var fontShadowsIntoLight = ['Reenie Beanie', 36, 42];
 	//var fontRockSalt = ['Rock Salt', 19, 21];
 
 	var datesLanguage;
@@ -11582,7 +11582,7 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <div id="divGrouping">
 <br />Grouping:     <select id="selGrouping" onchange="resetMiniGroupings();resetSeparations();updatePreview();">
 <option value="1">1</option>
-<option value="2">2</option>
+<option value="2">2</option> 
 <option value="3" selected>3</option>
 <option value="4">4</option>
 <option value="5">5</option>
@@ -11594,7 +11594,6 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <br />
 <!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn btn-primary" onclick="applyImgsPerLocus();">Apply</button>
 <br /><br />-->
-Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 type="text">&nbsp;<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>
 Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 id="inpMiniGroupings" type="text">&nbsp;<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>
 <br /><br />
 Specify line separation, e.g. 3 for a line every 3 digits, or 3-2-3: <input id="inpSeparation" type="text">&nbsp;<button class="btn btn-primary" onclick="applySeparation();">Apply</button>
@@ -11636,7 +11635,9 @@ Specify line separation, e.g. 4-3-3: <input id="inpSeparationBin" type="text">&n
 
 <div id="divHighlightColour">
 	<br />
-Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <!--style="background-color:#b3ff66"-->
+Highlight colour:     
+
+<select id="selHColour"  onchange="changeSelHColour()" > <!--style="background-color:#b3ff66"-->
 <option value="red" style="background-color:#ff8080">red</option>
 <option value="orange" style="background-color:#ffa366">orange</option>
 <option value="yellow" style="background-color:#ffff80">yellow</option>

@@ -507,17 +507,14 @@ position:relative;
 .recallContent {
 	padding: 2px;
   margin: 0 auto;
-  width: 100%
-
+  width: 100%;
 }
 
 .scoreContent {
 	padding: 2px;
   margin: 0 auto;
-  width: 100%
-
+  width: 100%;
 }
-
 
  .analogue1rowNumber {
     border:none;color:red;
@@ -909,8 +906,8 @@ background-color:var(--highlightColor);
 .analogue1cardImgBig {
    height:200;
    position:absolute;
-   -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
-  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 1px 0px 2px 1px rgba(0,0,0,0.15);
+   box-shadow: 1px 0px 2px 1px rgba(0,0,0,0.15)
 }
 
 .analogue1cardMemoFan {
@@ -1303,7 +1300,9 @@ background-color:var(--highlightColor);
   margin: 0 auto;
   opacity: .82;
  width:80%;
- 
+}
+.analogue1recallTable tr {
+  height: 35px;
 }
 
 .digital1recallTable {
@@ -1882,29 +1881,113 @@ filter: brightness(60%);
   -webkit-mask-size: 700px 940px;
 }
 
-.stamp {
-    color: rgb(51, 173, 173);
-    font-size: 3rem;
-    font-weight: 700;
-    display: inline-block;
-    text-transform: uppercase;
-    font-family: Courier;
-    -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
-    -webkit-mask-size: 944px 604px;
-    mix-blend-mode: multiply;
-    border-width: 0.25rem;
-    border-style: solid;
-    border-color: rgb(51, 173, 173);
-    border-image: initial;
-    padding: 0.25rem 1rem;
-    border-radius: 1rem;
+/* .stamp  */
+.analogue1 button{
+  color: rgb(51, 173, 173, .95);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: inline-block;
+  text-transform: uppercase;
+  font-family: Courier;
+  -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+  -webkit-mask-size: 1288px 408px;
+  /* mix-blend-mode: color-dodge; */
+  border-width: 0.125rem;
+  border-style: solid;
+  border-color: rgb(51, 173, 173, .75);
+  border-image: initial;
+  padding: 0.25rem 1rem;
+  border-radius: .75rem;
+  background-color: transparent;
 }
+/* #divGrouping h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #divInstructions, #scoreContentDiv, #memoContentDiv {
+*/
+.analogue1 #divGrouping{
+ -webkit-mask-image: url("gunge33.png");
+ -webkit-mask-size: 128px 96px;
+ text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+}
+.analogue1 h3{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 h4{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 #divHighlightColour{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 #countdownTime{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 #countdownText{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
 
+
+ .analogue1  .disciplineTitleMemo{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 #analogue1memoTimeInner{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ 
+ /* .analogue1 .analogue1pageLink{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 .analogue1pageLinkRed{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ } */
+
+ 
+ .analogue1 #divInstructions{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 #scoreContentDiv{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ .analogue1 #memoContentDiv{
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+ }
+ 
+.analogue1 input{
+  background-color: transparent;
+  border-color: #111;
+  border-style: dotted;
+  border-width: 1px;
+  
+  -webkit-mask-image: url("gunge33.png");
+  -webkit-mask-size: 128px 96px;
+  text-shadow: 0px 0px 1px  rgba(30, 15, 15, .15); 
+}
 /*#divGrouping, span, h3, h4, #divHighlightColour, #countdownTime, #countdownText, #menuDiv, .disciplineTitleMemo, #analogue1memoTimeInner, .analogue1pageLink, .analogue1pageLinkRed, #recallContentDiv, #menuRecallDiv, #divInstructions, #scoreContentDiv, #memoContentDiv {*/
   
-.analogue1PaperContent {
+.analogue1 .bigCards{
   -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
-  -webkit-mask-size: 657px 4px;
+  -webkit-mask-size: 3px 999px;
   /* mix-blend-mode: overlay; */
   /* background: rgb(0, 0, 0, 1) */
 }
