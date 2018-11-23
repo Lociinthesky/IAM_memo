@@ -1044,7 +1044,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 					previewString += "<td id='preview" + i + "' class='separation " + skin + "numbersMemo'>" + i % 10 + "</td>";
 				} else {
 					previewString += "<td id='preview" + i + "' class='" + skin + "numbersMemo'>" + i % 10 + "</td>";
-				}
+				} 
 			}
 
 			//add selected one
@@ -1681,7 +1681,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		numberMemoString += "</div><br />";
 		//removed memo finish buttons
-		// numberMemoString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
+		// numberMemoString += "</div><br /><button class='btn stamp finishBtn' onclick='finishMemo();'>Finish</button>";
 		document.getElementById("memoContentDiv").innerHTML = numberMemoString;
 
 		//add separations
@@ -2188,7 +2188,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		binaryMemoString += "</div><br />";
 		//removed finish button
-		// binaryMemoString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
+		// binaryMemoString += "</div><br /><button class='btn stamp finishBtn' onclick='finishMemo();'>Finish</button>";
 		document.getElementById("memoContentDiv").innerHTML = binaryMemoString;
 
 		//add separations
@@ -2710,7 +2710,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		document.getElementById("memoContentDiv").innerHTML = cardsMemoString
 		//***USE THIS INSTEAD FOR FINISH BUTTON***
-		//document.getElementById("memoContentDiv").innerHTML = cardsMemoString + "<br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
+		//document.getElementById("memoContentDiv").innerHTML = cardsMemoString + "<br /><button class='btn stamp finishBtn' onclick='finishMemo();'>Finish</button>";
 
 
 
@@ -4063,7 +4063,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btn stamp finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -5271,7 +5271,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btn stamp finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -5709,7 +5709,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btn stamp finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -6203,11 +6203,11 @@ function assignFaceImages() {
 
 
 		//***FINISH BUTTON kEpT fOr ReCall
-		//numberRecallString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button>";
+		//numberRecallString += "</div><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button>";
 		document.getElementById("recallContentDiv").innerHTML = numberRecallString;
 
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btn stamp finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -7322,7 +7322,7 @@ function assignFaceImages() {
 
 		//kept finish button for recall
 		//binaryRecallString += "</div><br />";
-		binaryRecallString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button>";
+		binaryRecallString += "</div><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button>";
 		document.getElementById("recallContentDiv").innerHTML = binaryRecallString;
 
 		//add intra-group separations
@@ -7895,7 +7895,7 @@ function assignFaceImages() {
 				}
 
 			}
-			imagesRecallString += "</table><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button></div>";
+			imagesRecallString += "</table><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button></div>";
 			//	imagesRecallString += "</table><br /></div>";
 		}
 
@@ -7908,10 +7908,10 @@ function assignFaceImages() {
 		var node = document.createTextNode("Finish");
 		btn.appendChild(node);
 		btn.classList.add("btn");
-		btn.classList.add("btn-primary");
+		btn.classList.add("stamp");
 		btn.classList.add("finishBtn");*/
 		//btn.onclick = finishRecall;
-		//"<button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button>"
+		//"<button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button>"
 
 		document.getElementById("recallContentDiv").innerHTML = imagesRecallString;
 		//document.getElementsByClassName("bottom-right-timer")[1].insertBefore(btn,document.getElementById(skin + "RecallTimeOuter"));
@@ -9043,7 +9043,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btn stamp finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -10843,7 +10843,7 @@ function assignFaceImages() {
 					}
 
 				}
-				imagesRecallString += "</table><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button></div>";
+				imagesRecallString += "</table><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button></div>";
 				//	imagesRecallString += "</table><br /></div>";
 			}
 
@@ -11509,12 +11509,12 @@ return iCaretPos;
 
 <!--Logo row-->
 <div class="row" id="logoRow" style="display:block">
-<div class="col-md-3"><br /><button id="btnBackToSelection" style="display:none" class="btn btn-primary" onclick="goToSelection();">Back to discipline selection</button></div>
+<div class="col-md-3"><br /><button id="btnBackToSelection" style="display:none" class="btn stamp" onclick="goToSelection();">Back to discipline selection</button></div>
 <div class="col-md-6 text-center"><br /><img src="IAM-main-Logo-transparent-bg-for-web.png" height=50><br /><br /><br /></div>
 <div class="col-md-3"></div>
 </div>
 
-<div class="row" id="topMargin" style="display:none"><div class="col-md-3"><br /><button id="btnBackToSelection2" class="btn btn-primary" onclick="goToSelection();">Back to discipline selection</button></div>
+<div class="row" id="topMargin" style="display:none"><div class="col-md-3"><br /><button id="btnBackToSelection2" class="btn stamp" onclick="goToSelection();">Back to discipline selection</button></div>
 <div class="col-md-6 text-center"></div>
 <div class="col-md-3"></div>
 </div>
@@ -11562,8 +11562,8 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 </div>
 </div>
 
-<br /><button id="btnGo" class="btn btn-primary" disabled onclick="goToSettings();">Loading images... Please wait</button>
-<br /><br /><button id="btnResume" class="btn btn-primary" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
+<br /><button id="btnGo" class="btn stamp" disabled onclick="goToSettings();">Loading images... Please wait</button>
+<br /><br /><button id="btnResume" class="btn stamp" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
 
 </div>
 
@@ -11592,11 +11592,11 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 </select>
 <div id="divComplexGrouping">
 <br />
-<!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn btn-primary" onclick="applyImgsPerLocus();">Apply</button>
+<!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn stamp" onclick="applyImgsPerLocus();">Apply</button>
 <br /><br />-->
-Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 id="inpMiniGroupings" type="text">&nbsp;<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>
+Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 id="inpMiniGroupings" type="text">&nbsp;<button class="btn stamp" onclick="applyMiniGroupings();">Apply</button>
 <br /><br />
-Specify line separation, e.g. 3 for a line every 3 digits, or 3-2-3: <input id="inpSeparation" type="text">&nbsp;<button class="btn btn-primary" onclick="applySeparation();">Apply</button>
+Specify line separation, e.g. 3 for a line every 3 digits, or 3-2-3: <input id="inpSeparation" type="text">&nbsp;<button class="btn stamp" onclick="applySeparation();">Apply</button>
 </div>
 </div>
 <div id="divBinGrouping">
@@ -11630,7 +11630,7 @@ Height:     <select id="selBinGroupingH" onchange="resetSeparations();updatePrev
  (select 1 if not using matrices)
 
  <br /><br />
-Specify line separation, e.g. 4-3-3: <input id="inpSeparationBin" type="text">&nbsp;<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>
+Specify line separation, e.g. 4-3-3: <input id="inpSeparationBin" type="text">&nbsp;<button class="btn stamp" onclick="applySeparationBin();">Apply</button>
 </span></div>
 
 <div id="divHighlightColour">
@@ -11705,9 +11705,9 @@ Highlight colour:
 <div id="divInstructions" class="centred text-center">
 	</div>
 <div class="flexParent settingsButtons">
-    <div class="flexChild"><button class="btn btn-primary" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
-    <div class="flexChild"><button class="btn btn-primary glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
-    <div class="flexChild"><button class="btn btn-primary" id="btnTest" onclick="testPage();">Test page</button></div>
+    <div class="flexChild"><button class="btn stamp" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
+    <div class="flexChild"><button class="btn stamp glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
+    <div class="flexChild"><button class="btn stamp" id="btnTest" onclick="testPage();">Test page</button></div>
 </div>
 </div>
 <div class="col-md-1"></div>

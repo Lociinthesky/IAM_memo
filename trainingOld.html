@@ -233,8 +233,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 
 
-	const cardAttributions = ["[Standard cards: Copyright 2015 Chris Aguilar conjurenation@gmail.com, Licensed under <a href='www.gnu.org/copyleft/lesser.html'>LGPL 3</a>]","[French cards: David Bellot — <a href='http://svg-cards.sourceforge.net/'>http://svg-cards.sourceforge.net</a>, <a href='http://www.gnu.org/licenses/lgpl.html' title='GNU Lesser General Public License'>LGPL</a>]","['Worn' cards: Copyright 2015 Chris Aguilar conjurenation@gmail.com, Licensed under <a href='www.gnu.org/copyleft/lesser.html'>LGPL 3</a>]"];
-	//"[French cards: David Bellot — <a href='http://svg-cards.sourceforge.net/'>http://svg-cards.sourceforge.net</a>, <a href='http://www.gnu.org/licenses/lgpl.html' title='GNU Lesser General Public License'>LGPL</a>]"
+
+
 
 
 	var skin = "";
@@ -283,10 +283,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	var fontNow = '';
 	var fontSizeNow = 0;
-	//var fontReenieBeanie = ['Reenie Beanie', 38, 42];
-	//var fontShadowsIntoLight = ['Shadows Into Light', 24, 26];
-	var fontReenieBeanie = ['Reenie Beanie', 34, 41];
-	var fontShadowsIntoLight = ['Reenie Beanie', 36, 42];
+	var fontReenieBeanie = ['Reenie Beanie', 38, 42];
+	var fontShadowsIntoLight = ['Shadows Into Light', 24, 26];
 	//var fontRockSalt = ['Rock Salt', 19, 21];
 
 	var datesLanguage;
@@ -534,18 +532,11 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		//reset so no card table background appears
 		if (skin.indexOf("analogue") > -1) {
-			$("#memoBox").addClass("analogue1boxA");
-			$("#memoBox").removeClass("analogue1boxGreen");
-				$("#recallBox").addClass("analogue1boxB");
-			$("#recallBox").removeClass("analogue1boxGreen");
-
-				$("#scoreBox").addClass("analogue1boxB");
-			$("#scoreBox").removeClass("analogue1boxGreen");
-	
-/*
 			$("#memoBox").removeClass("cardTable");
 			$("#recallBox").removeClass("cardTable");
 			$("#scoreBox").removeClass("cardTable");
+			//$("#spanShift").removeClass("cardTable");
+			//$("#spanShift").addClass("textNonCards");
 			$("#spanSpace").removeClass("cardTable");
 			$("#spanSpace").addClass("textNonCards");
 			$("#spanOuterScore").removeClass("cardTable");
@@ -558,7 +549,6 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 
 			$(".bottom-right-timer").removeClass("textCardTable");
-			*/
 		}
 
 	}
@@ -578,7 +568,6 @@ font-family: 'Nothing You Could Do', cursive; -->
 		resuming = false;
 		document.getElementById("btnStartMemoCountdown").innerText = "Start";
         document.getElementById("btnStartMemoCountdown").classList.remove("glowButton");
-		document.getElementById("cardAttribution").innerHTML = "";
 		//Reset mark array
 		markArray = [];
 
@@ -591,9 +580,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		if (skin.indexOf("analogue") > -1) {
 			document.getElementById("logoRow").style = "display:none";
 			document.getElementById("topMargin").style = "display:block";
-			document.getElementById("btnBackToSelection2").style = "display:inline";
-		} else {
-			document.getElementById("btnBackToSelection2").style = "display:none";
+			document.getElementById("btnBackToSelection2").style = "display:block";
 		}
 
 		// clear content from test page if exists
@@ -629,9 +616,6 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Show Grouping dropdown if necessary
 		if (currentDiscipline.indexOf("N") > -1 || currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
 			document.getElementById("divGrouping").style = "display:block";
-			if (currentDiscipline.indexOf("N") > -1) {
-				document.getElementById("selGrouping").style = "display:none";
-			}
 		//	if (currentDiscipline.indexOf("C") > -1) {
 	//			document.getElementById('selGrouping').selectedIndex = 1;
 	//		}
@@ -640,29 +624,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 			document.getElementById("divGrouping").style = "display:none";
 		}
 
-		//Get colour if necessary
-		selectHiColour("red");
-
 		//Show complex grouping dropdown if necessary; get and apply separations
 		if (currentDiscipline.indexOf("N") > -1) {
 			document.getElementById("divComplexGrouping").style = "display:block";
-
-		if (localStorage.getItem("miniGroupings") != "" && localStorage.getItem("miniGroupings") != null && localStorage.getItem("miniGroupings").length > 0) {			
-				miniGroupings = JSON.parse(localStorage.getItem("miniGroupings"));
-				document.getElementById("inpMiniGroupings").value  = miniGroupings.reduce((acc, val, idx) => {
-				if (idx === 0) {
-				acc = val.toString() + '-';
-				} 
-				if (idx <= miniGroupings.length - 2 ) {
-				return acc + (miniGroupings[idx + 1]).toString() + '-';    
-				} else {
-				return acc.slice(0, acc.length-1);
-				}
-			}, '');
-			} else {
-				miniGroupings = [3];
-				document.getElementById("inpMiniGroupings").value  = "3";
-			}
 
 			if (localStorage.getItem("separations") != "" && localStorage.getItem("separations") != null) {			
 				arr = JSON.parse(localStorage.getItem("separations"));
@@ -803,7 +767,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		updatePreview();
 
 		//changeSkin();
-	//	changeSelHColour();
+		changeSelHColour();
 
 
 		//Show highlighter colour if necessary ***
@@ -870,11 +834,11 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	function startMemoCountdown(test = false) {
 
-	//	if (test) {
-		//	$( function() {				
-    //			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'}).fadeOut(3000);
-  //			} );
-	//	}
+		if (test) {
+			$( function() {				
+    			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'}).fadeOut(3000);
+  			} );
+		}
 		document.getElementById("logoRow").style = "display:none";
 		document.getElementById("topMargin").style = "display:block";
 		document.getElementById("btnBackToSelection2").style = "display:none";
@@ -896,13 +860,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 		}
 
 		//Get grouping
-		if (currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
+		if (currentDiscipline.indexOf("N") > -1 || currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
 			grouping = resuming ? Number(localStorage.getItem("grouping")) : Number(document.getElementById("selGrouping").options[document.getElementById("selGrouping").selectedIndex].value);
 		}
-
-if (currentDiscipline.indexOf("N") > -1) {
-//	miniGroupings = resuming ? JSON.parse(localStorage.getItem("miniGroupings")) : miniGroupings;
-}
 
 		//Get grouping
 		if (currentDiscipline.indexOf("B") > -1) {
@@ -910,10 +870,9 @@ if (currentDiscipline.indexOf("N") > -1) {
 			groupingW = resuming ? Number(localStorage.getItem("groupingW")) : Number(document.getElementById("selBinGroupingW").options[document.getElementById("selBinGroupingW").selectedIndex].value);
 		}
 
-		//Get highlighter colour (is this needed?)
+		//Get highlighter colour
 		if (currentDiscipline.indexOf("B") > -1 || currentDiscipline.indexOf("N") > -1) {
-		//	hiColour = resuming ? localStorage.getItem("hiColour") : document.getElementById("selHColour").options[document.getElementById("selHColour").selectedIndex].value;
-		hiColour = resuming ? localStorage.getItem("hiColour") : hiColour;
+			hiColour = resuming ? localStorage.getItem("hiColour") : document.getElementById("selHColour").options[document.getElementById("selHColour").selectedIndex].value;
 
 			//change css variable
 			document.body.style.setProperty("--highlightColor", this[hiColour]);
@@ -1126,9 +1085,9 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 			for (i = 1; i <= locusSize; i++) {
 				if (separations.length > 0 && (separations.indexOf(i) > -1 || i == locusSize)) {
-					previewString += "<td id='preview" + (parseFloat(i) + parseFloat(locusSize)) + "' class='separation " + skin + "numbersMemo'>" + i % 10 + "</td>";
+					previewString += "<td id='preview" + (i + locusSize) + "' class='separation " + skin + "numbersMemo'>" + i % 10 + "</td>";
 				} else {
-					previewString += "<td id='preview" + (parseFloat(i) + parseFloat(locusSize)) + "' class='" + skin + "numbersMemo'>" + i % 10 + "</td>";
+					previewString += "<td id='preview" + (i + locusSize) + "' class='" + skin + "numbersMemo'>" + i % 10 + "</td>";
 				}
 
 			}
@@ -1290,9 +1249,6 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 			cardSet = Number(document.getElementById("selCardSet").options[document.getElementById("selCardSet").selectedIndex].value);
 			localStorage.setItem("cardSet", cardSet);
-
-			document.getElementById("cardAttribution").innerHTML = cardAttributions[cardSet-1];
-
 			previewString = "<div style='height:220px;position:relative;left:-" + (114.37 + (grouping - 1) * 22) / 2 + "'><img id='cardOne' src='Card images " + cardSet + "/c13.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig'  style='left:50%;margin:0 0 0 " + 0 + "px'>";
 			for (var i = 1; i < grouping; i++) {
 				offset = i * cardOffsetBig;
@@ -1400,7 +1356,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			preloadImages(true);
 		}
 		if (currentDiscipline.indexOf("C") > -1) {
-			preloadCardImages(true);
+			preloadCardImages();
 		}
 		startMemoCountdown(true);
 	}
@@ -1572,8 +1528,7 @@ if (currentDiscipline.indexOf("N") > -1) {
                     document.getElementById("btnStartMemoCountdown").classList.add("glowButton");
 					preloaded = true;
 				} else {
-				
-					if (!test) startMemoCountdown();
+					startMemoCountdown();
 				}
 			}
 		};
@@ -1588,7 +1543,6 @@ if (currentDiscipline.indexOf("N") > -1) {
 						document.getElementById("btnStartMemoCountdown").removeAttribute("disabled");
                         document.getElementById("btnStartMemoCountdown").classList.add("glowButton");
 					} else {
-						
 						if (!test) startMemoCountdown();
 					}
 				}
@@ -1645,13 +1599,9 @@ if (currentDiscipline.indexOf("N") > -1) {
 		//set ended to false
 		ended = false;
 
-
 		if (miniGroupings.length == 0) {
-			locusSize = grouping;
 			miniGroupings.push(locusSize);
 			localStorage.setItem("miniGroupings", JSON.stringify(miniGroupings));
-		} else {
-			locusSize = miniGroupings.reduce((acc, val) => Number(acc) + Number(val));
 		}
 
 		//create the arrays of minigroup and locus starting points
@@ -1793,7 +1743,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				}
 			})();
 		} else {
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 		}
 
 		document.onkeydown = function (e) {
@@ -2302,7 +2252,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				}
 			})();
 		} else {			
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 		}
 
 		document.onkeydown = function (e) {
@@ -2685,14 +2635,13 @@ if (currentDiscipline.indexOf("N") > -1) {
 	function startCardMemo(test) {
 		//card table if using analogue skin
 		if (skin.indexOf("analogue") > -1) {
-			$("#memoBox").addClass("analogue1boxGreen");
-			$("#memoBox").removeClass("analogue1boxA");
-		/*
 			$("#memoBox").addClass("cardTable");
 			$(".disciplineTitleMemo").addClass("textCardTable");
 			$(".disciplineTitleMemo").removeClass("textNonCards");
+			//$(".spanShift").addClass("textCardTable");
+			//$(".spanShift").removeClass("textNonCards");
 			$(".digital1RecallTimeOuter").addClass("textCardTable");
-			$(".digital1RecallTimeOuter").removeClass("textNonCards");*/
+			$(".digital1RecallTimeOuter").removeClass("textNonCards");
 		}
 
 	if (resuming) {
@@ -2859,16 +2808,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
 
-					//Clear display
-					document.getElementById("memoRow").style.display = "none";
-
-					memoTimeTaken = memoTime;
-
-					//set ended to true
-					ended = true;
-					localStorage.setItem("phase", "recall");
-					localStorage.setItem(timeElapsed, "0");
-					startRecallCountdown();
+					finishMemo();
 				}
 				//Otherwise repeat this function
 				else {
@@ -2878,7 +2818,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				}
 			})();
 		} else {
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 		}
 
 		document.onkeydown = function (e) {
@@ -3191,7 +3131,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				}
 			})();
 		} else {
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 		}
 
 		document.onkeydown = function (e) {
@@ -3449,7 +3389,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				}
 			})();
 		} else {
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 		/*	$('#overlayDiv').html('<span id="alert">Press Enter to exit test</span>');
 			$("#overlayDiv").css("zIndex",2);
 			$('#alert').fadeOut(2500, "linear", ()=>$("#overlayDiv").css("zIndex",-2));*/
@@ -3648,7 +3588,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 				}
 			})();
 		} else {
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 		}
 
 		document.onkeydown = function (e) {
@@ -3706,7 +3646,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 		else {// code for IE6, IE5
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET", "Training data/dates-training.xml", false);
+		xmlhttp.open("GET", "Training data/dates.xml", false);
 		xmlhttp.send();
 		fobDatesDoc = xmlhttp.responseXML;
 
@@ -4479,7 +4419,7 @@ faceImg.setAttribute("src", nameList[thisIndex].imageURL);
 				}
 			})();
 		} else {
-			r.textContent = "Press Enter to exit";
+			r.textContent = "";
 	//		$('#overlayDiv').html('<span id="alert">Press Enter to exit test</span>');
 //			$('#alert').fadeOut(2500, "linear");
 		}
@@ -8181,7 +8121,7 @@ function assignFaceImages() {
 
 		document.getElementById("logoRow").style = "display:none";
 		document.getElementById("topMargin").style = "display:block";
-		document.getElementById("btnBackToSelection2").style = "display:inline";
+		document.getElementById("btnBackToSelection2").style = "display:block";
 
 		//Display relevant score screen depending on discipline
 		switch (currentDiscipline) {
@@ -8453,24 +8393,20 @@ function assignFaceImages() {
 				}
 			}
 		}
-		
 
 		//go through from row 0 to last row
-		var rowLength = 0;
-
 		for (var i = 0; i <= lastRow; i++) {
 			var incorrectThisRow = 0;
 
 			//calculate row length
 			if (i == lastRow) {
 				//go through row and see how many in row
-				for (var j = numbersPerRow-1; j >=0; j--) {
-					if (chosenAnswers[numbersPerRow * i + j].length !== 0) {
-						rowLength = j + 1;
-						j = -1;
+				for (var j = 0; j < numbersPerRow; j++) {
+					if (chosenAnswers[numbersPerRow * i + j].length == 0) {
+						rowLength = j;
+						j = numbersPerRow;
 					}
 				}
-			
 			}
 			else {
 				rowLength = numbersPerRow;
@@ -8478,7 +8414,7 @@ function assignFaceImages() {
 
 			//go through row and see how many incorrect
 			for (var j = 0; j < rowLength; j++) {
-				if (chosenAnswers[numbersPerRow * i + j] !== numberList[numbersPerRow * i + j]) {
+				if (chosenAnswers[numbersPerRow * i + j] != numberList[numbersPerRow * i + j]) {
 					incorrectThisRow++;
 				}
 				if (incorrectThisRow == 2) {
@@ -8871,7 +8807,6 @@ function assignFaceImages() {
 			}
 		}
 
-
 		//go through from row 0 to last row
 		for (i = 0; i <= lastRow; i++) {
 			var incorrectThisRow = 0;
@@ -8879,14 +8814,12 @@ function assignFaceImages() {
 			//calculate row length
 			if (i == lastRow) {
 				//go through row and see how many in row
-				for (j = binaryPerRow-1; j >=0; j--) {
-					if (chosenAnswers[binaryPerRow * i + j].length !== 0) {
-						rowLength = j+1;
-						j = -1;
+				for (j = 0; j < binaryPerRow; j++) {
+					if (chosenAnswers[binaryPerRow * i + j].length == 0) {
+						rowLength = j;
+						j = binaryPerRow;
 					}
 				}
-
-				console.log("rowLength:" + rowLength);
 			}
 			else {
 				rowLength = binaryPerRow;
@@ -8894,7 +8827,7 @@ function assignFaceImages() {
 
 			//go through row and see how many incorrect
 			for (j = 0; j < rowLength; j++) {
-				if (chosenAnswers[binaryPerRow * i + j] !== binaryList[binaryPerRow * i + j]) {
+				if (chosenAnswers[binaryPerRow * i + j] != binaryList[binaryPerRow * i + j]) {
 					incorrectThisRow++;
 				}
 				if (incorrectThisRow == 2) {
@@ -8902,7 +8835,7 @@ function assignFaceImages() {
 					j = rowLength;
 				}
 			}
-			if (i == lastRow) console.log("incorrect this row: " + incorrectThisRow);
+
 
 			if (incorrectThisRow == 1) {
 				//special case - if only one digit and it's wrong then score 0
@@ -8966,9 +8899,6 @@ function assignFaceImages() {
 
 	function startCardRecall() {
 		if (skin.indexOf("analogue") > -1) {
-			$("#recallBox").addClass("analogue1boxGreen");
-			$("#recallBox").removeClass("analogue1boxB");
-			/*
 			$("#recallBox").addClass("cardTable");
 			$("#scoreBox").addClass("cardTable");
 			$(".bottom-right-timer").addClass("textCardTable");
@@ -8977,9 +8907,9 @@ function assignFaceImages() {
 			$("#spanOuterScore").addClass("cardTable");
 			$("#spanScore").addClass("cardTable");
 			$("#spanCorrect").addClass("cardTable");
-			$("#cardsMemoTime").css("color", "white");*/
+			$("#cardsMemoTime").css("color", "white");
 		} else {
-		//	$("#cardsMemoTime").css("color", "black");
+			$("#cardsMemoTime").css("color", "black");
 		}
 
 		ended = false;
@@ -9512,11 +9442,6 @@ function assignFaceImages() {
 
 	function displayCardScore() {
 
-		if (skin.indexOf("analogue") > -1) {
-			$("#scoreBox").addClass("analogue1boxGreen");
-			$("#scoreBox").removeClass("analogue1boxB");
-		}
-
 		displayed = false;
 		if (resuming) {
 			cardList = JSON.parse(localStorage.getItem("correctAnswers"));
@@ -9524,11 +9449,6 @@ function assignFaceImages() {
 			memoTimeTaken = localStorage.getItem("memoTimeTaken");
 
 			if (skin.indexOf("analogue") > -1) {
-				$("#recallBox").addClass("analogue1boxGreen");
-			
-				$("#recallBox").removeClass("analogue1boxB");
-			
-				/*
 				$("#recallBox").addClass("cardTable");
 				$("#scoreBox").addClass("cardTable");
 				$(".bottom-right-timer").addClass("textCardTable");
@@ -9538,9 +9458,9 @@ function assignFaceImages() {
 				$("#spanOuterScore").addClass("cardTable");
 				$("#spanScore").addClass("cardTable");
 				$("#spanCorrect").addClass("cardTable");
-				$("#cardsMemoTime").css("color", "white");*/
+				$("#cardsMemoTime").css("color", "white");
 			} else {
-				//$("#cardsMemoTime").css("color", "black");
+				$("#cardsMemoTime").css("color", "black");
 			}
 
 		} else {
@@ -9907,7 +9827,7 @@ function assignFaceImages() {
 			for (var g = 0; g < grouping; g++) {
 				var chosenAnswer = chosenAnswers[firstOfGroup + g];
 
-				if (chosenAnswer !== numberList[firstOfGroup + g] || chosenAnswer.length == 0) {
+				if (chosenAnswer != numberList[firstOfGroup + g] || chosenAnswer.length == 0) {
 					document.getElementById("inpRecall" + (firstOfGroup + g)).classList.add(skin + "corrected");
 					document.getElementById("inpRecall" + (firstOfGroup + g)).classList.remove(skin + "incorrect");
 					document.getElementById("inpRecall" + (firstOfGroup + g)).value = numberList[firstOfGroup + g];
@@ -9926,7 +9846,7 @@ function assignFaceImages() {
 			for (var g = 0; g < positions.length; g++) {
 				var chosenAnswer = chosenAnswers[positions[g]];
 
-				if (chosenAnswer !== binaryList[positions[g]] || chosenAnswer.length == 0) {
+				if (chosenAnswer != binaryList[positions[g]] || chosenAnswer.length == 0) {
 					document.getElementById("inpRecall" + (positions[g])).classList.add(skin + "corrected");
 					document.getElementById("inpRecall" + (positions[g])).classList.remove(skin + "incorrect");
 					document.getElementById("inpRecall" + (positions[g])).value = binaryList[positions[g]];
@@ -11193,19 +11113,6 @@ function assignFaceImages() {
 	}
 
 
-	function selectHiColour(colour) {		
-		hiColour = colour;
-		localStorage.setItem("hiColour", hiColour);
-		var items = document.getElementsByClassName("highlighterListItem");
-		for(var i = 0; i < items.length; i++) {
-			items[i].classList.remove("highlighterListItemSelected");
-		}
-		document.getElementById(colour).classList.add("highlighterListItemSelected");
-		document.body.style.setProperty("--highlightColor", this[hiColour]);
-		updatePreview();
-	}
-
-/*
 	function changeSelHColour() {
 		hiColour = document.getElementById("selHColour").options[document.getElementById("selHColour").selectedIndex].value;
 		localStorage.setItem("hiColour", hiColour);
@@ -11217,7 +11124,7 @@ function assignFaceImages() {
 		updatePreview();
 
 
-	}*/
+	}
 
 	function isAnalogue() {
 		return skin.indexOf('analogue') > -1;
@@ -11337,8 +11244,6 @@ function assignFaceImages() {
 
 		//get grouping
 		grouping = Number(localStorage.getItem("grouping"));
-		if (currentDiscipline.indexOf("N")>-1) miniGroupings = JSON.parse(localStorage.getItem("miniGroupings"));
-		if (!Array.isArray(miniGroupings)) miniGroupings = [miniGroupings];
 		groupingH = Number(localStorage.getItem("groupingH"));
 		groupingW = Number(localStorage.getItem("groupingW"));
 		cardSet = localStorage.getItem("cardSet");
@@ -11397,9 +11302,6 @@ function assignFaceImages() {
 			} else {
 				miniGroupings = document.getElementById("inpMiniGroupings").value.split("-");
 				localStorage.setItem("miniGroupings", JSON.stringify(miniGroupings));
-				//add grouping for now otherwise it breaks
-				grouping = miniGroupings[0];
-			//	localStorage.setItem("miniGroupings", [grouping]);
 			}
 		}
 		//	document.getElementById("inpImgsPerLocus").value = "";	
@@ -11415,15 +11317,9 @@ function assignFaceImages() {
 				return r;
 			}, []);
 			//recurring
-
-			if (miniGroupings.length == 0) {
-				miniGroupings = [3];
-				document.getElementById("inpMiniGroupings").value = "3";
-			}
-			locusSize = miniGroupings.reduce((acc, val) => Number(acc) + Number(val));
 			if (separations.length ==1) {
 				cur = separations[0];
-				while (cur + separations[0] < locusSize) {
+				while (cur + separations[0] < grouping) {
 					separations.push(cur+separations[0]);
 					cur += separations[0];
 				}
@@ -11618,7 +11514,7 @@ return iCaretPos;
 <div class="col-md-3"></div>
 </div>
 
-<div class="row" id="topMargin" style="display:none"><div class="col-md-3"></div>
+<div class="row" id="topMargin" style="display:none"><div class="col-md-3"><br /><button id="btnBackToSelection2" class="btn btn-primary" onclick="goToSelection();">Back to discipline selection</button></div>
 <div class="col-md-6 text-center"></div>
 <div class="col-md-3"></div>
 </div>
@@ -11627,14 +11523,14 @@ return iCaretPos;
 <div class="row" id="selectionRow" style="display:block">
 <div class="col-md-2"></div>
 <div class="col-md-8 jumbotron selection text-center">
-<h4>Select a competition format:</h4>
+<h4>Select a competition format from the list below.</h4>
   <select id="selFormat" onChange="changeDisciplines();">
 <option value="N">National standard</option>
 <option value="I">International standard</option>
 <option value="W">World championship standard</option>
 </select>
 <br /><br />
-<h4>Select a discipline:</h4>
+<h4>Select a discipline from the list below.</h4>
   <select id="selDiscipline">
 <option value="5N">5-minute Numbers</option>
 <option value="15N">15-minute Numbers</option>
@@ -11669,17 +11565,10 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <br /><button id="btnGo" class="btn btn-primary" disabled onclick="goToSettings();">Loading images... Please wait</button>
 <br /><br /><button id="btnResume" class="btn btn-primary" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
 
-<br /><br /><div style="font-size:smaller;">
-		Please note: To ensure that you can resume memorisation and recall at any point, this website makes use of localStorage. If you have localStorage enabled, a small amount of data relating to your memorisation is stored in your browser.
-		
-		</div>
-		
-
 </div>
 
 
 <div class="col-md-2"></div>
-
 </div>
 
 <!--Settings container row-->
@@ -11687,10 +11576,7 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <div class="col-md-1"></div>
 <div id="settingsBox" class="col-md-10 jumbotron settings text-center">
 		<div class="paperContent">
-<br />
-			<button id="btnBackToSelection2" class="btn btn-primary" onclick="goToSelection();">Back</button>
 <h3 class="disciplineTitle"></h3>
-<br />
 <br />
 <span style="border:1px dotted;padding:4px;"><b>Important:</b> <span style="font-weight:normal">please press <span class="keybutton">F11</span> (Windows) or <span class="keycombo">&Hat; + &#8984; + F (Control+Cmd+F)</span> (Mac) for full screen</span></span>
 <div id="divGrouping">
@@ -11708,9 +11594,9 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <br />
 <!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn btn-primary" onclick="applyImgsPerLocus();">Apply</button>
 <br /><br />-->
-Specify grouping for navigation purposes (e.g. 3 or 3-2-3): <input size=5 id="inpMiniGroupings" onkeyup="applyMiniGroupings()" type="text" style="text-align:center">&nbsp;<!--<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>-->
+Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 id="inpMiniGroupings" type="text">&nbsp;<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>
 <br /><br />
-Draw lines every <input size=1 id="inpSeparation" onkeyup="applySeparation()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparation();">Apply</button>-->
+Specify line separation, e.g. 3 for a line every 3 digits, or 3-2-3: <input id="inpSeparation" type="text">&nbsp;<button class="btn btn-primary" onclick="applySeparation();">Apply</button>
 </div>
 </div>
 <div id="divBinGrouping">
@@ -11741,39 +11627,25 @@ Height:     <select id="selBinGroupingH" onchange="resetSeparations();updatePrev
 <option value="9">9</option>
 <option value="10">10</option>
 </select>
- (select 1 for Height if not using matrices)
+ (select 1 if not using matrices)
 
  <br /><br />
-Draw lines every <input size=8 id="inpSeparationBin" type="text">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>
+Specify line separation, e.g. 4-3-3: <input id="inpSeparationBin" type="text">&nbsp;<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>
 </span></div>
-
 
 <div id="divHighlightColour">
 	<br />
-	<!--
-Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > 
+Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > <!--style="background-color:#b3ff66"-->
 <option value="red" style="background-color:#ff8080">red</option>
 <option value="orange" style="background-color:#ffa366">orange</option>
 <option value="yellow" style="background-color:#ffff80">yellow</option>
 <option value="green" style="background-color:#b3ff66">green</option>
 <option value="sky"  style="background-color:#80bfff" selected>blue</option>
 <option value="purple"  style="background-color:#df9fbf">purple</option>
+<!--<option value="rgba(238,170,238,0.5)"  style="background-color:#eeaaee">&nbsp;&nbsp;</option>-->
 </select>
--->
-
-
-<div class="flexContainer" id="HColorList">
-		<div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem" id="red" style="background-color:#ff8080"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem"  id="orange" style="background-color:#ffa366"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
-	  </div>
 </div>
-<br />
-<br />	
+
 <div id="divDatesLanguages">
 	<br />
 	Language:     <select id="selDatesLanguage" onchange="resetPreload();">
@@ -11808,8 +11680,8 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 		Card set:     <select id="selCardSet"  onchange="resetPreload();updatePreview();">
 			<option value="1">Standard</option>
 			<option value="2">French (VDR)</option>
-		<!--	<option value="3">French (BDK)</option>		-->
-			<option value="3">Worn</option>			
+			<option value="3">French (BDK)</option>		
+			<option value="4">Worn</option>			
 		</select>
 		</div>
 		<div id="divDirection" style="flex:1">
@@ -11826,7 +11698,6 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 <img src='Card images 1/c13.png'>
 
 </div>
-<div id="cardAttribution"></div>
 </div>
 
 <div id="divInstructions" class="centred text-center">
