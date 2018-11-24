@@ -2690,6 +2690,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 		//card table if using analogue skin
 		if (skin.indexOf("analogue") > -1) {
 			$("#memoBox").addClass("analogue1boxGreen");
+			$('body').addClass('overlay');
 			$("#memoBox").removeClass("analogue1boxA");
 		/*
 			$("#memoBox").addClass("cardTable");
@@ -8976,6 +8977,8 @@ function assignFaceImages() {
 	function startCardRecall() {
 		if (skin.indexOf("analogue") > -1) {
 			$("#recallBox").addClass("analogue1boxGreen");
+			$('body').addClass('overlay');
+			
 			$("#recallBox").removeClass("analogue1boxB");
 			/*
 			$("#recallBox").addClass("cardTable");
@@ -9528,6 +9531,8 @@ function assignFaceImages() {
 
 		if (skin.indexOf("analogue") > -1) {
 			$("#scoreBox").addClass("analogue1boxGreen");
+			$('body').addClass('overlay');
+			
 			$("#scoreBox").removeClass("analogue1boxB");
 		}
 
@@ -11805,8 +11810,8 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
 		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
 		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
-	  </div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div><div class="highlighterListItemBlank"></div>
+</div>
 </div>
 <br />
 <br />	
@@ -11914,7 +11919,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 <div id="wrapper">
 <div id="memoContentDiv" class="memoContent paperContent"></div>
 <div id="analogueCardsMemoContentDiv" class="memoContent"></div>
-<div id="overlayDiv" class="overlay"></div>
+<!-- <div id="overlayDiv" class="overlay"></div> -->
 
 </div>
 

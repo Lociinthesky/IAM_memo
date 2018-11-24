@@ -41,7 +41,7 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
 .analogue1 {
   font-family: 'GFS Neohellenic', sans-serif;
-  color: rgba(43, 16, 16, .83); 
+  color: rgba(45, 18, 18, 0.78); 
   /* position: relative;
   width: 50%; */
 
@@ -216,70 +216,73 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
   width:500px;
 }
 
-.analogue1boxA {
+  .analogue1boxA {
 
-  font-weight:bold!important;
-  background-image: url("hugeWoodPaperAMatch.jpg");
-  background-position: top left;
-  background-size: 100% auto;
+    font-weight:bold!important;
+    background-image: url("hugeWoodPaperAMatch.jpg");
+    background-position: top left;
+    background-size: 100% auto;
 
-   
-    box-shadow:
-/* The top layer shadow */ /* 0 1px 1px rgba(0,0,0,0.15), */ -2px 1px 2px 2px rgba(0, 0, 0, 0.45), 
-/* The second layer */ -1px -2px 0 0px #DDD0AF, 
-3px 0px 0 -1px #DDD0AF, 
--1px -10px 3px -7px rgba(0, 0, 0, .4), 
-4px 2px 0 -1px #DDD0AF, 
-7px 2px 6px 2px rgba(0, 0, 0, .2);
--webkit-box-shadow:
-/* The top layer shadow */ /* 0 1px 1px rgba(0,0,0,0.15), */ -2px 1px 2px 2px rgba(0, 0, 0, 0.45), 
-/* The second layer */ -1px -2px 0 0px #DDD0AF, 
-3px 0px 0 -1px #DDD0AF, 
--1px -10px 3px -7px rgba(0, 0, 0, .4), 
-4px 2px 0 -1px #DDD0AF, 
-7px 2px 6px 2px rgba(0, 0, 0, .2);
+     
+      box-shadow:
+        /* The top layer shadow */
+        /* 0 1px 1px rgba(0,0,0,0.15), */
+        -1px 0px 2px 2px rgba(0, 0, 0, 0.5), 
+        /* The second layer */
+        -1px -2px 0 0px #fff,
+        
+
+         3px 0px 0 -1px #DDD0AF,
+        -1px -10px 1px -7px rgba(0, 0, 0, .55),
+         
+        4px 2px 0 -1px #DDD0AF,
+        5px 2px 2px -1px rgba(0, 0, 0, .85);
+         
+
 /* 
-  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-  -webkit-box-shadow:  0px 20px 1px 2px rgba(0, 0, 0, 0.4),15px -10px 60px 15px rgba(0, 0, 0, 0.08) inset; */
+    box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow:  0px 20px 1px 2px rgba(0, 0, 0, 0.4),15px -10px 60px 15px rgba(0, 0, 0, 0.08) inset; */
 
-  padding:20px;
-  border-radius: 0 !important;
+    padding:20px;
+    border-radius: 0 !important;
 
-}
+  }
 
+  
+  .analogue1boxB {
 
-.analogue1boxB {
+    font-weight:bold!important;
+    background-image: url("hugeWoodPaperBMatch.jpg");
+    background-position: top left;
+    background-size: 100% auto;
 
-  font-weight:bold!important;
-  background-image: url("hugeWoodPaperAMatch.jpg");
-  background-position: top left;
-  background-size: 100% auto;
+     
+      box-shadow:
+        /* The top layer shadow */
+        /* 0 1px 1px rgba(0,0,0,0.15), */
+        -1px 0px 2px 3px rgba(0, 0, 0, 0.45), 
+        /* The second layer */
+        -1px -2px 0 0px #fff,
+        
 
-   
-    box-shadow:
-/* The top layer shadow */ /* 0 1px 1px rgba(0,0,0,0.15), */ -2px 1px 2px 2px rgba(0, 0, 0, 0.45), 
-/* The second layer */ -1px -2px 0 0px #DDD0AF, 
-3px 0px 0 -1px #DDD0AF, 
--1px -10px 3px -7px rgba(0, 0, 0, .4), 
-4px 2px 0 -1px #DDD0AF, 
-7px 2px 6px 2px rgba(0, 0, 0, .2);
--webkit-box-shadow:
-/* The top layer shadow */ /* 0 1px 1px rgba(0,0,0,0.15), */ -2px 1px 2px 2px rgba(0, 0, 0, 0.45), 
-/* The second layer */ -1px -2px 0 0px #DDD0AF, 
-3px 0px 0 -1px #DDD0AF, 
--1px -10px 3px -7px rgba(0, 0, 0, .4), 
-4px 2px 0 -1px #DDD0AF, 
-7px 2px 6px 2px rgba(0, 0, 0, .2);
+         3px 0px 0 -1px #DDD0AF,
+        -1px -10px 1px -7px rgba(0, 0, 0, .55),
+         
+        4px 2px 0 -1px #DDD0AF,
+        5px 2px 2px -1px rgba(0, 0, 0, .85);
+         
+
 /* 
-  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-  -webkit-box-shadow:  0px 20px 1px 2px rgba(0, 0, 0, 0.4),15px -10px 60px 15px rgba(0, 0, 0, 0.08) inset; */
+    box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow:  0px 20px 1px 2px rgba(0, 0, 0, 0.4),15px -10px 60px 15px rgba(0, 0, 0, 0.08) inset; */
 
-  padding:20px;
-  border-radius: 0 !important;
+    padding:20px;
+    border-radius: 0 !important;
 
-}
+  }
+
 
   .analogue1boxAsingle {
 
@@ -320,15 +323,16 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
   }
 
-  .analogue1boxGreen {
-    background-image: url(feltGrid2.png);
-    background-size: 144px 144px;
-    background-repeat: repeat;
-    color: white;
-    padding: 20px;
-    box-shadow: -1px 0px 4px 2px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: -1px 0px 4px 2px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: -1px 0px 4px 2px rgba(0, 0, 0, 0.4);
+.analogue1boxGreen {
+  background-image: url("feltGrid2.png");
+  background-size: 144px 144px;
+  background-repeat: repeat;
+  color:white;
+  padding:20px;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.45);
+   -webkit-box-shadow:  0px 30px 2px 2px rgba(0, 0, 0, 0.48);
+
 }
 
   .digital1boxA, .digital1boxB {
@@ -343,17 +347,17 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
 
 
-  .analogue1boxA:before, .analogue1boxA:after, .analogue1boxB:before, .analogue1boxB:after {
-    position: absolute;
-    content: "";
-    z-index: -1;
-    -webkit-box-shadow: 7px -1px 7px 3px rgba(0,0,0,.6);  
-    box-shadow: 7px -1px 7px 3px rgba(0,0,0,.6);
-    top: -1;
-    bottom: 0;
-    left: 190px;
-    right: 10px;
-    border-radius: 100px / 10px;
+  .analogue1boxA:before, .analogue1boxA:after, .analogue1boxB:before, .analogue1boxB:after
+{
+  position:absolute;
+  content:"";
+      z-index:-1;
+      box-shadow: 8px -2px 15px 3px rgba(0,0,0,.66);
+      top:-1;
+      bottom:0;
+      left:190px;
+      right:10px;
+      border-radius:100px / 10px;
 }
 .analogue1boxA:after, .analogue1boxB:after
 {
@@ -564,17 +568,17 @@ position:relative;
   padding-bottom:2px;
   text-align:center;
 
-  text-shadow: 0px 0px 1px  rgba(30, 15, 15, 0.2);
+  text-shadow: 0px 0px 1px  rgba(50, 32, 32, 0.3);
 
   /* color: #222222; */
-  color: rgba(43, 16, 16, .83); 
-  /* opacity: .9; */
+  color: rgba(45, 18, 18, 0.82); 
+  opacity: .9;
 }
 
 .analogue1numbersSelected {
 background-color:var(--highlightColor);
   /*background-color: lightblue;*/
-  /* opacity: .9; */
+  opacity: 1;
 }
 
 .analogue1numbersInLocus {
@@ -591,10 +595,10 @@ background-color:var(--highlightColor);
   padding-bottom:2px;
   text-align:center;
 
-  text-shadow: 0px 0px 1px  rgba(30, 15, 15, 0.2);
+  text-shadow: 0px 0px 1px  rgba(10, 10, 10, 0.05);
 
-  color: rgba(43, 16, 16, .83); 
-  /* opacity: .9; */
+  color: #000000;
+  opacity: 1;
 }
 
 .analogue1binarySelected {
@@ -602,9 +606,7 @@ background-color:var(--highlightColor);
   
   background-opacity: .7;*/
   background-color:var(--highlightColor);
-  /* opacity: .9; */
-  opacity: .83;
-  text-shadow: 0px 0px 1px rgba(30, 15, 15, .3)
+  opacity: 1;
 }
 
 .analogue1wordsMemo {
@@ -612,16 +614,13 @@ background-color:var(--highlightColor);
   font-family: 'Roboto', sans-serif;
   width:20%;
   padding-bottom:2px;  
-  text-shadow: 0px 0px 1px  rgba(30, 15, 15, 0.2);
-
-  color: rgba(43, 16, 16, .83); 
-  opacity: .83;
+  color: #222222;
+  opacity: .9;
 }
 
 .analogue1wordsSelected {
 background-color:var(--highlightColor); 
-  opacity: .83;
-  text-shadow: 0px 0px 1px rgba(30, 15, 15, .3);
+  opacity: .88;
 }
 
 .analogue1wordsRecall {
@@ -665,10 +664,8 @@ text-shadow:0px 0px 1px rgba(0,0,200,.25);
   font-family: 'Roboto', sans-serif;
   width:30px!important;
   padding-bottom:2px;  
-  text-shadow: 0px 0px 1px  rgba(30, 15, 15, 0.2);
-
-  color: rgba(43, 16, 16, .83); 
-  opacity: .83;
+  color: #222222;
+  opacity: .9;
   }
 
 
@@ -736,10 +733,8 @@ text-shadow:0px 0px 1px rgba(0,0,200,.25);
     font-family: 'Roboto', sans-serif;
   
     padding-bottom:2px;  
-    c  text-shadow: 0px 0px 1px  rgba(30, 15, 15, 0.2);
-
-  color: rgba(43, 16, 16, .83); 
-  opacity: .83;
+    color: #222222;
+    opacity: .9;
   }
   .analogue1datesYearMemo {
     font-size:1.3vw;
@@ -747,10 +742,8 @@ text-shadow:0px 0px 1px rgba(0,0,200,.25);
   
     padding-bottom:2px; 
     padding-right:10px;
-    c  text-shadow: 0px 0px 1px  rgba(30, 15, 15, 0.2);
-
-  color: rgba(43, 16, 16, .83); 
-  opacity: .83;
+    color: #222222;
+    opacity: .9;
   }
 
   .digital1datesMemo {
@@ -766,15 +759,14 @@ text-shadow:0px 0px 1px rgba(0,0,200,.25);
     font-size:2vh;
     padding-bottom:2px;
     padding-right:10px;
-    /* color: #000000; */
+    color: #000000;
  
   }
 
 
   .analogue1datesSelected {
     background-color:var(--highlightColor); 
-      opacity: .83;
-      text-shadow: 0px 0px 1px rgba(30, 15, 15, .3)
+      opacity: .88;
     }
 
     .digital1datesSelected {
@@ -952,10 +944,10 @@ background-color:var(--highlightColor);
 }
 
 .analogue1cardImgBig {
-  height: 200;
-  position: absolute;
-  -webkit-box-shadow: 1px 0px 2px 3px rgba(0,0,0,0.12);
-  box-shadow: 1px 0px 2px 3px rgba(0,0,0,0.12);
+   height:200;
+   position:absolute;
+   -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
   z-index: 2;
 }
 
@@ -1662,7 +1654,7 @@ sub {
 }
 */
 .digitMarkingSup {
-    top: -.95em!important;
+    top: -1.00em!important;
     left: -0.4em!important;
     
 	font-size:135%!important;
@@ -1885,7 +1877,7 @@ filter: brightness(60%);
 .highlighterListItem {
   flex: 3;
   height: 40px;
-  opacity:0.5;
+  opacity:0.8;
 }
 .highlighterListItem:hover{
 
@@ -2001,12 +1993,12 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
 
 .analogue1 #recallContentDiv {
 	  
-  -webkit-mask-image: url("lessGrunge2.png");
-  -webkit-mask-size: 118px 144px;
+  /*-webkit-mask-image: url("leastGrunge3.png");
+  -webkit-mask-size: 118px 144px;*/
 }
 
 .analogue1 #preview {
-  color: rgba(43, 16, 16, .83); 
+  color: rgba(45, 18, 18, 0.78); 
 }
 
 .analogue1paperContent {
@@ -2050,8 +2042,8 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
   border-left: none;
   border-right: none;
   line-height: normal;
-  -webkit-mask-image: url("leastGrunge3.png");
-  -webkit-mask-size: 96px 96px;
+  /* -webkit-mask-image: url("leastGrunge3.png");
+  -webkit-mask-size: 96px 96px; */
   color: rgba(0,0,230,.88) !important;
   font-family: 'Reenie Beanie', cursive;
   font-weight:normal!important;
@@ -2072,9 +2064,9 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
   font-family: 'Reenie Beanie', cursive;
   font-weight:normal!important;
   font-size: 35;
-  -webkit-mask-image: url("leastGrunge3.png");
-  -webkit-mask-size: 96px 96px; 
-  /* text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2);  
+  /* -webkit-mask-image: url("leastGrunge3.png");
+  -webkit-mask-size: 96px 96px; */
+  /* text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2);   */
 }
 
 .analogue1 #inpSeparationBin{
@@ -2129,14 +2121,14 @@ font-size: 35;
   .analogue1 #countdownTime{
    -webkit-mask-image: url("leastGrunge7.png");
    -webkit-mask-size: 246px 296px;
-   color: rgba(43, 16, 16, .83); 
+   color: rgba(38, 18, 18, 0.81); 
  
    text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
   }
   .analogue1 #countdownRecallTime{
    -webkit-mask-image: url("leastGrunge7.png");
    -webkit-mask-size: 46px 46px;
-   color: rgba(43, 16, 16, .83); 
+   color: rgba(38, 18, 18, 0.81); 
    
    text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
   }
@@ -2150,7 +2142,7 @@ font-size: 35;
   .analogue1 .paperContent .disciplineTitleMemo{
    -webkit-mask-image: url("leastGrunge3.png");
    -webkit-mask-size: 96px 96px;
-   color: rgba(43, 16, 16, .83); 
+   color: rgba(45, 18, 18, 0.78); 
    
    text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
   }
@@ -2174,7 +2166,7 @@ font-size: 35;
   .analogue1 #memoContentDiv{
    -webkit-mask-image: url("leastGrunge3.png");
    -webkit-mask-size: 96px 96px;
-   color: rgba(43, 16, 16, .83); 
+   color: rgba(45, 18, 18, 0.78); 
    
    text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
   }
@@ -2220,14 +2212,8 @@ font-size: 35;
     -webkit-mask-size: 700px 940px;
   }
   .analogue1 .highlighterlistitem {
-    opacity: .83;
+    opacity: .6;
   }
-  .analogue1 .disciplineTitleMemo {
-    color: rgba(43, 16, 16, .83); 
- 
-    text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
- }
-
 
   /* .analogue1 #btnTest {
     text-shadow: 0px 0px 12px 0px rgba(0, 175, 175, .96) !important;
@@ -2235,8 +2221,8 @@ font-size: 35;
 
   /* .stamp  */
   .analogue1 button{
-    color: rgba(9, 167, 167, 0.7); 
-    font-size: 1.9rem;
+    color: rgba(0, 165, 165, 0.61);
+    font-size: 2rem;
     font-weight: 700; 
     display: inline-block;
     text-transform: uppercase;
@@ -2246,29 +2232,10 @@ font-size: 35;
     /* mix-blend-mode: color-dodge; */
     border-width: 0.125rem;
     border-style: solid;
-    border-color: rgb(0, 165, 165, .8);
-    text-shadow: 0px 0px 2px 0px rgb(0, 180, 180, .8);
+    border-color: rgb(0, 165, 165, .71);
+    /* text-shadow: 0px 0px 2px 0px rgb(0, 180, 180, .2); */
     border-image: initial;
-    padding: 0.15rem 1rem;
-    border-radius: .75rem;
-    background-color: transparent;
-  }
-  .analogue1 #btnBackToSelection2{
-    color: rgba( 15, 158, 158, 0.65); 
-    font-size: 1.9rem;
-    font-weight: 700; 
-    display: inline-block;
-    text-transform: uppercase;
-    font-family: Courier;
-    -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
-    -webkit-mask-size: 628px 240px;
-    /* mix-blend-mode: color-dodge; */
-    border-width: 0.125rem;
-    border-style: solid;
-    border-color: rgb(0, 155, 155, .75);
-    text-shadow: 0px 0px 2px 0px rgb(0, 180, 180, .8);
-    border-image: initial;
-    padding: 0.15rem 1rem;
+    padding: 0.25rem 1rem;
     border-radius: .75rem;
     background-color: transparent;
   }

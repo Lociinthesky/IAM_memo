@@ -285,8 +285,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 	var fontSizeNow = 0;
 	//var fontReenieBeanie = ['Reenie Beanie', 38, 42];
 	//var fontShadowsIntoLight = ['Shadows Into Light', 24, 26];
-	var fontReenieBeanie = ['Reenie Beanie', 34, 41];
-	var fontShadowsIntoLight = ['Reenie Beanie', 36, 42];
+	var fontReenieBeanie = ['Reenie Beanie', 31, 41];
+	var fontShadowsIntoLight = ['Reenie Beanie', 35, 42];
 	//var fontRockSalt = ['Rock Salt', 19, 21];
 
 	var datesLanguage;
@@ -537,10 +537,10 @@ font-family: 'Nothing You Could Do', cursive; -->
 		if (skin.indexOf("analogue") > -1) {
 			$("#memoBox").addClass("analogue1boxA");
 			$("#memoBox").removeClass("analogue1boxGreen");
-				$("#recallBox").addClass("analogue1boxB");
+				$("#recallBox").addClass("analogue1boxA");
 			$("#recallBox").removeClass("analogue1boxGreen");
 
-				$("#scoreBox").addClass("analogue1boxB");
+				$("#scoreBox").addClass("analogue1boxA");
 			$("#scoreBox").removeClass("analogue1boxGreen");
 	
 /*
@@ -4092,7 +4092,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 		for (i = 0; i < numberOfPages; i++) {
 			//create a new page that can be hidden or shown
 			var pageDiv = document.createElement("div");
-			pageDiv.setAttribute("id", "page" + i + "Recall");
+			pageDiv.setAttribute("id", "page" + i + "Recall");		
 			//add table to hold the words
 			var thisPageTable = document.createElement("table");
 			thisPageTable.setAttribute("class", "datesRecallTable");
@@ -8976,7 +8976,7 @@ function assignFaceImages() {
 	function startCardRecall() {
 		if (skin.indexOf("analogue") > -1) {
 			$("#recallBox").addClass("analogue1boxGreen");
-			$("#recallBox").removeClass("analogue1boxB");
+			$("#recallBox").removeClass("analogue1boxA");
 			/*
 			$("#recallBox").addClass("cardTable");
 			$("#scoreBox").addClass("cardTable");
@@ -9528,7 +9528,7 @@ function assignFaceImages() {
 
 		if (skin.indexOf("analogue") > -1) {
 			$("#scoreBox").addClass("analogue1boxGreen");
-			$("#scoreBox").removeClass("analogue1boxB");
+			$("#scoreBox").removeClass("analogue1boxA");
 		}
 
 		displayed = false;
@@ -9540,7 +9540,7 @@ function assignFaceImages() {
 			if (skin.indexOf("analogue") > -1) {
 				$("#recallBox").addClass("analogue1boxGreen");
 			
-				$("#recallBox").removeClass("analogue1boxB");
+				$("#recallBox").removeClass("analogue1boxA");
 			
 				/*
 				$("#recallBox").addClass("cardTable");
@@ -11806,7 +11806,7 @@ Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin
 			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
 			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
 			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div><div class="highlighterListItemBlank"></div>
 		  </div>
 	</div>
 	<br />
