@@ -464,7 +464,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Reset the number of images loaded - we need to load all the backgrounds before we go to the settings page
 		mainImagesLoaded = 0;
 		//**PAPER**
-		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'Green.jpg', 'hugeWoodPaperAMatch.jpg','hugeWoodPaperBMatch.jpg'];
+		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'feltGrid2.png', 'hugeWoodPaperAMatch.jpg','hugeWoodPaperBMatch.jpg'];
 
 		//Do the preloading if we 
 		if (mainImagesLoaded == 0) {
@@ -519,6 +519,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		document.getElementById("scoreRow").style = "display:none";
 		document.getElementById("btnBackToSelection").style = "display:none";
 		document.getElementById("memoContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsMemoContentDiv").innerHTML = "";
 		//document.getElementById("recallContentDiv").innerHTML = "";
 		//document.getElementById("scoreContentDiv").innerHTML = "";
 
@@ -598,6 +599,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		// clear content from test page if exists
 		document.getElementById("memoContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsMemoContentDiv").innerHTML = "";
 
 		//Get discipline
 		currentDiscipline = document.getElementById("selDiscipline").options[document.getElementById("selDiscipline").selectedIndex].value;
@@ -882,7 +884,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//delete previous set of recall data, delete recall and score content div
 		localStorage.setItem("chosen", "[]");
 		document.getElementById("scoreContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsScoreContentDiv").innerHTML = "";
 		document.getElementById("recallContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
 
 		//get amount
 		if (currentDiscipline == "10C" || currentDiscipline == "60C" || currentDiscipline == "30C") {
@@ -2759,7 +2763,11 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 		}
 
-		document.getElementById("memoContentDiv").innerHTML = cardsMemoString
+		if (skin.indexOf("analogue")>-1) {
+			document.getElementById("analogueCardsMemoContentDiv").innerHTML = cardsMemoString
+		} else {
+			document.getElementById("memoContentDiv").innerHTML = cardsMemoString
+		}
 		//***USE THIS INSTEAD FOR FINISH BUTTON***
 		//document.getElementById("memoContentDiv").innerHTML = cardsMemoString + "<br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
 
@@ -4123,7 +4131,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -5331,7 +5339,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -5769,7 +5777,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -6267,7 +6275,7 @@ function assignFaceImages() {
 		document.getElementById("recallContentDiv").innerHTML = numberRecallString;
 
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -7382,7 +7390,7 @@ function assignFaceImages() {
 
 		//kept finish button for recall
 		//binaryRecallString += "</div><br />";
-		binaryRecallString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button>";
+		binaryRecallString += "</div><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button>";
 		document.getElementById("recallContentDiv").innerHTML = binaryRecallString;
 
 		//add intra-group separations
@@ -7955,7 +7963,7 @@ function assignFaceImages() {
 				}
 
 			}
-			imagesRecallString += "</table><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button></div>";
+			imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button></div>";
 			//	imagesRecallString += "</table><br /></div>";
 		}
 
@@ -8171,6 +8179,7 @@ function assignFaceImages() {
 	function displayScore() {
 		ended = true;
 		document.getElementById("scoreContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsScoreContentDiv").innerHTML = "";
 		//Display score section only
 		document.getElementById("selectionRow").style = "display:none";	//added in case we are resuming and go straight from selection to score
 		document.getElementById("countdownRow").style = "display:none";
@@ -9106,14 +9115,19 @@ function assignFaceImages() {
 			cardPage.appendChild(cardContainer1);
 			cardPage.appendChild(cardContainer2);
 			cardPage.appendChild(boneyardDiv);
-			document.getElementById("recallContentDiv").appendChild(cardPage);
+
+			if (skin.indexOf("analogue")>-1) {
+				document.getElementById("analogueCardsRecallContentDiv").appendChild(cardPage);
+			} else {
+				document.getElementById("recallContentDiv").appendChild(cardPage);
+			}
 		}
 		//end of each page
 
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn btn-primary finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -9643,13 +9657,19 @@ function assignFaceImages() {
 				cardPage.appendChild(cardContainer2);
 				cardPage.appendChild(boneyardDiv);
 
-				document.getElementById("scoreContentDiv").appendChild(cardPage);
-
+				if (skin.indexOf("analogue")>-1) {
+					document.getElementById("analogue1CardsScoreContentDiv").appendChild(cardPage);
+				} else {
+					document.getElementById("scoreContentDiv").appendChild(cardPage);
+				}
 
 			}
 
+			if (skin.indexOf("analogue")>-1) {
+				document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
+			} else {
 			document.getElementById("recallContentDiv").innerHTML = "";
-
+			}
 			//fan cards out
 
 			for (var deck = 0; deck < amount; deck++) {
@@ -9781,8 +9801,14 @@ function assignFaceImages() {
 		document.getElementById("spanCorrect").innerHTML = "&nbsp;&nbsp;(" + deckScore.reduce(function (acc, val) { return acc + val; }) + " correct)";
 
 		if (!resuming) {
-			document.getElementById("scoreContentDiv").innerHTML = document.getElementById("recallContentDiv").innerHTML;
-			document.getElementById("recallContentDiv").innerHTML = "";
+			if (skin.indexOf("analogue")>-1) {
+				document.getElementById("analogueCardsScoreContentDiv").innerHTML = document.getElementById("analogueCardsRecallContentDiv").innerHTML;					
+				document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
+		
+			} else {
+				document.getElementById("scoreContentDiv").innerHTML = document.getElementById("recallContentDiv").innerHTML;					
+				document.getElementById("recallContentDiv").innerHTML = "";
+			}
 		} else {
 
 			restoreCardsData();
@@ -10923,7 +10949,7 @@ function assignFaceImages() {
 					}
 
 				}
-				imagesRecallString += "</table><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button></div>";
+				imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button></div>";
 				//	imagesRecallString += "</table><br /></div>";
 			}
 
@@ -11201,6 +11227,7 @@ function assignFaceImages() {
 			items[i].classList.remove("highlighterListItemSelected");
 		}
 		document.getElementById(colour).classList.add("highlighterListItemSelected");
+
 		document.body.style.setProperty("--highlightColor", this[hiColour]);
 		updatePreview();
 	}
@@ -11613,7 +11640,7 @@ return iCaretPos;
 
 <!--Logo row-->
 <div class="row" id="logoRow" style="display:block">
-<div class="col-md-3"><br /><button id="btnBackToSelection" style="display:none" class="btn btn-primary" onclick="goToSelection();">Back to discipline selection</button></div>
+<div class="col-md-3"><br /><button id="btnBackToSelection" style="display:none" class="btnDigital" onclick="goToSelection();">Back to discipline selection</button></div>
 <div class="col-md-6 text-center"><br /><img src="IAM-main-Logo-transparent-bg-for-web.png" height=50><br /><br /><br /></div>
 <div class="col-md-3"></div>
 </div>
@@ -11666,8 +11693,8 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 </div>
 </div>
 
-<br /><button id="btnGo" class="btn btn-primary" disabled onclick="goToSettings();">Loading images... Please wait</button>
-<br /><br /><button id="btnResume" class="btn btn-primary" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
+<br /><button id="btnGo" class="btnDigital" disabled onclick="goToSettings();">Loading images... Please wait</button>
+<br /><br /><button id="btnResume" class="btnDigital" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
 
 <br /><br /><div style="font-size:smaller;">
 		Please note: To ensure that you can resume memorisation and recall at any point, this website makes use of localStorage. If you have localStorage enabled, a small amount of data relating to your memorisation is stored in your browser.
@@ -11688,7 +11715,7 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <div id="settingsBox" class="col-md-10 jumbotron settings text-center">
 		<div class="paperContent">
 <br />
-			<button id="btnBackToSelection2" class="btn btn-primary" onclick="goToSelection();">Back</button>
+			<button id="btnBackToSelection2" class="btnDigital" onclick="goToSelection();">Back</button>
 <h3 class="disciplineTitle"></h3>
 <br />
 <br />
@@ -11710,7 +11737,7 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <br /><br />-->
 Specify grouping for navigation purposes (e.g. 3 or 3-2-3): <input size=5 id="inpMiniGroupings" onkeyup="applyMiniGroupings()" type="text" style="text-align:center">&nbsp;<!--<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>-->
 <br /><br />
-Draw lines every <input size=1 id="inpSeparation" onkeyup="applySeparation()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparation();">Apply</button>-->
+Draw lines every <input size=3 id="inpSeparation" onkeyup="applySeparation()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparation();">Apply</button>-->
 </div>
 </div>
 <div id="divBinGrouping">
@@ -11744,36 +11771,46 @@ Height:     <select id="selBinGroupingH" onchange="resetSeparations();updatePrev
  (select 1 for Height if not using matrices)
 
  <br /><br />
-Draw lines every <input size=8 id="inpSeparationBin" type="text">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>
+Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>-->
 </span></div>
 
-
-<div id="divHighlightColour">
+<div id="divPreview">
 	<br />
-	<!--
-Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > 
-<option value="red" style="background-color:#ff8080">red</option>
-<option value="orange" style="background-color:#ffa366">orange</option>
-<option value="yellow" style="background-color:#ffff80">yellow</option>
-<option value="green" style="background-color:#b3ff66">green</option>
-<option value="sky"  style="background-color:#80bfff" selected>blue</option>
-<option value="purple"  style="background-color:#df9fbf">purple</option>
-</select>
--->
-
-
-<div class="flexContainer" id="HColorList">
-		<div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem" id="red" style="background-color:#ff8080"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem"  id="orange" style="background-color:#ffa366"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
-		<div onclick="selectHiColour(this.id)" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
-	  </div>
-</div>
-<br />
-<br />	
+	<h4>Preview</h4>
+	<div id="preview" class="centred text-center" style="width:100%;">
+	
+	<img src='Card images 1/c13.png'>
+	
+	</div>
+	<br />
+	<br />
+	
+	<div id="divHighlightColour">
+		<!-- <br /> -->
+		<!--
+	Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > 
+	<option value="red" style="background-color:#ff8080">red</option>
+	<option value="orange" style="background-color:#ffa366">orange</option>
+	<option value="yellow" style="background-color:#ffff80">yellow</option>
+	<option value="green" style="background-color:#b3ff66">green</option>
+	<option value="sky"  style="background-color:#80bfff" selected>blue</option>
+	<option value="purple"  style="background-color:#df9fbf">purple</option>
+	</select>
+	-->
+	
+	
+	<div class="flexContainer" id="HColorList">
+			<div class="highlighterListItemBlank"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="red" style="background-color:#ff8080"></div><div class="highlighterListItemBlank"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="orange" style="background-color:#ffa366"></div><div class="highlighterListItemBlank"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
+			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
+		  </div>
+	</div>
+	<br />
+	<br />	
 <div id="divDatesLanguages">
 	<br />
 	Language:     <select id="selDatesLanguage" onchange="resetPreload();">
@@ -11818,23 +11855,16 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 
 </div>
 
-<div id="divPreview">
-	<br />
-<h4>Preview</h4>
-<div id="preview" class="centred text-center" style="width:100%;">
 
-<img src='Card images 1/c13.png'>
-
-</div>
 <div id="cardAttribution"></div>
 </div>
 
 <div id="divInstructions" class="centred text-center">
 	</div>
 <div class="flexParent settingsButtons">
-    <div class="flexChild"><button class="btn btn-primary" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
-    <div class="flexChild"><button class="btn btn-primary glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
-    <div class="flexChild"><button class="btn btn-primary" id="btnTest" onclick="testPage();">Test page</button></div>
+    <div class="flexChild"><button class="btnDigital" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
+    <div class="flexChild"><button class="btnDigital glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
+    <div class="flexChild"><button class="btnDigital" id="btnTest" onclick="testPage();">Test page</button></div>
 </div>
 </div>
 <div class="col-md-1"></div>
@@ -11884,7 +11914,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 
 <div id="wrapper">
 <div id="memoContentDiv" class="memoContent paperContent"></div>
-
+<div id="analogueCardsMemoContentDiv" class="memoContent"></div>
 <div id="overlayDiv" class="overlay"></div>
 
 </div>
@@ -11904,13 +11934,14 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 <!--  <div class="row topMargin"></div>-->
 <div class="col-md-1"></div>
 <div id="recallBox" class="col-md-10">
-		<div class="paperContent">
+	
   <table class="disciplineHeadingTable"><tr><td class="disciplineTitleMemo textNonCards"></td><td><span id="cardsMemoTime"></span></td><td id="digital1RecallTimeOuterTd"><span id="digital1RecallTimeOuter" style="display:none"><span>Recall time remaining: </span><span id="digital1RecallTimeInner"></span></span></td></tr></table>
   <div id="menuRecallDiv"></div>
 
 
-<div id="recallContentDiv" class="recallContent"></div>
-</div>
+<div id="recallContentDiv" class="recallContent paperContent"></div>
+<div id="analogueCardsRecallContentDiv" class="recallContent"></div>
+
 
 <div class="bottom-right-timer row">
 <br />
@@ -11933,6 +11964,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
   <div id="menuScoreDiv"></div>
   
 <div id="scoreContentDiv" class="scoreContent"></div>
+<div id="analogueCardsScoreContentDiv" class="scoreContent"></div>
 </div>
 
 <div class="bottom-right-timer row">

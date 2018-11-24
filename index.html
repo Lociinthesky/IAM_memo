@@ -233,8 +233,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 
 
-
-
+	const cardAttributions = ["[Standard cards: Copyright 2015 Chris Aguilar conjurenation@gmail.com, Licensed under <a href='www.gnu.org/copyleft/lesser.html'>LGPL 3</a>]","[French cards: David Bellot — <a href='http://svg-cards.sourceforge.net/'>http://svg-cards.sourceforge.net</a>, <a href='http://www.gnu.org/licenses/lgpl.html' title='GNU Lesser General Public License'>LGPL</a>]","['Worn' cards: Copyright 2015 Chris Aguilar conjurenation@gmail.com, Licensed under <a href='www.gnu.org/copyleft/lesser.html'>LGPL 3</a>]"];
+	//"[French cards: David Bellot — <a href='http://svg-cards.sourceforge.net/'>http://svg-cards.sourceforge.net</a>, <a href='http://www.gnu.org/licenses/lgpl.html' title='GNU Lesser General Public License'>LGPL</a>]"
 
 
 	var skin = "";
@@ -283,6 +283,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	var fontNow = '';
 	var fontSizeNow = 0;
+	//var fontReenieBeanie = ['Reenie Beanie', 38, 42];
+	//var fontShadowsIntoLight = ['Shadows Into Light', 24, 26];
 	var fontReenieBeanie = ['Reenie Beanie', 34, 41];
 	var fontShadowsIntoLight = ['Reenie Beanie', 36, 42];
 	//var fontRockSalt = ['Rock Salt', 19, 21];
@@ -462,7 +464,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Reset the number of images loaded - we need to load all the backgrounds before we go to the settings page
 		mainImagesLoaded = 0;
 		//**PAPER**
-		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'Green.jpg', 'hugeWoodPaperAMatch.jpg','hugeWoodPaperBMatch.jpg'];
+		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'feltGrid2.png', 'hugeWoodPaperAMatch.jpg','hugeWoodPaperBMatch.jpg'];
 
 		//Do the preloading if we 
 		if (mainImagesLoaded == 0) {
@@ -517,6 +519,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		document.getElementById("scoreRow").style = "display:none";
 		document.getElementById("btnBackToSelection").style = "display:none";
 		document.getElementById("memoContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsMemoContentDiv").innerHTML = "";
 		//document.getElementById("recallContentDiv").innerHTML = "";
 		//document.getElementById("scoreContentDiv").innerHTML = "";
 
@@ -532,11 +535,18 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		//reset so no card table background appears
 		if (skin.indexOf("analogue") > -1) {
+			$("#memoBox").addClass("analogue1boxA");
+			$("#memoBox").removeClass("analogue1boxGreen");
+				$("#recallBox").addClass("analogue1boxB");
+			$("#recallBox").removeClass("analogue1boxGreen");
+
+				$("#scoreBox").addClass("analogue1boxB");
+			$("#scoreBox").removeClass("analogue1boxGreen");
+	
+/*
 			$("#memoBox").removeClass("cardTable");
 			$("#recallBox").removeClass("cardTable");
 			$("#scoreBox").removeClass("cardTable");
-			//$("#spanShift").removeClass("cardTable");
-			//$("#spanShift").addClass("textNonCards");
 			$("#spanSpace").removeClass("cardTable");
 			$("#spanSpace").addClass("textNonCards");
 			$("#spanOuterScore").removeClass("cardTable");
@@ -549,6 +559,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 
 			$(".bottom-right-timer").removeClass("textCardTable");
+			*/
 		}
 
 	}
@@ -568,6 +579,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		resuming = false;
 		document.getElementById("btnStartMemoCountdown").innerText = "Start";
         document.getElementById("btnStartMemoCountdown").classList.remove("glowButton");
+		document.getElementById("cardAttribution").innerHTML = "";
 		//Reset mark array
 		markArray = [];
 
@@ -580,11 +592,14 @@ font-family: 'Nothing You Could Do', cursive; -->
 		if (skin.indexOf("analogue") > -1) {
 			document.getElementById("logoRow").style = "display:none";
 			document.getElementById("topMargin").style = "display:block";
-			document.getElementById("btnBackToSelection2").style = "display:block";
+			document.getElementById("btnBackToSelection2").style = "display:inline";
+		} else {
+			document.getElementById("btnBackToSelection2").style = "display:none";
 		}
 
 		// clear content from test page if exists
 		document.getElementById("memoContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsMemoContentDiv").innerHTML = "";
 
 		//Get discipline
 		currentDiscipline = document.getElementById("selDiscipline").options[document.getElementById("selDiscipline").selectedIndex].value;
@@ -616,6 +631,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Show Grouping dropdown if necessary
 		if (currentDiscipline.indexOf("N") > -1 || currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
 			document.getElementById("divGrouping").style = "display:block";
+			if (currentDiscipline.indexOf("N") > -1) {
+				document.getElementById("selGrouping").style = "display:none";
+			}
 		//	if (currentDiscipline.indexOf("C") > -1) {
 	//			document.getElementById('selGrouping').selectedIndex = 1;
 	//		}
@@ -624,9 +642,29 @@ font-family: 'Nothing You Could Do', cursive; -->
 			document.getElementById("divGrouping").style = "display:none";
 		}
 
+		//Get colour if necessary
+		selectHiColour("red");
+
 		//Show complex grouping dropdown if necessary; get and apply separations
 		if (currentDiscipline.indexOf("N") > -1) {
 			document.getElementById("divComplexGrouping").style = "display:block";
+
+		if (localStorage.getItem("miniGroupings") != "" && localStorage.getItem("miniGroupings") != null && localStorage.getItem("miniGroupings").length > 0) {			
+				miniGroupings = JSON.parse(localStorage.getItem("miniGroupings"));
+				document.getElementById("inpMiniGroupings").value  = miniGroupings.reduce((acc, val, idx) => {
+				if (idx === 0) {
+				acc = val.toString() + '-';
+				} 
+				if (idx <= miniGroupings.length - 2 ) {
+				return acc + (miniGroupings[idx + 1]).toString() + '-';    
+				} else {
+				return acc.slice(0, acc.length-1);
+				}
+			}, '');
+			} else {
+				miniGroupings = [3];
+				document.getElementById("inpMiniGroupings").value  = "3";
+			}
 
 			if (localStorage.getItem("separations") != "" && localStorage.getItem("separations") != null) {			
 				arr = JSON.parse(localStorage.getItem("separations"));
@@ -767,7 +805,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		updatePreview();
 
 		//changeSkin();
-		changeSelHColour();
+	//	changeSelHColour();
 
 
 		//Show highlighter colour if necessary ***
@@ -834,11 +872,11 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	function startMemoCountdown(test = false) {
 
-		if (test) {
-			$( function() {				
-    			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'}).fadeOut(3000);
-  			} );
-		}
+	//	if (test) {
+		//	$( function() {				
+    //			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'}).fadeOut(3000);
+  //			} );
+	//	}
 		document.getElementById("logoRow").style = "display:none";
 		document.getElementById("topMargin").style = "display:block";
 		document.getElementById("btnBackToSelection2").style = "display:none";
@@ -846,7 +884,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//delete previous set of recall data, delete recall and score content div
 		localStorage.setItem("chosen", "[]");
 		document.getElementById("scoreContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsScoreContentDiv").innerHTML = "";
 		document.getElementById("recallContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
 
 		//get amount
 		if (currentDiscipline == "10C" || currentDiscipline == "60C" || currentDiscipline == "30C") {
@@ -860,9 +900,13 @@ font-family: 'Nothing You Could Do', cursive; -->
 		}
 
 		//Get grouping
-		if (currentDiscipline.indexOf("N") > -1 || currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
+		if (currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
 			grouping = resuming ? Number(localStorage.getItem("grouping")) : Number(document.getElementById("selGrouping").options[document.getElementById("selGrouping").selectedIndex].value);
 		}
+
+if (currentDiscipline.indexOf("N") > -1) {
+//	miniGroupings = resuming ? JSON.parse(localStorage.getItem("miniGroupings")) : miniGroupings;
+}
 
 		//Get grouping
 		if (currentDiscipline.indexOf("B") > -1) {
@@ -870,9 +914,10 @@ font-family: 'Nothing You Could Do', cursive; -->
 			groupingW = resuming ? Number(localStorage.getItem("groupingW")) : Number(document.getElementById("selBinGroupingW").options[document.getElementById("selBinGroupingW").selectedIndex].value);
 		}
 
-		//Get highlighter colour
+		//Get highlighter colour (is this needed?)
 		if (currentDiscipline.indexOf("B") > -1 || currentDiscipline.indexOf("N") > -1) {
-			hiColour = resuming ? localStorage.getItem("hiColour") : document.getElementById("selHColour").options[document.getElementById("selHColour").selectedIndex].value;
+		//	hiColour = resuming ? localStorage.getItem("hiColour") : document.getElementById("selHColour").options[document.getElementById("selHColour").selectedIndex].value;
+		hiColour = resuming ? localStorage.getItem("hiColour") : hiColour;
 
 			//change css variable
 			document.body.style.setProperty("--highlightColor", this[hiColour]);
@@ -1044,7 +1089,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 					previewString += "<td id='preview" + i + "' class='separation " + skin + "numbersMemo'>" + i % 10 + "</td>";
 				} else {
 					previewString += "<td id='preview" + i + "' class='" + skin + "numbersMemo'>" + i % 10 + "</td>";
-				} 
+				}
 			}
 
 			//add selected one
@@ -1085,9 +1130,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 			for (i = 1; i <= locusSize; i++) {
 				if (separations.length > 0 && (separations.indexOf(i) > -1 || i == locusSize)) {
-					previewString += "<td id='preview" + (i + locusSize) + "' class='separation " + skin + "numbersMemo'>" + i % 10 + "</td>";
+					previewString += "<td id='preview" + (parseFloat(i) + parseFloat(locusSize)) + "' class='separation " + skin + "numbersMemo'>" + i % 10 + "</td>";
 				} else {
-					previewString += "<td id='preview" + (i + locusSize) + "' class='" + skin + "numbersMemo'>" + i % 10 + "</td>";
+					previewString += "<td id='preview" + (parseFloat(i) + parseFloat(locusSize)) + "' class='" + skin + "numbersMemo'>" + i % 10 + "</td>";
 				}
 
 			}
@@ -1249,6 +1294,9 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 			cardSet = Number(document.getElementById("selCardSet").options[document.getElementById("selCardSet").selectedIndex].value);
 			localStorage.setItem("cardSet", cardSet);
+
+			document.getElementById("cardAttribution").innerHTML = cardAttributions[cardSet-1];
+
 			previewString = "<div style='height:220px;position:relative;left:-" + (114.37 + (grouping - 1) * 22) / 2 + "'><img id='cardOne' src='Card images " + cardSet + "/c13.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig'  style='left:50%;margin:0 0 0 " + 0 + "px'>";
 			for (var i = 1; i < grouping; i++) {
 				offset = i * cardOffsetBig;
@@ -1356,7 +1404,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 			preloadImages(true);
 		}
 		if (currentDiscipline.indexOf("C") > -1) {
-			preloadCardImages();
+			preloadCardImages(true);
 		}
 		startMemoCountdown(true);
 	}
@@ -1528,7 +1576,8 @@ font-family: 'Nothing You Could Do', cursive; -->
                     document.getElementById("btnStartMemoCountdown").classList.add("glowButton");
 					preloaded = true;
 				} else {
-					startMemoCountdown();
+				
+					if (!test) startMemoCountdown();
 				}
 			}
 		};
@@ -1543,6 +1592,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 						document.getElementById("btnStartMemoCountdown").removeAttribute("disabled");
                         document.getElementById("btnStartMemoCountdown").classList.add("glowButton");
 					} else {
+						
 						if (!test) startMemoCountdown();
 					}
 				}
@@ -1599,9 +1649,13 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//set ended to false
 		ended = false;
 
+
 		if (miniGroupings.length == 0) {
+			locusSize = grouping;
 			miniGroupings.push(locusSize);
 			localStorage.setItem("miniGroupings", JSON.stringify(miniGroupings));
+		} else {
+			locusSize = miniGroupings.reduce((acc, val) => Number(acc) + Number(val));
 		}
 
 		//create the arrays of minigroup and locus starting points
@@ -1681,7 +1735,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		numberMemoString += "</div><br />";
 		//removed memo finish buttons
-		// numberMemoString += "</div><br /><button class='btn stamp finishBtn' onclick='finishMemo();'>Finish</button>";
+		// numberMemoString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
 		document.getElementById("memoContentDiv").innerHTML = numberMemoString;
 
 		//add separations
@@ -1743,7 +1797,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 				}
 			})();
 		} else {
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 		}
 
 		document.onkeydown = function (e) {
@@ -2188,7 +2242,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		binaryMemoString += "</div><br />";
 		//removed finish button
-		// binaryMemoString += "</div><br /><button class='btn stamp finishBtn' onclick='finishMemo();'>Finish</button>";
+		// binaryMemoString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
 		document.getElementById("memoContentDiv").innerHTML = binaryMemoString;
 
 		//add separations
@@ -2252,7 +2306,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 				}
 			})();
 		} else {			
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 		}
 
 		document.onkeydown = function (e) {
@@ -2635,13 +2689,14 @@ font-family: 'Nothing You Could Do', cursive; -->
 	function startCardMemo(test) {
 		//card table if using analogue skin
 		if (skin.indexOf("analogue") > -1) {
+			$("#memoBox").addClass("analogue1boxGreen");
+			$("#memoBox").removeClass("analogue1boxA");
+		/*
 			$("#memoBox").addClass("cardTable");
 			$(".disciplineTitleMemo").addClass("textCardTable");
 			$(".disciplineTitleMemo").removeClass("textNonCards");
-			//$(".spanShift").addClass("textCardTable");
-			//$(".spanShift").removeClass("textNonCards");
 			$(".digital1RecallTimeOuter").addClass("textCardTable");
-			$(".digital1RecallTimeOuter").removeClass("textNonCards");
+			$(".digital1RecallTimeOuter").removeClass("textNonCards");*/
 		}
 
 	if (resuming) {
@@ -2708,9 +2763,13 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		}
 
-		document.getElementById("memoContentDiv").innerHTML = cardsMemoString
+		if (skin.indexOf("analogue")>-1) {
+			document.getElementById("analogueCardsMemoContentDiv").innerHTML = cardsMemoString
+		} else {
+			document.getElementById("memoContentDiv").innerHTML = cardsMemoString
+		}
 		//***USE THIS INSTEAD FOR FINISH BUTTON***
-		//document.getElementById("memoContentDiv").innerHTML = cardsMemoString + "<br /><button class='btn stamp finishBtn' onclick='finishMemo();'>Finish</button>";
+		//document.getElementById("memoContentDiv").innerHTML = cardsMemoString + "<br /><button class='btn btn-primary finishBtn' onclick='finishMemo();'>Finish</button>";
 
 
 
@@ -2808,7 +2867,16 @@ font-family: 'Nothing You Could Do', cursive; -->
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
 
-					finishMemo();
+					//Clear display
+					document.getElementById("memoRow").style.display = "none";
+
+					memoTimeTaken = memoTime;
+
+					//set ended to true
+					ended = true;
+					localStorage.setItem("phase", "recall");
+					localStorage.setItem(timeElapsed, "0");
+					startRecallCountdown();
 				}
 				//Otherwise repeat this function
 				else {
@@ -2818,7 +2886,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 				}
 			})();
 		} else {
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 		}
 
 		document.onkeydown = function (e) {
@@ -3131,7 +3199,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 				}
 			})();
 		} else {
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 		}
 
 		document.onkeydown = function (e) {
@@ -3389,7 +3457,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 				}
 			})();
 		} else {
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 		/*	$('#overlayDiv').html('<span id="alert">Press Enter to exit test</span>');
 			$("#overlayDiv").css("zIndex",2);
 			$('#alert').fadeOut(2500, "linear", ()=>$("#overlayDiv").css("zIndex",-2));*/
@@ -3588,7 +3656,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 				}
 			})();
 		} else {
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 		}
 
 		document.onkeydown = function (e) {
@@ -3646,7 +3714,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		else {// code for IE6, IE5
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET", "Training data/dates.xml", false);
+		xmlhttp.open("GET", "Training data/dates-training.xml", false);
 		xmlhttp.send();
 		fobDatesDoc = xmlhttp.responseXML;
 
@@ -4063,7 +4131,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn stamp finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -4419,7 +4487,7 @@ faceImg.setAttribute("src", nameList[thisIndex].imageURL);
 				}
 			})();
 		} else {
-			r.textContent = "";
+			r.textContent = "Press Enter to exit";
 	//		$('#overlayDiv').html('<span id="alert">Press Enter to exit test</span>');
 //			$('#alert').fadeOut(2500, "linear");
 		}
@@ -5271,7 +5339,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn stamp finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -5709,7 +5777,7 @@ function assignFaceImages() {
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn stamp finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -6203,11 +6271,11 @@ function assignFaceImages() {
 
 
 		//***FINISH BUTTON kEpT fOr ReCall
-		//numberRecallString += "</div><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button>";
+		//numberRecallString += "</div><br /><button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button>";
 		document.getElementById("recallContentDiv").innerHTML = numberRecallString;
 
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn stamp finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -7322,7 +7390,7 @@ function assignFaceImages() {
 
 		//kept finish button for recall
 		//binaryRecallString += "</div><br />";
-		binaryRecallString += "</div><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button>";
+		binaryRecallString += "</div><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button>";
 		document.getElementById("recallContentDiv").innerHTML = binaryRecallString;
 
 		//add intra-group separations
@@ -7895,7 +7963,7 @@ function assignFaceImages() {
 				}
 
 			}
-			imagesRecallString += "</table><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button></div>";
+			imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button></div>";
 			//	imagesRecallString += "</table><br /></div>";
 		}
 
@@ -7908,10 +7976,10 @@ function assignFaceImages() {
 		var node = document.createTextNode("Finish");
 		btn.appendChild(node);
 		btn.classList.add("btn");
-		btn.classList.add("stamp");
+		btn.classList.add("btn-primary");
 		btn.classList.add("finishBtn");*/
 		//btn.onclick = finishRecall;
-		//"<button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button>"
+		//"<button class='btn btn-primary finishBtn' onclick='finishRecall();'>Finish</button>"
 
 		document.getElementById("recallContentDiv").innerHTML = imagesRecallString;
 		//document.getElementsByClassName("bottom-right-timer")[1].insertBefore(btn,document.getElementById(skin + "RecallTimeOuter"));
@@ -8111,6 +8179,7 @@ function assignFaceImages() {
 	function displayScore() {
 		ended = true;
 		document.getElementById("scoreContentDiv").innerHTML = "";
+		document.getElementById("analogueCardsScoreContentDiv").innerHTML = "";
 		//Display score section only
 		document.getElementById("selectionRow").style = "display:none";	//added in case we are resuming and go straight from selection to score
 		document.getElementById("countdownRow").style = "display:none";
@@ -8121,7 +8190,7 @@ function assignFaceImages() {
 
 		document.getElementById("logoRow").style = "display:none";
 		document.getElementById("topMargin").style = "display:block";
-		document.getElementById("btnBackToSelection2").style = "display:block";
+		document.getElementById("btnBackToSelection2").style = "display:inline";
 
 		//Display relevant score screen depending on discipline
 		switch (currentDiscipline) {
@@ -8393,20 +8462,24 @@ function assignFaceImages() {
 				}
 			}
 		}
+		
 
 		//go through from row 0 to last row
+		var rowLength = 0;
+
 		for (var i = 0; i <= lastRow; i++) {
 			var incorrectThisRow = 0;
 
 			//calculate row length
 			if (i == lastRow) {
 				//go through row and see how many in row
-				for (var j = 0; j < numbersPerRow; j++) {
-					if (chosenAnswers[numbersPerRow * i + j].length == 0) {
-						rowLength = j;
-						j = numbersPerRow;
+				for (var j = numbersPerRow-1; j >=0; j--) {
+					if (chosenAnswers[numbersPerRow * i + j].length !== 0) {
+						rowLength = j + 1;
+						j = -1;
 					}
 				}
+			
 			}
 			else {
 				rowLength = numbersPerRow;
@@ -8414,7 +8487,7 @@ function assignFaceImages() {
 
 			//go through row and see how many incorrect
 			for (var j = 0; j < rowLength; j++) {
-				if (chosenAnswers[numbersPerRow * i + j] != numberList[numbersPerRow * i + j]) {
+				if (chosenAnswers[numbersPerRow * i + j] !== numberList[numbersPerRow * i + j]) {
 					incorrectThisRow++;
 				}
 				if (incorrectThisRow == 2) {
@@ -8807,6 +8880,7 @@ function assignFaceImages() {
 			}
 		}
 
+
 		//go through from row 0 to last row
 		for (i = 0; i <= lastRow; i++) {
 			var incorrectThisRow = 0;
@@ -8814,12 +8888,14 @@ function assignFaceImages() {
 			//calculate row length
 			if (i == lastRow) {
 				//go through row and see how many in row
-				for (j = 0; j < binaryPerRow; j++) {
-					if (chosenAnswers[binaryPerRow * i + j].length == 0) {
-						rowLength = j;
-						j = binaryPerRow;
+				for (j = binaryPerRow-1; j >=0; j--) {
+					if (chosenAnswers[binaryPerRow * i + j].length !== 0) {
+						rowLength = j+1;
+						j = -1;
 					}
 				}
+
+				console.log("rowLength:" + rowLength);
 			}
 			else {
 				rowLength = binaryPerRow;
@@ -8827,7 +8903,7 @@ function assignFaceImages() {
 
 			//go through row and see how many incorrect
 			for (j = 0; j < rowLength; j++) {
-				if (chosenAnswers[binaryPerRow * i + j] != binaryList[binaryPerRow * i + j]) {
+				if (chosenAnswers[binaryPerRow * i + j] !== binaryList[binaryPerRow * i + j]) {
 					incorrectThisRow++;
 				}
 				if (incorrectThisRow == 2) {
@@ -8835,7 +8911,7 @@ function assignFaceImages() {
 					j = rowLength;
 				}
 			}
-
+			if (i == lastRow) console.log("incorrect this row: " + incorrectThisRow);
 
 			if (incorrectThisRow == 1) {
 				//special case - if only one digit and it's wrong then score 0
@@ -8899,6 +8975,9 @@ function assignFaceImages() {
 
 	function startCardRecall() {
 		if (skin.indexOf("analogue") > -1) {
+			$("#recallBox").addClass("analogue1boxGreen");
+			$("#recallBox").removeClass("analogue1boxB");
+			/*
 			$("#recallBox").addClass("cardTable");
 			$("#scoreBox").addClass("cardTable");
 			$(".bottom-right-timer").addClass("textCardTable");
@@ -8907,9 +8986,9 @@ function assignFaceImages() {
 			$("#spanOuterScore").addClass("cardTable");
 			$("#spanScore").addClass("cardTable");
 			$("#spanCorrect").addClass("cardTable");
-			$("#cardsMemoTime").css("color", "white");
+			$("#cardsMemoTime").css("color", "white");*/
 		} else {
-			$("#cardsMemoTime").css("color", "black");
+		//	$("#cardsMemoTime").css("color", "black");
 		}
 
 		ended = false;
@@ -9036,14 +9115,19 @@ function assignFaceImages() {
 			cardPage.appendChild(cardContainer1);
 			cardPage.appendChild(cardContainer2);
 			cardPage.appendChild(boneyardDiv);
-			document.getElementById("recallContentDiv").appendChild(cardPage);
+
+			if (skin.indexOf("analogue")>-1) {
+				document.getElementById("analogueCardsRecallContentDiv").appendChild(cardPage);
+			} else {
+				document.getElementById("recallContentDiv").appendChild(cardPage);
+			}
 		}
 		//end of each page
 
 
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
-		button.setAttribute("class", "btn stamp finishBtn");
+		button.setAttribute("class", "btnDigital finishBtn");
 		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
@@ -9442,6 +9526,11 @@ function assignFaceImages() {
 
 	function displayCardScore() {
 
+		if (skin.indexOf("analogue") > -1) {
+			$("#scoreBox").addClass("analogue1boxGreen");
+			$("#scoreBox").removeClass("analogue1boxB");
+		}
+
 		displayed = false;
 		if (resuming) {
 			cardList = JSON.parse(localStorage.getItem("correctAnswers"));
@@ -9449,6 +9538,11 @@ function assignFaceImages() {
 			memoTimeTaken = localStorage.getItem("memoTimeTaken");
 
 			if (skin.indexOf("analogue") > -1) {
+				$("#recallBox").addClass("analogue1boxGreen");
+			
+				$("#recallBox").removeClass("analogue1boxB");
+			
+				/*
 				$("#recallBox").addClass("cardTable");
 				$("#scoreBox").addClass("cardTable");
 				$(".bottom-right-timer").addClass("textCardTable");
@@ -9458,9 +9552,9 @@ function assignFaceImages() {
 				$("#spanOuterScore").addClass("cardTable");
 				$("#spanScore").addClass("cardTable");
 				$("#spanCorrect").addClass("cardTable");
-				$("#cardsMemoTime").css("color", "white");
+				$("#cardsMemoTime").css("color", "white");*/
 			} else {
-				$("#cardsMemoTime").css("color", "black");
+				//$("#cardsMemoTime").css("color", "black");
 			}
 
 		} else {
@@ -9563,13 +9657,19 @@ function assignFaceImages() {
 				cardPage.appendChild(cardContainer2);
 				cardPage.appendChild(boneyardDiv);
 
-				document.getElementById("scoreContentDiv").appendChild(cardPage);
-
+				if (skin.indexOf("analogue")>-1) {
+					document.getElementById("analogue1CardsScoreContentDiv").appendChild(cardPage);
+				} else {
+					document.getElementById("scoreContentDiv").appendChild(cardPage);
+				}
 
 			}
 
+			if (skin.indexOf("analogue")>-1) {
+				document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
+			} else {
 			document.getElementById("recallContentDiv").innerHTML = "";
-
+			}
 			//fan cards out
 
 			for (var deck = 0; deck < amount; deck++) {
@@ -9701,8 +9801,14 @@ function assignFaceImages() {
 		document.getElementById("spanCorrect").innerHTML = "&nbsp;&nbsp;(" + deckScore.reduce(function (acc, val) { return acc + val; }) + " correct)";
 
 		if (!resuming) {
-			document.getElementById("scoreContentDiv").innerHTML = document.getElementById("recallContentDiv").innerHTML;
-			document.getElementById("recallContentDiv").innerHTML = "";
+			if (skin.indexOf("analogue")>-1) {
+				document.getElementById("analogueCardsScoreContentDiv").innerHTML = document.getElementById("analogueCardsRecallContentDiv").innerHTML;					
+				document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
+		
+			} else {
+				document.getElementById("scoreContentDiv").innerHTML = document.getElementById("recallContentDiv").innerHTML;					
+				document.getElementById("recallContentDiv").innerHTML = "";
+			}
 		} else {
 
 			restoreCardsData();
@@ -9827,7 +9933,7 @@ function assignFaceImages() {
 			for (var g = 0; g < grouping; g++) {
 				var chosenAnswer = chosenAnswers[firstOfGroup + g];
 
-				if (chosenAnswer != numberList[firstOfGroup + g] || chosenAnswer.length == 0) {
+				if (chosenAnswer !== numberList[firstOfGroup + g] || chosenAnswer.length == 0) {
 					document.getElementById("inpRecall" + (firstOfGroup + g)).classList.add(skin + "corrected");
 					document.getElementById("inpRecall" + (firstOfGroup + g)).classList.remove(skin + "incorrect");
 					document.getElementById("inpRecall" + (firstOfGroup + g)).value = numberList[firstOfGroup + g];
@@ -9846,7 +9952,7 @@ function assignFaceImages() {
 			for (var g = 0; g < positions.length; g++) {
 				var chosenAnswer = chosenAnswers[positions[g]];
 
-				if (chosenAnswer != binaryList[positions[g]] || chosenAnswer.length == 0) {
+				if (chosenAnswer !== binaryList[positions[g]] || chosenAnswer.length == 0) {
 					document.getElementById("inpRecall" + (positions[g])).classList.add(skin + "corrected");
 					document.getElementById("inpRecall" + (positions[g])).classList.remove(skin + "incorrect");
 					document.getElementById("inpRecall" + (positions[g])).value = binaryList[positions[g]];
@@ -10843,7 +10949,7 @@ function assignFaceImages() {
 					}
 
 				}
-				imagesRecallString += "</table><br /><button class='btn stamp finishBtn' onclick='finishRecall();'>Finish</button></div>";
+				imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button></div>";
 				//	imagesRecallString += "</table><br /></div>";
 			}
 
@@ -11113,6 +11219,20 @@ function assignFaceImages() {
 	}
 
 
+	function selectHiColour(colour) {		
+		hiColour = colour;
+		localStorage.setItem("hiColour", hiColour);
+		var items = document.getElementsByClassName("highlighterListItem");
+		for(var i = 0; i < items.length; i++) {
+			items[i].classList.remove("highlighterListItemSelected");
+		}
+		document.getElementById(colour).classList.add("highlighterListItemSelected");
+
+		document.body.style.setProperty("--highlightColor", this[hiColour]);
+		updatePreview();
+	}
+
+/*
 	function changeSelHColour() {
 		hiColour = document.getElementById("selHColour").options[document.getElementById("selHColour").selectedIndex].value;
 		localStorage.setItem("hiColour", hiColour);
@@ -11124,7 +11244,7 @@ function assignFaceImages() {
 		updatePreview();
 
 
-	}
+	}*/
 
 	function isAnalogue() {
 		return skin.indexOf('analogue') > -1;
@@ -11244,6 +11364,8 @@ function assignFaceImages() {
 
 		//get grouping
 		grouping = Number(localStorage.getItem("grouping"));
+		if (currentDiscipline.indexOf("N")>-1) miniGroupings = JSON.parse(localStorage.getItem("miniGroupings"));
+		if (!Array.isArray(miniGroupings)) miniGroupings = [miniGroupings];
 		groupingH = Number(localStorage.getItem("groupingH"));
 		groupingW = Number(localStorage.getItem("groupingW"));
 		cardSet = localStorage.getItem("cardSet");
@@ -11302,6 +11424,9 @@ function assignFaceImages() {
 			} else {
 				miniGroupings = document.getElementById("inpMiniGroupings").value.split("-");
 				localStorage.setItem("miniGroupings", JSON.stringify(miniGroupings));
+				//add grouping for now otherwise it breaks
+				grouping = miniGroupings[0];
+			//	localStorage.setItem("miniGroupings", [grouping]);
 			}
 		}
 		//	document.getElementById("inpImgsPerLocus").value = "";	
@@ -11317,9 +11442,15 @@ function assignFaceImages() {
 				return r;
 			}, []);
 			//recurring
+
+			if (miniGroupings.length == 0) {
+				miniGroupings = [3];
+				document.getElementById("inpMiniGroupings").value = "3";
+			}
+			locusSize = miniGroupings.reduce((acc, val) => Number(acc) + Number(val));
 			if (separations.length ==1) {
 				cur = separations[0];
-				while (cur + separations[0] < grouping) {
+				while (cur + separations[0] < locusSize) {
 					separations.push(cur+separations[0]);
 					cur += separations[0];
 				}
@@ -11509,12 +11640,12 @@ return iCaretPos;
 
 <!--Logo row-->
 <div class="row" id="logoRow" style="display:block">
-<div class="col-md-3"><br /><button id="btnBackToSelection" style="display:none" class="btn stamp" onclick="goToSelection();">Back to discipline selection</button></div>
+<div class="col-md-3"><br /><button id="btnBackToSelection" style="display:none" class="btnDigital" onclick="goToSelection();">Back to discipline selection</button></div>
 <div class="col-md-6 text-center"><br /><img src="IAM-main-Logo-transparent-bg-for-web.png" height=50><br /><br /><br /></div>
 <div class="col-md-3"></div>
 </div>
 
-<div class="row" id="topMargin" style="display:none"><div class="col-md-3"><br /><button id="btnBackToSelection2" class="btn stamp" onclick="goToSelection();">Back to discipline selection</button></div>
+<div class="row" id="topMargin" style="display:none"><div class="col-md-3"></div>
 <div class="col-md-6 text-center"></div>
 <div class="col-md-3"></div>
 </div>
@@ -11523,14 +11654,14 @@ return iCaretPos;
 <div class="row" id="selectionRow" style="display:block">
 <div class="col-md-2"></div>
 <div class="col-md-8 jumbotron selection text-center">
-<h4>Select a competition format from the list below.</h4>
+<h4>Select a competition format:</h4>
   <select id="selFormat" onChange="changeDisciplines();">
 <option value="N">National standard</option>
 <option value="I">International standard</option>
 <option value="W">World championship standard</option>
 </select>
 <br /><br />
-<h4>Select a discipline from the list below.</h4>
+<h4>Select a discipline:</h4>
   <select id="selDiscipline">
 <option value="5N">5-minute Numbers</option>
 <option value="15N">15-minute Numbers</option>
@@ -11562,13 +11693,20 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 </div>
 </div>
 
-<br /><button id="btnGo" class="btn stamp" disabled onclick="goToSettings();">Loading images... Please wait</button>
-<br /><br /><button id="btnResume" class="btn stamp" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
+<br /><button id="btnGo" class="btnDigital" disabled onclick="goToSettings();">Loading images... Please wait</button>
+<br /><br /><button id="btnResume" class="btnDigital" style="visibility:hidden" onclick="resumeAttempt();">Resume previous attempt</button>
+
+<br /><br /><div style="font-size:smaller;">
+		Please note: To ensure that you can resume memorisation and recall at any point, this website makes use of localStorage. If you have localStorage enabled, a small amount of data relating to your memorisation is stored in your browser.
+		
+		</div>
+		
 
 </div>
 
 
 <div class="col-md-2"></div>
+
 </div>
 
 <!--Settings container row-->
@@ -11576,13 +11714,16 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 <div class="col-md-1"></div>
 <div id="settingsBox" class="col-md-10 jumbotron settings text-center">
 		<div class="paperContent">
+<br />
+			<button id="btnBackToSelection2" class="btnDigital" onclick="goToSelection();">Back</button>
 <h3 class="disciplineTitle"></h3>
+<br />
 <br />
 <span style="border:1px dotted;padding:4px;"><b>Important:</b> <span style="font-weight:normal">please press <span class="keybutton">F11</span> (Windows) or <span class="keycombo">&Hat; + &#8984; + F (Control+Cmd+F)</span> (Mac) for full screen</span></span>
 <div id="divGrouping">
 <br />Grouping:     <select id="selGrouping" onchange="resetMiniGroupings();resetSeparations();updatePreview();">
 <option value="1">1</option>
-<option value="2">2</option> 
+<option value="2">2</option>
 <option value="3" selected>3</option>
 <option value="4">4</option>
 <option value="5">5</option>
@@ -11592,11 +11733,11 @@ Skin:     <select id="selSkin"><option value="analogue1" style="background-image
 </select>
 <div id="divComplexGrouping">
 <br />
-<!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn stamp" onclick="applyImgsPerLocus();">Apply</button>
+<!--Images per locus: <input size=1 value="1" id="inpImgsPerLocus" type="text">&nbsp;<button class="btn btn-primary" onclick="applyImgsPerLocus();">Apply</button>
 <br /><br />-->
-Or specify a more complex grouping, e.g. 3-2 or 3-2-3: <input size=8 id="inpMiniGroupings" type="text">&nbsp;<button class="btn stamp" onclick="applyMiniGroupings();">Apply</button>
+Specify grouping for navigation purposes (e.g. 3 or 3-2-3): <input size=5 id="inpMiniGroupings" onkeyup="applyMiniGroupings()" type="text" style="text-align:center">&nbsp;<!--<button class="btn btn-primary" onclick="applyMiniGroupings();">Apply</button>-->
 <br /><br />
-Specify line separation, e.g. 3 for a line every 3 digits, or 3-2-3: <input id="inpSeparation" type="text">&nbsp;<button class="btn stamp" onclick="applySeparation();">Apply</button>
+Draw lines every <input size=3 id="inpSeparation" onkeyup="applySeparation()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparation();">Apply</button>-->
 </div>
 </div>
 <div id="divBinGrouping">
@@ -11627,27 +11768,48 @@ Height:     <select id="selBinGroupingH" onchange="resetSeparations();updatePrev
 <option value="9">9</option>
 <option value="10">10</option>
 </select>
- (select 1 if not using matrices)
+ (select 1 for Height if not using matrices)
 
  <br /><br />
-Specify line separation, e.g. 4-3-3: <input id="inpSeparationBin" type="text">&nbsp;<button class="btn stamp" onclick="applySeparationBin();">Apply</button>
+Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>-->
 </span></div>
+<div id="divPreview">
+	<br />
+<h4>Preview</h4>
+<div id="preview" class="centred text-center" style="width:100%;">
+
+<img src='Card images 1/c13.png'>
+
+</div>
+<br />
+<br />
 
 <div id="divHighlightColour">
-	<br />
-Highlight colour:     
-
-<select id="selHColour"  onchange="changeSelHColour()" > <!--style="background-color:#b3ff66"-->
+	<!-- <br /> -->
+	<!--
+Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > 
 <option value="red" style="background-color:#ff8080">red</option>
 <option value="orange" style="background-color:#ffa366">orange</option>
 <option value="yellow" style="background-color:#ffff80">yellow</option>
 <option value="green" style="background-color:#b3ff66">green</option>
 <option value="sky"  style="background-color:#80bfff" selected>blue</option>
 <option value="purple"  style="background-color:#df9fbf">purple</option>
-<!--<option value="rgba(238,170,238,0.5)"  style="background-color:#eeaaee">&nbsp;&nbsp;</option>-->
 </select>
-</div>
+-->
 
+
+<div class="flexContainer" id="HColorList">
+		<div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="red" style="background-color:#ff8080"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="orange" style="background-color:#ffa366"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
+	  </div>
+</div>
+<br />
+<br />	
 <div id="divDatesLanguages">
 	<br />
 	Language:     <select id="selDatesLanguage" onchange="resetPreload();">
@@ -11682,8 +11844,8 @@ Highlight colour:
 		Card set:     <select id="selCardSet"  onchange="resetPreload();updatePreview();">
 			<option value="1">Standard</option>
 			<option value="2">French (VDR)</option>
-			<option value="3">French (BDK)</option>		
-			<option value="4">Worn</option>			
+		<!--	<option value="3">French (BDK)</option>		-->
+			<option value="3">Worn</option>			
 		</select>
 		</div>
 		<div id="divDirection" style="flex:1">
@@ -11692,22 +11854,16 @@ Highlight colour:
 
 </div>
 
-<div id="divPreview">
-	<br />
-<h4>Preview</h4>
-<div id="preview" class="centred text-center" style="width:100%;">
 
-<img src='Card images 1/c13.png'>
-
-</div>
+<div id="cardAttribution"></div>
 </div>
 
 <div id="divInstructions" class="centred text-center">
 	</div>
 <div class="flexParent settingsButtons">
-    <div class="flexChild"><button class="btn stamp" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
-    <div class="flexChild"><button class="btn stamp glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
-    <div class="flexChild"><button class="btn stamp" id="btnTest" onclick="testPage();">Test page</button></div>
+    <div class="flexChild"><button class="btnDigital" id="btnPreload" onclick="preloadData();this.setAttribute('disabled','')">Preload data</button></div>    
+    <div class="flexChild"><button class="btnDigital glowButton" id="btnStartMemoCountdown" onclick="handleStartClick()">Start</button></div>
+    <div class="flexChild"><button class="btnDigital" id="btnTest" onclick="testPage();">Test page</button></div>
 </div>
 </div>
 <div class="col-md-1"></div>
@@ -11757,7 +11913,7 @@ Highlight colour:
 
 <div id="wrapper">
 <div id="memoContentDiv" class="memoContent paperContent"></div>
-
+<div id="analogueCardsMemoContentDiv" class="memoContent"></div>
 <div id="overlayDiv" class="overlay"></div>
 
 </div>
@@ -11777,13 +11933,14 @@ Highlight colour:
 <!--  <div class="row topMargin"></div>-->
 <div class="col-md-1"></div>
 <div id="recallBox" class="col-md-10">
-		<div class="paperContent">
+	
   <table class="disciplineHeadingTable"><tr><td class="disciplineTitleMemo textNonCards"></td><td><span id="cardsMemoTime"></span></td><td id="digital1RecallTimeOuterTd"><span id="digital1RecallTimeOuter" style="display:none"><span>Recall time remaining: </span><span id="digital1RecallTimeInner"></span></span></td></tr></table>
   <div id="menuRecallDiv"></div>
 
 
-<div id="recallContentDiv" class="recallContent"></div>
-</div>
+<div id="recallContentDiv" class="recallContent paperContent"></div>
+<div id="analogueCardsRecallContentDiv" class="recallContent"></div>
+
 
 <div class="bottom-right-timer row">
 <br />
@@ -11806,6 +11963,7 @@ Highlight colour:
   <div id="menuScoreDiv"></div>
   
 <div id="scoreContentDiv" class="scoreContent"></div>
+<div id="analogueCardsScoreContentDiv" class="scoreContent"></div>
 </div>
 
 <div class="bottom-right-timer row">
