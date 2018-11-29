@@ -321,26 +321,16 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
   }
 
   .analogue1boxGreen {
-    /* background-image: url(feltGrid3.png);40D0Ee
-     */
-     /* background-image: url(45-degree-fabric-dark.png);
-     background-color: #40D0E0; 
-    background-size: 144px 144px; */
-
-    /* background-image: url(https://www.transparenttextures.com/patterns/tactile-noise-dark.png);
-    background-color: #00DB2B;
-    background-size: 64px 64px; */
-
-    background-image: url(https://www.transparenttextures.com/patterns/txture.png);
-    background-color: #00DB24;
-    background-size: 524px 524px;
+     background-image: url(felt2.png);
+     background-size: 159px 159px;
 
     background-repeat: repeat;
     color: white;
     padding: 20px;
-    box-shadow: -1px 0px 4px 200px rgba(0, 0, 0, 1);
-    -moz-box-shadow: -1px 0px 4px 200px rgba(0, 0, 0, 1);
-    -webkit-box-shadow: -1px 0px 4px 200px rgba(0, 0, 0, 1);
+
+    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, .45);
+    -moz-box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, .45);
+    -webkit-box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, .45);
 }
 
   .digital1boxA, .digital1boxB {
@@ -981,8 +971,13 @@ background-color:var(--highlightColor);
   border-color: rgba(0,0,0,.21);
   border-radius: 10px;
   position: absolute;
-  -webkit-box-shadow: 0.75px 1px 5.5px 0px rgba(0,0,0,.33);
-  box-shadow: 0.75px 1px 5.5px 0px rgba(0,0,0,.33);
+  /* -webkit-box-shadow: 0.75px 1px 5.5px 0px rgba(0,0,0,.33);
+  box-shadow: 0.75px 1px 5.5px 0px rgba(0,0,0,.33); */
+
+  -webkit-box-shadow: 1.2px 1px 6.5px 0px rgba(0,0,0,.36);
+  box-shadow: 1.2px 1px 6.5px 0px rgba(0,0,0,.36);
+
+
   z-index: 2;
 }
 
@@ -1014,7 +1009,7 @@ background-color:var(--highlightColor);
   border: 1px solid;
   border-color: rgba(0,0,0,.15);
   -webkit-box-shadow: 2px 2px 7px -2px rgba(0,0,0,0.2);
-  box-shadow: 2px 2px 7px -2px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 7px -2px rgba(0,0,0,0.2);
 }
 
 .digital1cardMemoFan {
@@ -1172,11 +1167,14 @@ transform:rotate(0deg);
 	transform-origin: center 750%;
 	  	
       position: absolute;
-  top:-80;
+  top:-80; 
   left: 10%;
   
-   -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
-  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);  
+   -webkit-box-shadow:0px 1px 2px 1px rgba(0,0,0,0.34);
+moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.34);
+   
+  box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.34);
+  
 }
 
 	
@@ -1207,6 +1205,11 @@ transform:rotate(0deg);
   box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
 }
 
+.analogue1 .cardRecall {
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
 .cardRecallSelected {
 	/border:solid yellow 3px;
 	border-radius:8px;	
@@ -1578,7 +1581,6 @@ font-family: 'Reenie Beanie', cursive;
   text-shadow:0px 0px 3px rgba(0,0,200,.45);
 }
 */
-
 .analogue1score {
   border: 1px solid #d3d3e3;
   /*height:50px;
@@ -1603,6 +1605,21 @@ font-family: 'Reenie Beanie', cursive;
   padding:0px;
   overflow:hidden;
 }
+/* 
+#hiddenDiv {
+  position: fixed; /* Sit on top of the page content */
+  display: block; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  background-image: radial-gradient(transparent 80%, black);
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0);
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+} */
 
 .digital1correct {
 
