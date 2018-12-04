@@ -11641,6 +11641,7 @@ return iCaretPos;
 </head>
 <body onLoad="goToSelection()" oncontextmenu="return false" onselectstart="return false" onkeydown="if ((arguments[0] || window.event).ctrlKey && (arguments[0] || window.event).keyCode == 86) return false">
 <!--<body onLoad="goToSelection()">-->
+		<div id="hiddenDiv">
 <div class="container-fluid full-height">
 
 <!--Logo row-->
@@ -11910,6 +11911,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 <!--<div class="row topMargin"></div>-->
 <div class="col-md-1"></div>
 <div id="memoBox" class="col-md-10 jumbotron">
+	<div id="hiddenTwo">
 	
   <table class="disciplineHeadingTable"><tr><td class="disciplineTitleMemo textNonCards"></td><!--<td><span id="digital1RecallTimeOuter" style="display:none"><span>Recall time remaining: </span></td>--><td id='digital1MemoTimeOuterTd'><span id='digital1MemoTimeOuter'><span>Memorisation time remaining: </span><span id="digital1MemoTimeInner"></span></span></td><td></td><td></td></tr></table>
   
@@ -11921,6 +11923,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 <div id="analogueCardsMemoContentDiv" class="memoContent"></div>
 <!-- <div id="overlayDiv" class="overlay"></div> -->
 
+</div>
 </div>
 
 <div class="bottom-right-timer row">
@@ -11980,10 +11983,11 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 </div>
 
 </div>
-<div id="hiddenDiv"></div>
+
 
 			<div id="dialog"  style="display:none" title="">
 				Press Enter to exit test.
+				  </div>
 				  </div>
 </body>
 </html>

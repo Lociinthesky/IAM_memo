@@ -285,8 +285,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 	var fontSizeNow = 0;
 	//var fontReenieBeanie = ['Reenie Beanie', 38, 42];
 	//var fontShadowsIntoLight = ['Shadows Into Light', 24, 26];
-	var fontReenieBeanie = ['Reenie Beanie', 31, 41];
-	var fontShadowsIntoLight = ['Reenie Beanie', 35, 42];
+	var fontReenieBeanie = ['Reenie Beanie', 34, 41];
+	var fontShadowsIntoLight = ['Reenie Beanie', 36, 42];
 	//var fontRockSalt = ['Rock Salt', 19, 21];
 
 	var datesLanguage;
@@ -464,7 +464,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Reset the number of images loaded - we need to load all the backgrounds before we go to the settings page
 		mainImagesLoaded = 0;
 		//**PAPER**
-		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'feltGrid2.png', 'hugeWoodPaperAMatch.jpg','hugeWoodPaperBMatch.jpg'];
+		var mainImageURLs = ['hugeWoodMatchPlanks2.png', 'IAMarble2.jpg', 'felt2.png', 'hugeWoodPaperAMatch.jpg'];
 
 		//Do the preloading if we 
 		if (mainImagesLoaded == 0) {
@@ -537,10 +537,10 @@ font-family: 'Nothing You Could Do', cursive; -->
 		if (skin.indexOf("analogue") > -1) {
 			$("#memoBox").addClass("analogue1boxA");
 			$("#memoBox").removeClass("analogue1boxGreen");
-				$("#recallBox").addClass("analogue1boxA");
+				$("#recallBox").addClass("analogue1boxB");
 			$("#recallBox").removeClass("analogue1boxGreen");
 
-				$("#scoreBox").addClass("analogue1boxA");
+				$("#scoreBox").addClass("analogue1boxB");
 			$("#scoreBox").removeClass("analogue1boxGreen");
 	
 /*
@@ -580,12 +580,28 @@ font-family: 'Nothing You Could Do', cursive; -->
 		document.getElementById("btnStartMemoCountdown").innerText = "Start";
         document.getElementById("btnStartMemoCountdown").classList.remove("glowButton");
 		document.getElementById("cardAttribution").innerHTML = "";
+
+
+
+
 		//Reset mark array
 		markArray = [];
 
 		//Get and change skin
 		skin = getSkin();
 		changeSkin();
+
+
+		//Get discipline
+		currentDiscipline = document.getElementById("selDiscipline").options[document.getElementById("selDiscipline").selectedIndex].value;
+		localStorage.setItem("discipline", currentDiscipline);
+
+		//green box for cards
+		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > 1) {
+			$("#settingsBox").addClass("analogue1boxGreen");
+			$("#settingsBox").removeClass("analogue1boxA");
+		} 
+
 
 		//remove logo row if skin is analogue
 	
@@ -594,16 +610,20 @@ font-family: 'Nothing You Could Do', cursive; -->
 			document.getElementById("topMargin").style = "display:block";
 			document.getElementById("btnBackToSelection2").style = "display:inline";
 		} else {
+			document.getElementById("logoRow").style = "display:block";
+			document.getElementById("topMargin").style = "display:none";
 			document.getElementById("btnBackToSelection2").style = "display:none";
+			
+			if (currentDiscipline.indexOf("C")>-1) {
+				document.getElementById("settingsBox").classList.remove(skin + "memoHeight");	
+			
+			}
+			
 		}
 
 		// clear content from test page if exists
 		document.getElementById("memoContentDiv").innerHTML = "";
 		document.getElementById("analogueCardsMemoContentDiv").innerHTML = "";
-
-		//Get discipline
-		currentDiscipline = document.getElementById("selDiscipline").options[document.getElementById("selDiscipline").selectedIndex].value;
-		localStorage.setItem("discipline", currentDiscipline);
 
 		//Display correct elements
 		document.getElementById("selectionRow").style = "display:none";
@@ -633,6 +653,8 @@ font-family: 'Nothing You Could Do', cursive; -->
 			document.getElementById("divGrouping").style = "display:block";
 			if (currentDiscipline.indexOf("N") > -1) {
 				document.getElementById("selGrouping").style = "display:none";
+			} else {
+				document.getElementById("selGrouping").style = "display:inline-block";
 			}
 		//	if (currentDiscipline.indexOf("C") > -1) {
 	//			document.getElementById('selGrouping').selectedIndex = 1;
@@ -814,7 +836,13 @@ font-family: 'Nothing You Could Do', cursive; -->
 		if (currentDiscipline.indexOf("C") > -1) {
 			if (currentDiscipline != "SC") {
 				document.getElementById("divDecks").style = "display:inline-block";
-				document.getElementById("inpDecks").value = lookupProperty(currentDiscipline, "amount");
+				if (document.getElementById("inpDecks").value == "") {
+					if (localStorage.getItem("decks") == "") {
+						document.getElementById("inpDecks").value = lookupProperty(currentDiscipline, "amount");
+					} else {
+						document.getElementById("inpDecks").value = localStorage.getItem("decks");
+					}
+				}
 			} else {
 
 				document.getElementById("divDecks").style = "display:none";
@@ -872,11 +900,12 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	function startMemoCountdown(test = false) {
 
-	//	if (test) {
-		//	$( function() {				
-    //			$( "#dialog" ).dialog({closeText:"",dialogClass: 'no-close'}).fadeOut(3000);
-  //			} );
-	//	}
+		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > 1) {
+			$("#countdownBox").addClass("analogue1boxGreen");
+			$("#countdownBox").removeClass("analogue1boxA");
+		} 
+
+
 		document.getElementById("logoRow").style = "display:none";
 		document.getElementById("topMargin").style = "display:block";
 		document.getElementById("btnBackToSelection2").style = "display:none";
@@ -890,9 +919,11 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 		//get amount
 		if (currentDiscipline == "10C" || currentDiscipline == "60C" || currentDiscipline == "30C") {
+			var maxAmount = lookupProperty(currentDiscipline, "amount");
 			amount = resuming ? localStorage.getItem("amount") : document.getElementById("inpDecks").value;
-			if (isNaN(Number(amount))) amount = 1;
+			if (isNaN(Number(amount)) || amount <= 0 || amount > maxAmount) amount = maxAmount;
 			localStorage.setItem("amount", amount);
+			localStorage.setItem("decks", amount);
 		}
 		else {
 			amount = resuming ? localStorage.getItem("amount") : lookupProperty(currentDiscipline, "amount");
@@ -902,6 +933,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		//Get grouping
 		if (currentDiscipline.indexOf("W") > -1 || currentDiscipline.indexOf("C") > -1) {
 			grouping = resuming ? Number(localStorage.getItem("grouping")) : Number(document.getElementById("selGrouping").options[document.getElementById("selGrouping").selectedIndex].value);
+			localStorage.setItem("grouping", grouping);
 		}
 
 if (currentDiscipline.indexOf("N") > -1) {
@@ -1398,15 +1430,58 @@ if (currentDiscipline.indexOf("N") > -1) {
 	}
 
 	function testPage() {
+		getSettings();
 
 		//if we are doing images or cards, need to load images
 		if (currentDiscipline.indexOf("I") > -1) {
 			preloadImages(true);
 		}
 		if (currentDiscipline.indexOf("C") > -1) {
+			
+
 			preloadCardImages(true);
 		}
 		startMemoCountdown(true);
+	}
+
+	function getSettings() {
+		switch (currentDiscipline) {
+			case "5N":
+			case "15N":
+			case "30N":
+			case "60N":
+				//get number settings
+				break;
+			case "5B":
+			case "30B":
+				//get binary settings
+				break;
+			case "10C":
+			case "30C":
+			case "60C":
+			//get long cards settings (grouping, decks, card set, direction)
+
+				break;
+
+			case "SC":
+			//get speed cards settings
+
+				break;
+			case "D":
+				//get dates settings
+				break;
+			case "5F":
+			case "15F":
+				//get names settings
+				break;
+			case "5W":
+			case "15W":
+			//get words settings
+				break;
+				
+			default:
+		//get images settings
+		}
 	}
 
 	/*
@@ -1777,17 +1852,8 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
-
-					//Clear display
-					document.getElementById("memoRow").style.display = "none";
-
 					memoTimeTaken = memoTime;
-
-					//set ended to true
-					ended = true;
-					localStorage.setItem("phase", "recall");
-					localStorage.setItem(timeElapsed, "0");
-					startRecallCountdown();
+					finishMemo();
 				}
 				//Otherwise repeat this function
 				else {
@@ -1803,7 +1869,8 @@ if (currentDiscipline.indexOf("N") > -1) {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended) {				
+			if (e.key == "Enter" && !ended) {	
+				if (!test) memoTimeTaken = Date.now() - memoStart;			
 				finishMemo(test);
 			}
 
@@ -2287,16 +2354,10 @@ if (currentDiscipline.indexOf("N") > -1) {
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
 
-					//Clear display
-					document.getElementById("memoRow").style.display = "none";
-
+			
 					memoTimeTaken = memoTime;
 
-					//set ended to true
-					ended = true;
-					localStorage.setItem("phase", "recall");
-					localStorage.setItem(timeElapsed, "0");
-					startRecallCountdown();
+					finishMemo();
 				}
 				//Otherwise repeat this function
 				else {
@@ -2312,6 +2373,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 		document.onkeydown = function (e) {
 			//If Enter is pressed
 			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
 				finishMemo(test);
 
 			}
@@ -2866,17 +2928,8 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
-
-					//Clear display
-					document.getElementById("memoRow").style.display = "none";
-
 					memoTimeTaken = memoTime;
-
-					//set ended to true
-					ended = true;
-					localStorage.setItem("phase", "recall");
-					localStorage.setItem(timeElapsed, "0");
-					startRecallCountdown();
+					finishMemo();
 				}
 				//Otherwise repeat this function
 				else {
@@ -2893,6 +2946,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
 			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
 				finishMemo(test);
 			}
 
@@ -2920,16 +2974,22 @@ if (currentDiscipline.indexOf("N") > -1) {
 			//if , is pressed, previous page
 			if (e.key == ',' && !ended) {
 
-				if (curPage > 0) moveFocusCardsMemo(52 * (curPage - 1));
+				if (curPage > 0) {
+					moveFocusCardsMemo(52 * (curPage - 1));
 				//if (curPage>0) displayPage(curPage-1);
+				  	doFlash();
+				}
 			}
 
 
 			//if . is pressed, next page
 			if (e.key == '.' && !ended) {
 
-				if (curPage < amount - 1) moveFocusCardsMemo(52 * (curPage + 1));
-
+				if (curPage < amount - 1) {
+					moveFocusCardsMemo(52 * (curPage + 1));
+					doFlash();
+				}
+				
 			}
 
 			//if up arrow is pressed, restart deck
@@ -2948,11 +3008,28 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 	}
 
+function doFlash() {
+	if (skin.indexOf("analogue")>-1) {
+		$('#memoBox').addClass('flash');
+    			setTimeout(function() {
+          		$('#memoBox').removeClass('flash');
+    			}, 500);
+	} else {
+	$('#memoBox').addClass('flash');
+    			setTimeout(function() {
+          		$('#memoBox').removeClass('flash');
+    			}, 500);
+	}
+}
+
 	function moveFocusCardsMemo(newPos) {
+		
 		//*show previously hidden cards in fan
 		var oldFirstOfGroup = curPos - (curPos % 52 % grouping)
 		for (i = oldFirstOfGroup; i < oldFirstOfGroup + grouping; i++) {
-			document.getElementById("imgMemoFan" + i).style.visibility = "visible";
+			if (i < amount * 52) {
+				document.getElementById("imgMemoFan" + i).style.visibility = "visible";
+			}
 		}
 
 		//get first of new grouping
@@ -3032,6 +3109,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 			if (curPos + grouping >= amount * 52) {
 				if (currentDiscipline === "SC") {
+					memoTimeTaken = Date.now() - memoStart;
 					finishMemo();
 				}
 
@@ -3039,6 +3117,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			else {
 				if ((curPos + grouping) % 52 < curPos % 52) {
 					moveFocusCardsMemo(52 * (curPage + 1));
+					doFlash();
 				} else {
 					moveFocusCardsMemo(curPos + grouping);
 				}
@@ -3052,6 +3131,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			if (curPos - grouping >= 0) {
 				if ((curPos - grouping) % 52 > curPos % 52) {
 					moveFocusCardsMemo(52 * (curPage - 1));
+					doFlash();
 				} else {
 					moveFocusCardsMemo(curPos - grouping);
 				}
@@ -3188,7 +3268,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
-
+					memoTimeTaken = memoTime;
 					finishMemo();
 				}
 				//Otherwise repeat this function
@@ -3206,6 +3286,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
 			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
 				finishMemo(test);
 
 
@@ -3439,17 +3520,8 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
-
-					//Clear display
-					document.getElementById("memoRow").style.display = "none";
-
 					memoTimeTaken = memoTime;
-
-					//set ended to true
-					ended = true;
-					localStorage.setItem("phase", "recall");
-					localStorage.setItem(timeElapsed, "0");
-					startRecallCountdown();
+					finishMemo();
 				}
 				//Otherwise repeat this function
 				else if (!ended) {
@@ -3467,6 +3539,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
 			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
 				finishMemo(test);
 			}
 
@@ -3639,16 +3712,11 @@ if (currentDiscipline.indexOf("N") > -1) {
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
 
-					//Clear display
-					document.getElementById("memoRow").style.display = "none";
+				
 
 					memoTimeTaken = memoTime;
 
-					//set ended to true
-					ended = true;
-					localStorage.setItem("phase", "recall");
-					localStorage.setItem(timeElapsed, "0");
-					startRecallCountdown();
+					finishMemo();
 				}
 				//Otherwise repeat this function
 				else if (!ended) {
@@ -3663,6 +3731,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
 			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
 				finishMemo(test);
 			}
 
@@ -4092,7 +4161,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 		for (i = 0; i < numberOfPages; i++) {
 			//create a new page that can be hidden or shown
 			var pageDiv = document.createElement("div");
-			pageDiv.setAttribute("id", "page" + i + "Recall");		
+			pageDiv.setAttribute("id", "page" + i + "Recall");
 			//add table to hold the words
 			var thisPageTable = document.createElement("table");
 			thisPageTable.setAttribute("class", "datesRecallTable");
@@ -4100,6 +4169,7 @@ if (currentDiscipline.indexOf("N") > -1) {
 			for (j = 0; j < datesPerPage; j++) {
 				var row = document.createElement("tr");
 				var thisIndex = i * datesPerPage + j;
+				
 				if (thisIndex < dateList.length) {
 					var yearCell = document.createElement("td");
 					var yearInput = document.createElement("input");
@@ -4476,7 +4546,7 @@ faceImg.setAttribute("src", nameList[thisIndex].imageURL);
 
 				//When timer reaches 0, go to recall
 				if (memoTimeDiff / 1e3 >= memoTime) {
-
+					memoTimeTaken = memoTime;
 					finishMemo();
 				}
 				//Otherwise repeat this function
@@ -4496,6 +4566,7 @@ faceImg.setAttribute("src", nameList[thisIndex].imageURL);
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
 			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
 				finishMemo(test);
 			}
 
@@ -6050,7 +6121,6 @@ function assignFaceImages() {
 			goToSettings();
 			return;
 		} 
-		memoTimeTaken = Date.now() - memoStart;
 
 		//Clear display
 		document.getElementById("memoRow").style.display = "none";
@@ -6063,6 +6133,9 @@ function assignFaceImages() {
 		localStorage.setItem("phase", "recall");
 		localStorage.setItem("timeElapsed", "0");
 		//Recall
+
+
+
 		startRecallCountdown();
 
 	}
@@ -6169,7 +6242,7 @@ function assignFaceImages() {
 
 		if (resuming) {
 			amount = Number(localStorage.getItem("amount")); //added in case going straight to recall
-			miniGroupings = JSON.parse(localStorage.getItem("miniGroupings"));
+			miniGroupings = localStorage.getItem("miniGroupings") ? JSON.parse(localStorage.getItem("miniGroupings")) : [1];
 
 			//restore data
 			numberList = JSON.parse(localStorage.getItem("correctAnswers"));
@@ -6671,7 +6744,7 @@ function assignFaceImages() {
 	function restoreNumbersData() {
 		console.log("restoring data");
 		chosenAnswers = JSON.parse(localStorage.getItem("chosen"));
-		if (chosenAnswers) {
+		if (chosenAnswers.length>0) {
 			//get data
 			for (var j = 0; j < numberOfPages; j++) {
 				//calculate how many digits on page
@@ -6694,7 +6767,7 @@ function assignFaceImages() {
 	function restoreBinaryData() {
 		console.log("restoring data");
 		chosenAnswers = JSON.parse(localStorage.getItem("chosen"));
-		if (chosenAnswers) {
+		if (chosenAnswers.length > 0) {
 			//get data
 			for (var j = 0; j < numberOfPages; j++) {
 				//calculate how many digits on page
@@ -6717,7 +6790,7 @@ function assignFaceImages() {
 	function restoreCardsData() {
 		console.log("restoring data");
 		chosenAnswers = JSON.parse(localStorage.getItem("chosen"));
-		if (chosenAnswers) {
+		if (chosenAnswers.length > 0) {
 			//get data
 			for (var j = 0; j < amount * 52; j++) {
 				//loop through boneyard
@@ -8173,6 +8246,8 @@ function assignFaceImages() {
 
 		//Score
 		displayScore();
+		
+
 	}
 
 
@@ -8188,9 +8263,9 @@ function assignFaceImages() {
 		//   document.getElementById("spanScoreMemoTimeTaken").textContent = timeFormatLong(memoTimeTaken);
 		//   document.getElementById("spanScoreRecallTimeTaken").textContent = timeFormatLong(recallTimeTaken);
 
-		document.getElementById("logoRow").style = "display:none";
-		document.getElementById("topMargin").style = "display:block";
-		document.getElementById("btnBackToSelection2").style = "display:inline";
+		document.getElementById("logoRow").style = "display:block";
+		document.getElementById("topMargin").style = "display:none";
+		document.getElementById("btnBackToSelection").style = "display:inline";
 
 		//Display relevant score screen depending on discipline
 		switch (currentDiscipline) {
@@ -8487,7 +8562,7 @@ function assignFaceImages() {
 
 			//go through row and see how many incorrect
 			for (var j = 0; j < rowLength; j++) {
-				if (chosenAnswers[numbersPerRow * i + j] !== numberList[numbersPerRow * i + j]) {
+				if (chosenAnswers[numbersPerRow * i + j] == "" || Number(chosenAnswers[numbersPerRow * i + j]) !== numberList[numbersPerRow * i + j]) {
 					incorrectThisRow++;
 				}
 				if (incorrectThisRow == 2) {
@@ -8903,7 +8978,8 @@ function assignFaceImages() {
 
 			//go through row and see how many incorrect
 			for (j = 0; j < rowLength; j++) {
-				if (chosenAnswers[binaryPerRow * i + j] !== binaryList[binaryPerRow * i + j]) {
+				if (chosenAnswers[binaryPerRow * i + j] == "" || Number(chosenAnswers[binaryPerRow * i + j]) != binaryList[binaryPerRow * i + j]) {
+					console.log(j + " is incorrect");
 					incorrectThisRow++;
 				}
 				if (incorrectThisRow == 2) {
@@ -8976,7 +9052,7 @@ function assignFaceImages() {
 	function startCardRecall() {
 		if (skin.indexOf("analogue") > -1) {
 			$("#recallBox").addClass("analogue1boxGreen");
-			$("#recallBox").removeClass("analogue1boxA");
+			$("#recallBox").removeClass("analogue1boxB");
 			/*
 			$("#recallBox").addClass("cardTable");
 			$("#scoreBox").addClass("cardTable");
@@ -9528,7 +9604,7 @@ function assignFaceImages() {
 
 		if (skin.indexOf("analogue") > -1) {
 			$("#scoreBox").addClass("analogue1boxGreen");
-			$("#scoreBox").removeClass("analogue1boxA");
+			$("#scoreBox").removeClass("analogue1boxB");
 		}
 
 		displayed = false;
@@ -9540,7 +9616,7 @@ function assignFaceImages() {
 			if (skin.indexOf("analogue") > -1) {
 				$("#recallBox").addClass("analogue1boxGreen");
 			
-				$("#recallBox").removeClass("analogue1boxA");
+				$("#recallBox").removeClass("analogue1boxB");
 			
 				/*
 				$("#recallBox").addClass("cardTable");
@@ -9658,7 +9734,7 @@ function assignFaceImages() {
 				cardPage.appendChild(boneyardDiv);
 
 				if (skin.indexOf("analogue")>-1) {
-					document.getElementById("analogue1CardsScoreContentDiv").appendChild(cardPage);
+					document.getElementById("analogueCardsScoreContentDiv").appendChild(cardPage);
 				} else {
 					document.getElementById("scoreContentDiv").appendChild(cardPage);
 				}
@@ -9814,28 +9890,30 @@ function assignFaceImages() {
 			restoreCardsData();
 			displayed = true;
 
-			document.onkeydown = function (e) {
-
-				//if [ is pressed, previous page
-				if (e.key == ',') {
-					e.preventDefault();
-					if (curPage > 0) moveFocusCardScore(52 * (curPage - 1));
-					//if (curPage>0) displayPage(curPage-1);
-				}
-
-
-				//if ] is pressed, next page
-				if (e.key == '.') {
-					e.preventDefault();
-					if (curPage < amount - 1) moveFocusCardScore(52 * (curPage + 1));
-
-				}
-
-			};
-
+			
 
 
 		}
+
+		document.onkeydown = function (e) {
+
+			//if [ is pressed, previous page
+			if (e.key == ',') {
+				e.preventDefault();
+				if (curPage > 0) moveFocusCardScore(52 * (curPage - 1));
+				//if (curPage>0) displayPage(curPage-1);
+			}
+
+
+			//if ] is pressed, next page
+			if (e.key == '.') {
+				e.preventDefault();
+				if (curPage < amount - 1) moveFocusCardScore(52 * (curPage + 1));
+
+			}
+
+			};
+
 
 		//mouseover handlers
 		for (var d = 0; d < amount; d++) {
@@ -11293,7 +11371,7 @@ function assignFaceImages() {
 				document.getElementById('analogue1ScoreTimeOuter').style.display = 'none';
 			}
 			*/
-		updatePreview();
+		if (!resuming) updatePreview();
 
 	}
 
@@ -11364,7 +11442,7 @@ function assignFaceImages() {
 
 		//get grouping
 		grouping = Number(localStorage.getItem("grouping"));
-		if (currentDiscipline.indexOf("N")>-1) miniGroupings = JSON.parse(localStorage.getItem("miniGroupings"));
+		if (currentDiscipline.indexOf("N")>-1) miniGroupings = (localStorage.getItem("miniGroupings") ? JSON.parse(localStorage.getItem("miniGroupings")) : [1]) ;
 		if (!Array.isArray(miniGroupings)) miniGroupings = [miniGroupings];
 		groupingH = Number(localStorage.getItem("groupingH"));
 		groupingW = Number(localStorage.getItem("groupingW"));
@@ -11774,66 +11852,13 @@ Height:     <select id="selBinGroupingH" onchange="resetSeparations();updatePrev
 Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin()" type="text" style="text-align:center">&nbsp;digits (e.g. 3 or 3-2-3)&nbsp;<!--<button class="btn btn-primary" onclick="applySeparationBin();">Apply</button>-->
 </span></div>
 
-<div id="divPreview">
-	<br />
-	<h4>Preview</h4>
-	<div id="preview" class="centred text-center" style="width:100%;">
-	
-	<img src='Card images 1/c13.png'>
-	
-	</div>
-	<br />
-	<br />
-	
-	<div id="divHighlightColour">
-		<!-- <br /> -->
-		<!--
-	Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > 
-	<option value="red" style="background-color:#ff8080">red</option>
-	<option value="orange" style="background-color:#ffa366">orange</option>
-	<option value="yellow" style="background-color:#ffff80">yellow</option>
-	<option value="green" style="background-color:#b3ff66">green</option>
-	<option value="sky"  style="background-color:#80bfff" selected>blue</option>
-	<option value="purple"  style="background-color:#df9fbf">purple</option>
-	</select>
-	-->
-	
-	
-	<div class="flexContainer" id="HColorList">
-			<div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="red" style="background-color:#ff8080"></div><div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="orange" style="background-color:#ffa366"></div><div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
-			<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div><div class="highlighterListItemBlank"></div>
-		  </div>
-	</div>
-	<br />
-	<br />	
-<div id="divDatesLanguages">
-	<br />
-	Language:     <select id="selDatesLanguage" onchange="resetPreload();">
-	</select>
-	</div>
-	
-	<div id="divWordsLanguages">
-		<br />
-		Language:     <select id="selWordsLanguage"  onchange="resetPreload();">
-		</select>
-		</div>
-		
-	<div id="divNamesCharsets">
-		<br />
-		Character set:     <select id="selNamesCharset"  onchange="resetPreload();">
-		</select>
-		</div>
-		
 
 <div id="divSkip">
-	<br />
-<label for="chkSkipFinalImage">Skip final image in row?</label><input type="checkbox" id="chkSkipFinalImage">
-</div>
+		<br />
+	<label for="chkSkipFinalImage">Skip final image in row?</label><input type="checkbox" id="chkSkipFinalImage">
+	</div>
+	
+	
 
 <div id="divCardSet">
 		<div id="divDecks" style="flex:1">
@@ -11855,9 +11880,61 @@ Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin
 
 </div>
 
-
-<div id="cardAttribution"></div>
+	<!--
+Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" > 
+<option value="red" style="background-color:#ff8080">red</option>
+<option value="orange" style="background-color:#ffa366">orange</option>
+<option value="yellow" style="background-color:#ffff80">yellow</option>
+<option value="green" style="background-color:#b3ff66">green</option>
+<option value="sky"  style="background-color:#80bfff" selected>blue</option>
+<option value="purple"  style="background-color:#df9fbf">purple</option>
+</select>
+-->
+<div id="divPreview">
+		<br />
+	<h4>Preview</h4>
+	<div id="preview" class="centred text-center" style="width:100%;">
+	
+	<img src='Card images 1/c13.png'>
+	
+	</div>
+	<div id="cardAttribution"></div>
+	</div>
+	<div id="divHighlightColour">
+			<br />
+<div class="flexContainer" id="HColorList">
+		<div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="red" style="background-color:#ff8080"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="orange" style="background-color:#ffa366"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="yellow" style="background-color:#ffff80"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="green" style="background-color:#b3ff66"></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem" id="sky" style="background-color:#80bfff" selected></div><div class="highlighterListItemBlank"></div>
+		<div onclick="selectHiColour(this.id)" onmouseover="document.body.style.setProperty('--optionColor', eval(this.id));" class="highlighterListItem"  id="purple" style="background-color:#df9fbf"></div>
+	  </div>
 </div>
+<br />
+<br />	
+<div id="divDatesLanguages">
+	<br />
+	Language:     <select id="selDatesLanguage" onchange="resetPreload();">
+	</select>
+	</div>
+	
+	<div id="divWordsLanguages">
+		<br />
+		Language:     <select id="selWordsLanguage"  onchange="resetPreload();">
+		</select>
+		</div>
+		
+	<div id="divNamesCharsets">
+		<br />
+		Character set:     <select id="selNamesCharset"  onchange="resetPreload();">
+		</select>
+		</div>
+		
+
+
+
 
 <div id="divInstructions" class="centred text-center">
 	</div>
@@ -11956,6 +12033,7 @@ Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin
 
 <!--Score container row-->
 <div class="row full-height" id="scoreRow">
+		
 <!--<div class="row topMargin"></div>-->
 <div class="col-md-1"></div>
 <div id="scoreBox" class="col-md-10">
