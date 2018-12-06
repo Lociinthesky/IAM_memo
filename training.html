@@ -901,6 +901,22 @@ font-family: 'Nothing You Could Do', cursive; -->
 	function startMemoCountdown(test = false) {
 
 		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > 1) {
+			// $("#hiddenDiv").addClass("delayedVignette");
+				
+			$( "#hiddenDiv" )
+				//.delay(30000)				
+				.animate({opacity: .6}, 750, 'swing')
+				.animate({opacity:.65}, 1700)
+				.animate({opacity: .82}, 1100)
+				.animate({opacity: .78}, 250)
+			$( "#darkenVignette" )
+				//.delay(30000)
+				.animate({opacity: .5}, 750, 'swing')
+				.animate({opacity:0}, 1700)
+			
+			// $( "#darkenVignette" ).animate({opacity: .2}, 1000).animate({opacity:0}, 900, 'swing');
+			
+				// .animate(  ).delay( 800 ).fadeIn( 400 );
 			$("#countdownBox").addClass("analogue1boxGreen");
 			$("#countdownBox").removeClass("analogue1boxA");
 		} 
@@ -914,7 +930,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		localStorage.setItem("chosen", "[]");
 		document.getElementById("scoreContentDiv").innerHTML = "";
 		document.getElementById("analogueCardsScoreContentDiv").innerHTML = "";
-		document.getElementById("recallContentDiv").innerHTML = "";
+		document.getElementById("recallContentDiv").innerHTML = ""; 
 		document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
 
 		//get amount
@@ -12054,7 +12070,7 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
 </div>
 
 </div>
-<div id="hiddenDiv"></div>
+<div id="hiddenDiv"><div id="darkenVignette"></div></div>
 
 			<div id="dialog"  style="display:none" title="">
 				Press Enter to exit test.
