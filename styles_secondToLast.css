@@ -11,9 +11,9 @@ html,body { height:100%;padding:0;margin:0 }
  background-color:black;
   background-size:cover;
  
-    --highlightColor: #EEE;
+    --highlightColor: white;
    /* --optionColor: rgba(255,128,128,0.57);*/
-   --optionColor:#EEE;
+   --optionColor:white;
 }
 
 /*.slash {font-size:26pt; color:red; z-index:2; margin: 0 0 0 -15px; font-weight: normal !important ;font-family: 'Shadows Into Light', cursive;
@@ -51,15 +51,10 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
 
 }
 
-.digital1 input {
-  background-color:#eee;
-}
-
 .container-fluid {
   overflow-y:hidden;
   overflow-x:hidden;
 }
-
 
 
 .analogue1 #hiddenDiv {
@@ -73,7 +68,7 @@ text-shadow:0px 0px 3px rgba(200,0,0,.3) !important; opacity: .83 !important;}*/
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0,0,0,.05);
   z-index: 2;
   cursor: pointer;
   pointer-events: none;
@@ -99,6 +94,41 @@ $( "#hiddenDiv" )
   cursor: pointer;
   pointer-events: none;
 }
+
+.darkenVignette {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 110%;
+  background-image: radial-gradient(transparent 35%, black 105%);
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: rgba(0,0,0,.04); */
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: none;
+}
+.delayedVignette {
+  /* animation: delayedvignette 3s forwards; */
+
+} 
+@keyframes delayedvignette {
+  0%{
+  background-image: radial-gradient(transparent 45%, rgba(0,0,0,0) 105%);
+    
+  }
+  
+  25% {
+    background-image: radial-gradient(transparent 45%, rgba(0,0,0,.5) 105%);
+  }
+  100% {
+    background-image: radial-gradient(transparent 45%, rgba(0,0,0,1) 105%);
+  }
+}
+  
 
   .btn{
     background-color:#222222;
@@ -158,11 +188,19 @@ $( "#hiddenDiv" )
    }
   #countdownTime {
 
-	font-size:300pt;
+  font-size:300pt;
+
   }
   #countdownRecallTime {
-
 	font-size:300pt;
+  }
+  .analogue1 #countdownTime {
+    -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+    -webkit-mask-size: 644px 408px;
+  }
+  .analogue1 #countdownRecallTime {
+    -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png);
+    -webkit-mask-size: 644px 408px;
   }
   #countdownTable {
     margin:0 auto;
@@ -254,7 +292,7 @@ $( "#hiddenDiv" )
         /* 0 1px 1px rgba(0,0,0,0.15), */
         -1px 0px 2px 2px rgba(0, 0, 0, 0.5), 
         /* The second layer */
-        -1px -2px 0 0px #EEE,
+        -1px -2px 0 0px #fff,
         
 
          3px 0px 0 -1px #DDD0AF,
@@ -288,7 +326,7 @@ $( "#hiddenDiv" )
         /* 0 1px 1px rgba(0,0,0,0.15), */
         -1px 0px 2px 3px rgba(0, 0, 0, 0.45), 
         /* The second layer */
-        -1px -2px 0 0px #EEE,
+        -1px -2px 0 0px #fff,
         
 
          3px 0px 0 -1px #DDD0AF,
@@ -365,7 +403,7 @@ $( "#hiddenDiv" )
   background-size: 159px 159px;
 
  background-repeat: repeat;
- color: #EEE;
+ color: white;
  padding: 20px;
 
  box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, .37);
@@ -475,24 +513,24 @@ text-shadow:0px 0px 3px rgba(200,0,0,.85) !important; opacity: .8 !important;}*/
 .analogue1pagelink {
   background-color:#000000;
   opacity: .55;
-  color:#EEE;
+  color:white;
 }
 
 .analogue1pagelinkred {
   background-color:#3EB5C8; //turquoise colour
   opacity: .55;
-  color:#EEE;
+  color:white;
 }
 
 
 .digital1pagelink {
   background-color:#000000;
-  color:#EEE;
+  color:white;
 }
 
 .digital1pagelinkred {
   background-color:#3EB5C8;
-  color:#EEE;
+  color:white;
 }
 
 
@@ -951,10 +989,10 @@ background-color:var(--highlightColor);
 
 .cardTable {
 	background-image: url("Green.jpg");
-	color:#EEE;
+	color:white;
 }
 .textCardTable {
-	color:#EEE;
+	color:white;
 }
 
 .textNonCards {
@@ -1011,16 +1049,6 @@ background-color:var(--highlightColor);
   z-index: 2;
 }
 
-/* .analogue1cardMemoFan {
-  height: 100;
-  transform-origin: center 750%;
-  position: absolute;
-  top: -80;
-  left: 10%;
-  -webkit-box-shadow: 1px 0.7px 3px rgba(0,0,0,0.5);
-  box-shadow: 1px 0.7px 3px rgba(0,0,0,0.5);
-} */
-
 .analogue1cardMemoFan {
   height: 100;
   transform-origin: center 750%;
@@ -1031,6 +1059,7 @@ background-color:var(--highlightColor);
   -webkit-box-shadow: 1px 0.7px 3px rgba(0,0,0,0.5);
   box-shadow: 1px 0.7px 3px rgba(0,0,0,0.5);
 }
+
 .digital1cardMemoFan {
 	flex:1;		
 	height:90;	
@@ -1122,7 +1151,7 @@ background-color:var(--highlightColor);
   font-size:35;
   color: rgba(0,0,230,.88) !important;
   text-shadow:0px 0px 1px rgba(0,0,200,.25);
-  /animation: glow 899s i nfinite alternate;
+  /animation: glow 899s infinite alternate;
 }
 
 .digital1imagesRecall {
@@ -1194,34 +1223,21 @@ transform:rotate(0deg);
   box-shadow: 3px 3px 7px rgba(0,0,0,0.3);  
 }*/
 
-/* .analogue1cardBoneyard {
-		
-	height:130;	
-	transform-origin: center 750%;
-	  	
-      position: absolute;
-  top:-80; 
-  left: 10%;
-  
-   -webkit-box-shadow:0px 1px 2px 1px rgba(0,0,0,0.34);
--moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.34); 
-  box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.34);
-  
-} */
 
-.analogue1cardBoneyard {
-  height: 130;
-  transform-origin: center 750%;
-  position: absolute;
-  top: -80;
-  left: 10%;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05);
-  box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,.15);
-
+  .analogue1cardBoneyard {
+    height: 130;
+    transform-origin: center 750%;
+    position: absolute;
+    top: -80;
+    left: 10%;
+    -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05);
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,.15);
+  
 }
 
+	
 .analogue1cardBoneyardDiv {
 	position:relative;
 	max-width:100em;
@@ -1553,14 +1569,14 @@ top: 10px;
 
 #cardsMemoTime {
   font-size:16px;
-  color:#EEE;
+  color:white;
   position: relative;
 top: 10px;
 }
 
 #cardsMemoTimeScore {
   font-size:16px;
-  color:#EEE;
+  color:white;
   position: relative;
 top: 10px;
 }
@@ -1644,7 +1660,7 @@ font-family: 'Reenie Beanie', cursive;
 
 .digital1correct {
 
-  background: rgba(0, 255, 0, 0.3)!important;
+  background: rgba(0, 255, 0, 0.3)
 }
 
 .digital1corrected {
@@ -1673,7 +1689,7 @@ font-family: 'Reenie Beanie', cursive;
   /*background: rgba(255, 0, 0, 0.4)
   background-color:orangered;
   background-color:#fc552f;*/
-  background-color:#ff5555!important;
+  background-color:#ff5555;
 }
 .analogue1incorrect {
 
@@ -1689,12 +1705,12 @@ font-family: 'Reenie Beanie', cursive;
 #spanScore {
   font-size:40pt;
 
- vertical-align:middle;
+  vertical-align:middle;
 }
 #spanCorrect {
   font-size:14pt;
 
- vertical-align:middle;
+  vertical-align:middle;
 }
 
 .disciplineTitle {
@@ -1704,7 +1720,7 @@ display:inline;
 }
 
 #btnBackToSelection2 {
- position:absolute; 
+ position:absolute;
  left:80px;
 }
 
@@ -1904,7 +1920,7 @@ top:30px;
 }
 
 .analogue1boxGreen .keybutton {
-  border:solid 1px #EEE;
+  border:solid 1px white;
   border-radius:3px;
   padding:1px;
 }
@@ -1915,7 +1931,7 @@ top:30px;
 }
 
 .analogue1boxGreen .keycombo {
-  color:#EEE;
+  color:white;
   font-size:smaller;
 }
 
@@ -1952,7 +1968,7 @@ filter: brightness(60%);
 
 
 .analogue1boxGreen .instructionsTable th {
-  color:#EEE;  
+  color:white;  
   font-size:larger;
 }
 
@@ -1963,19 +1979,13 @@ filter: brightness(60%);
 
 .analogue1boxGreen .instructionsTable tr td {
   font-weight: bold;
-  color:#EEE;
+  color:white;
 }
 
 
 .instructionsTable tr td:first-child {
   font-weight: bold;
   color:midnightblue;
-}
-
-
-.analogue1 .instructionsTable tr td:first-child {
-  font-weight: bold;
-  color:black;
 }
 
 
@@ -2009,7 +2019,7 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
   border:3px solid midnightblue;
   background-color:#000000;
   padding:7px;
-  color:#EEE;
+  color:white;
 }
 
 .btnDigital:hover {
@@ -2017,7 +2027,7 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
 }
 
 .analogue1boxGreen .btnDigital:hover {
-  background-color: #222;
+  background-color: black;
 }
 
 
@@ -2145,7 +2155,7 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
   text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
 }
 
-.analogue1 #settingsBox.input{
+.analogue1 input{
   background-color: transparent;
   /* border-color: #111;
   border-style: dotted; */
@@ -2172,10 +2182,9 @@ animation: colourbuttonglow 0.6s linear alternate infinite;
   border-width: 1px;
   
  -webkit-mask-image: none;
-
  /* -webkit-mask-size: 68px 84px;*/
   /* text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2);   */
-  color:#EEE !important;
+  color:white !important;
   font-family: 'News Cycle', sans-serif;
   font-weight:normal!important;
   font-size: 25;
@@ -2281,7 +2290,7 @@ font-size: 35;
   .analogue1boxGreen #countdownTime{
   /* -webkit-mask-image: url("leastGrunge5.png");
    -webkit-mask-size: 246px 296px;*/
-   color:#EEE; 
+   color:white; 
  
    text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
   }
@@ -2300,7 +2309,7 @@ font-size: 35;
   .analogue1boxGreen #countdownRecallTime{
     /* -webkit-mask-image: url("leastGrunge5.png");
      -webkit-mask-size: 46px 46px;*/
-     color: #EEE; 
+     color: white; 
      
      text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
     }
@@ -2315,7 +2324,7 @@ font-size: 35;
   .analogue1boxGreen #countdownText{
     /* -webkit-mask-image: url("leastGrunge5.png");
      -webkit-mask-size: 246px 296px;*/
-     color:#EEE; 
+     color:white; 
    
      text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
     }
@@ -2330,7 +2339,7 @@ font-size: 35;
       .analogue1boxGreen #countdownRecallText{
         /* -webkit-mask-image: url("leastGrunge5.png");
          -webkit-mask-size: 246px 296px;*/
-         color:#EEE; 
+         color:white; 
        
          text-shadow: 0px 0px 1px  rgba(30, 15, 15, .2); 
         }
@@ -2374,7 +2383,7 @@ font-size: 35;
   }
 
   .analogue1boxGreen a:visited {
-    color:#EEE;
+    color:white;
   }
 
   .glowButton {
@@ -2382,7 +2391,7 @@ font-size: 35;
   
   } 
   
-    
+
   @keyframes buttonglow {
   
     0% {
@@ -2447,7 +2456,7 @@ font-size: 35;
 
 
   .analogue1boxGreen button{
-    color: #EEE;
+    color: white;
     font-size: 1.8rem;
     font-weight: 700;
     display: inline-block;
@@ -2458,7 +2467,7 @@ font-size: 35;
   
     border-width: 0.125rem;
     border-style: solid;
-    border-color: #EEE;
+    border-color: white;
     border-image: initial;
     padding: 0.25rem 1rem;
     border-radius: .75rem;
@@ -2525,7 +2534,9 @@ font-size: 35;
 
 
   .analogue1 .cardRecall {
-    -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-  } 
+    -webkit-box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+  }
+
+  

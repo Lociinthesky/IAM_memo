@@ -221,13 +221,12 @@ font-family: 'Nothing You Could Do', cursive; -->
 	var namesPerPage;
 
 	//Change to 60 for real
-	const countdownSeconds = competitionMode ? 60 : 5;
-	const countdownRecallSeconds = competitionMode ? 20 : 5;
+	const countdownSeconds = 5;
 
-	
+	//const cardOffset = 48;
 	const cardOffset = 9;
-	var cardOffsetBig = 22;
-	//const cardOffsetBig = 42;
+	//const cardOffsetBig = 124;
+	const cardOffsetBig = 22;
 
 	const numberOfJpgs = 466;
 	const numberOfPngs = 5894;
@@ -273,7 +272,6 @@ font-family: 'Nothing You Could Do', cursive; -->
 	var displayed;
 
 	var cardSet;
-	var showingBlank = false;
 
 	var imageArray = new Array();
 	var actualImageArray = new Array();
@@ -599,7 +597,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		localStorage.setItem("discipline", currentDiscipline);
 
 		//green box for cards
-		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > -1) {
+		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > 1) {
 			$("#settingsBox").addClass("analogue1boxGreen");
 			$("#settingsBox").removeClass("analogue1boxA");
 		} 
@@ -828,7 +826,6 @@ font-family: 'Nothing You Could Do', cursive; -->
 		
 		updatePreview();
 
-
 		//changeSkin();
 	//	changeSelHColour();
 
@@ -839,13 +836,13 @@ font-family: 'Nothing You Could Do', cursive; -->
 		if (currentDiscipline.indexOf("C") > -1) {
 			if (currentDiscipline != "SC") {
 				document.getElementById("divDecks").style = "display:inline-block";
-			//	if (document.getElementById("inpDecks").value == "") {
-					if (localStorage.getItem("decks" + currentDiscipline) == "" || !(localStorage.getItem("decks" + currentDiscipline))) {
+				if (document.getElementById("inpDecks").value == "") {
+					if (localStorage.getItem("decks") == "") {
 						document.getElementById("inpDecks").value = lookupProperty(currentDiscipline, "amount");
 					} else {
-						document.getElementById("inpDecks").value = localStorage.getItem("decks" + currentDiscipline);
+						document.getElementById("inpDecks").value = localStorage.getItem("decks");
 					}
-			//	}
+				}
 			} else {
 
 				document.getElementById("divDecks").style = "display:none";
@@ -903,16 +900,24 @@ font-family: 'Nothing You Could Do', cursive; -->
 
 	function startMemoCountdown(test = false) {
 
-		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > -1) {
+		if (skin.indexOf("analogue") > -1 && currentDiscipline.indexOf("C") > 1) {
+			// $("#hiddenDiv").addClass("delayedVignette");
+				
 			$( "#hiddenDiv" )
 				//.delay(30000)				
-				.animate({opacity: .8}, 950).delay(200)
-				.animate({opacity:.7}, 1200, 'swing')
-				.animate({opacity: .83}, 1100)
+				.animate({opacity: .8}, 1050, 'swing').delay(600)
+				.animate({opacity:.65}, 1200)
+				.animate({opacity: .82}, 1100)
+				// .animate({opacity: .78}, 250)
 			$( "#darkenVignette" )
 				//.delay(30000)
-				.animate({opacity: 1}, 1150)
-				.animate({opacity:.25}, 1200, 'swing')		
+				.animate({opacity: .9}, 1650, 'swing')//.delay(200)
+				.animate({opacity:.3}, 1200)
+			
+	
+			// $( "#darkenVignette" ).animate({opacity: .2}, 1000).animate({opacity:0}, 900, 'swing');
+			
+				// .animate(  ).delay( 800 ).fadeIn( 400 );
 			$("#countdownBox").addClass("analogue1boxGreen");
 			$("#countdownBox").removeClass("analogue1boxA");
 		} 
@@ -926,7 +931,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 		localStorage.setItem("chosen", "[]");
 		document.getElementById("scoreContentDiv").innerHTML = "";
 		document.getElementById("analogueCardsScoreContentDiv").innerHTML = "";
-		document.getElementById("recallContentDiv").innerHTML = "";
+		document.getElementById("recallContentDiv").innerHTML = ""; 
 		document.getElementById("analogueCardsRecallContentDiv").innerHTML = "";
 
 		//get amount
@@ -935,7 +940,7 @@ font-family: 'Nothing You Could Do', cursive; -->
 			amount = resuming ? localStorage.getItem("amount") : document.getElementById("inpDecks").value;
 			if (isNaN(Number(amount)) || amount <= 0 || amount > maxAmount) amount = maxAmount;
 			localStorage.setItem("amount", amount);
-			localStorage.setItem("decks" + currentDiscipline, amount);
+			localStorage.setItem("decks", amount);
 		}
 		else {
 			amount = resuming ? localStorage.getItem("amount") : lookupProperty(currentDiscipline, "amount");
@@ -1295,26 +1300,48 @@ if (currentDiscipline.indexOf("N") > -1) {
 		if (currentDiscipline.indexOf("C") > -1) {
 			grouping = Number(document.getElementById("selGrouping").options[document.getElementById("selGrouping").selectedIndex].value);
 			localStorage.setItem("grouping", grouping);
-
-			localStorage.setItem("cardOffsetBig", cardOffsetBig);
-			if (cardOffsetBig == 22) {
-				document.getElementById("chkLargerGap").checked = false;
-			} else {
-				document.getElementById("chkLargerGap").checked = true;
-			}
-			
-
 			var classString = skin + "cardOneMemo";
 			var classString2 = skin + "cardOtherMemo";
 
-		
-			cardSet = Number(document.getElementById("selCardSet").options[document.getElementById("selCardSet").selectedIndex].value);
+			/*
+				//  var offset = document.getElementById("selGrouping").offsetLeft;
+				var offset=400;
 			
-			//use worn set for standard set if analogue skin
-			if (cardSet == 1 && skin.indexOf("analogue")>-1) {
-				cardSet = 3;
-			}
+				//  previewString += "<div class='row centred'><div class='col-md-12' style='height:220px;position:relative;left:-" + (114.37+(grouping-1)*22)/2 +  "'><img src='Card images/c01.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig' style='left:" + offset + "px'>";
+				//  previewString += "<div class='row centred'><div class='col-md-12' style='height:220px;position:relative;'><img src='Card images/c01.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig' style='left:" + offset + "px'>";
+				previewString += "<div class='row centred text-center'><div class='col-md-12' style='height:220px;'><img id='cardOne' src='Card images/c01.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig' style='left:" + offset + "px'>";
+			
+			
+					for (var i = 1; i < grouping; i++) {
+						 offset += cardOffsetBig;
+						previewString += "<img src='Card images/c0" + (i+1) + ".png' class='" + skin + "cardOtherMemo " + skin + "cardImgBig' style='left:" + offset + "px'>";
+			
+					}
+					previewString += "</div></div>";
+						document.getElementById("preview").innerHTML = previewString;
+				}
+				*/
 
+			/*
+			//This code makes the cards centered but they move apart if you zoom the screen
+			//because the offset is based on the left position of the first card
+			previewString += "<div id='cardsPreview' style='height:220px'><img id='cardOne' src='Card images/c01.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig'></div>";
+			
+			
+					document.getElementById("preview").innerHTML = previewString;
+					var offset = document.getElementById("cardOne").offsetLeft;
+			
+					previewString = "<img id='cardOne' src='Card images/c01.png' class='" + skin + "cardOneMemo " + skin + "cardImgBig'  style='left:" + offset + "px'>";
+					for (var i = 1; i < grouping; i++) {
+						 offset += cardOffsetBig;
+						previewString += "<img src='Card images/c0" + (i+1) + ".png' class='" + skin + "cardOtherMemo " + skin + "cardImgBig' style='left:" + offset + "px'>";
+			
+					}
+			document.getElementById("cardsPreview").innerHTML = previewString;
+			 }
+			*/
+
+			cardSet = Number(document.getElementById("selCardSet").options[document.getElementById("selCardSet").selectedIndex].value);
 			localStorage.setItem("cardSet", cardSet);
 
 			document.getElementById("cardAttribution").innerHTML = cardAttributions[cardSet-1];
@@ -1859,13 +1886,9 @@ if (currentDiscipline.indexOf("N") > -1) {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {	
-				if (!test) {
-					memoTimeTaken = Date.now() - memoStart;
-					confirmFinishMemo(test);
-				} else {
-					finishMemo(test);
-				}
+			if (e.key == "Enter" && !ended) {	
+				if (!test) memoTimeTaken = Date.now() - memoStart;			
+				finishMemo(test);
 			}
 
 
@@ -2366,13 +2389,9 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 		document.onkeydown = function (e) {
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {
-				if (!test) {
-					memoTimeTaken = Date.now() - memoStart;
-					confirmFinishMemo(test);
-				} else {
-					finishMemo(test);
-				}
+			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
+				finishMemo(test);
 
 			}
 
@@ -2747,9 +2766,6 @@ if (currentDiscipline.indexOf("N") > -1) {
 
 
 	function startCardMemo(test) {
-
-		showingBlank = false;
-
 		//card table if using analogue skin
 		if (skin.indexOf("analogue") > -1) {
 			$("#memoBox").addClass("analogue1boxGreen");
@@ -2766,11 +2782,9 @@ if (currentDiscipline.indexOf("N") > -1) {
 			//restore image list
 		//	actualImageArray = JSON.parse(localStorage.getItem("imageArray")).map(el => { return { src: "IAM Images/" + el } });
 			cardsLeftToRight = localStorage.getItem("cardsLeftToRight");
-			cardOffsetBig = localStorage.getItem("cardOffsetBig") || 22;
 		} else {
 
 			cardsLeftToRight = document.getElementById("chkLeftToRight").checked;
-			
 			localStorage.setItem("cardsLeftToRight", cardsLeftToRight);
 		}
 
@@ -2946,15 +2960,11 @@ if (currentDiscipline.indexOf("N") > -1) {
 		}
 
 		document.onkeydown = function (e) {
-			//If Enter is pressed (in speed cards this is allowed even if we are in competition mode)
-			if (e.key == "Enter" && !ended && (!competitionMode || currentDiscipline == "SC" || test)) {
+			//If Enter is pressed in speed cards (during testing - for any event)
+			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
+			if (e.key == "Enter" && !ended) {
 				if (!test) memoTimeTaken = Date.now() - memoStart;
-				//in speed cards we just finish memo without confirming
-				if (currentDiscipline == "SC" || test) {
-					finishMemo(test);
-				} else {
-					confirmFinishMemo(test);
-				}
+				finishMemo(test);
 			}
 
 			//if right arrow pressed, move on
@@ -3014,22 +3024,6 @@ if (currentDiscipline.indexOf("N") > -1) {
 		};
 
 	}
-
-function showBlank() {
-	//remove cards from big cards area
-	document.getElementById('bigCards' + curPage).innerHTML = "";
-
-	//show previously hidden cards in fan
-	var oldFirstOfGroup = curPos - (curPos % 52 % grouping)
-		for (i = oldFirstOfGroup; i < oldFirstOfGroup + grouping; i++) {
-			if (i < amount * 52) {
-				document.getElementById("imgMemoFan" + i).style.visibility = "visible";
-			}
-		}
-
-	//set flag
-	showingBlank = true;
-}
 
 function doFlash() {
 	if (skin.indexOf("analogue")>-1) {
@@ -3131,8 +3125,6 @@ function doFlash() {
 		if (!ended) {
 
 			if (curPos + grouping >= amount * 52) {
-				//reached end
-				//for speed cards, finish memo
 				if (currentDiscipline === "SC") {
 					memoTimeTaken = Date.now() - memoStart;
 					finishMemo();
@@ -3141,19 +3133,9 @@ function doFlash() {
 			}
 			else {
 				if ((curPos + grouping) % 52 < curPos % 52) {
-					//moving to next deck
-					if (!showingBlank) {
-						showBlank();
-					} else {
-						showingBlank = false;
-						moveFocusCardsMemo(52 * (curPage + 1));	
-						doFlash();
-					}
-
-					//moveFocusCardsMemo(52 * (curPage + 1));
-					//doFlash();
+					moveFocusCardsMemo(52 * (curPage + 1));
+					doFlash();
 				} else {
-					//just moving to next group
 					moveFocusCardsMemo(curPos + grouping);
 				}
 			}
@@ -3318,14 +3300,11 @@ function doFlash() {
 		}
 
 		document.onkeydown = function (e) {
-			//If Enter is pressed 
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {
-				if (!test) {
-					memoTimeTaken = Date.now() - memoStart;
-					confirmFinishMemo(test);
-				} else {
-					finishMemo(test);
-				}
+			//If Enter is pressed in speed cards (during testing - for any event)
+			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
+			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
+				finishMemo(test);
 
 
 			}
@@ -3576,13 +3555,9 @@ function doFlash() {
 		document.onkeydown = function (e) {
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {
-				if (!test) {
-					memoTimeTaken = Date.now() - memoStart;
-					confirmFinishMemo(test);
-				} else {
-					finishMemo(test);
-				}
+			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
+				finishMemo(test);
 			}
 
 			//if right arrow or tab pressed, move on
@@ -3772,13 +3747,9 @@ function doFlash() {
 		document.onkeydown = function (e) {
 			//If Enter is pressed in speed cards (during testing - for any event)
 			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {
-				if (!test) {
-					memoTimeTaken = Date.now() - memoStart;
-					confirmFinishMemo(test);
-				} else {
-					finishMemo(test);
-				}
+			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
+				finishMemo(test);
 			}
 
 			//if right or down arrow or tab pressed, move on
@@ -4248,7 +4219,7 @@ function doFlash() {
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
 		button.setAttribute("class", "btnDigital finishBtn");
-		button.addEventListener("click", confirmFinishRecall);
+		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
 		document.getElementById("finishBtnDiv").appendChild(button);
@@ -4313,8 +4284,8 @@ function doFlash() {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 			}
 
 			//if tab (NOT RIGHT) is pressed, move on
@@ -4609,14 +4580,11 @@ faceImg.setAttribute("src", nameList[thisIndex].imageURL);
 		}
 
 		document.onkeydown = function (e) {
-			//If Enter is pressed{
-			if (e.key == "Enter" && !ended && (!competitionMode || test)) {
-				if (!test) {
-					memoTimeTaken = Date.now() - memoStart;
-					confirmFinishMemo(test);
-				} else {
-					finishMemo(test);
-				}
+			//If Enter is pressed in speed cards (during testing - for any event)
+			//  if (currentDiscipline == "SC" && e.keyCode == 13 && !ended) {
+			if (e.key == "Enter" && !ended) {
+				if (!test) memoTimeTaken = Date.now() - memoStart;
+				finishMemo(test);
 			}
 
 			//if right arrow or tab pressed, move on
@@ -5460,7 +5428,7 @@ function assignFaceImages() {
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
 		button.setAttribute("class", "btnDigital finishBtn");
-		button.addEventListener("click", confirmFinishRecall);
+		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
 		document.getElementById("finishBtnDiv").appendChild(button);
@@ -5526,8 +5494,8 @@ function assignFaceImages() {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && !competitionMode) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 
 
 			}
@@ -5898,7 +5866,7 @@ function assignFaceImages() {
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
 		button.setAttribute("class", "btnDigital finishBtn");
-		button.addEventListener("click", confirmFinishRecall);
+		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
 		document.getElementById("finishBtnDiv").appendChild(button);
@@ -5964,8 +5932,8 @@ function assignFaceImages() {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && !competitionMode) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 			}
 
 			//if  tab is pressed, move on
@@ -6228,7 +6196,7 @@ function assignFaceImages() {
 		}
 
 		//Display countdown clock
-		countSeconds = countdownRecallSeconds;
+		countSeconds = countdownSeconds;
 		cint = setInterval(showSecondsR, 1000);
 	}
 
@@ -6398,7 +6366,7 @@ function assignFaceImages() {
 
 		var button = document.createElement("button");
 		button.setAttribute("class", "btnDigital finishBtn");
-		button.addEventListener("click", confirmFinishRecall);
+		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
 		document.getElementById("finishBtnDiv").appendChild(button);
@@ -6484,8 +6452,8 @@ function assignFaceImages() {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && !competitionMode) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 			}
 
 			//if right arrow pressed, move on
@@ -7599,8 +7567,8 @@ function assignFaceImages() {
 		document.onkeydown = function (e) {
 			//If Enter is pressed
 			// 	if (e.key == "Enter" && !ended) {
-			if (e.key == "Enter" && !ended && !competitionMode) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 
 
 			}
@@ -8085,7 +8053,7 @@ function assignFaceImages() {
 				}
 
 			}
-			imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='confirmFinishRecall();'>Finish</button></div>";
+			imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button></div>";
 			//	imagesRecallString += "</table><br /></div>";
 		}
 
@@ -8180,8 +8148,8 @@ function assignFaceImages() {
 		document.onkeydown = function (e) {
 
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && !competitionMode) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 
 			}
 
@@ -8281,14 +8249,6 @@ function assignFaceImages() {
 		}
 	}
 
-function confirmFinishMemo() {
-		if (confirm("Are you sure you wish to finish memorisation now?")) finishMemo();
-	}
-
-	function confirmFinishRecall() {
-		if (confirm("Are you sure you wish to finish recall now?")) finishRecall();
-	}
-
 	function finishRecall() {
 		recallTimeTaken = Date.now() - recallStart;
 
@@ -8320,13 +8280,9 @@ function confirmFinishMemo() {
 		//   document.getElementById("spanScoreMemoTimeTaken").textContent = timeFormatLong(memoTimeTaken);
 		//   document.getElementById("spanScoreRecallTimeTaken").textContent = timeFormatLong(recallTimeTaken);
 
-		//show logo and main back button only if digital theme
-		document.getElementById("logoRow").style = (skin.indexOf("analogue")>-1) ? "display:none" : "display:block";
-		document.getElementById("btnBackToSelection").style = (skin.indexOf("analogue")>-1) ? "display:none" : "display:inline";
-
-		//show bottom row back button and top margin only if analogue theme
-		document.getElementById("bottomRow").style = (skin.indexOf("analogue")>-1) ? "display:block" : "display:none";
-		document.getElementById("topMargin").style = (skin.indexOf("analogue")>-1) ? "display:block" : "display:none";
+		document.getElementById("logoRow").style = "display:block";
+		document.getElementById("topMargin").style = "display:none";
+		document.getElementById("btnBackToSelection").style = "display:inline";
 
 		//Display relevant score screen depending on discipline
 		switch (currentDiscipline) {
@@ -9265,7 +9221,7 @@ function confirmFinishMemo() {
 		//***FINISH BUTTON kEpT fOr ReCall
 		var button = document.createElement("button");
 		button.setAttribute("class", "btnDigital finishBtn");
-		button.addEventListener("click", confirmFinishRecall);
+		button.addEventListener("click", finishRecall);
 		button.innerText = "Finish";
 		$("#finishBtnDiv").empty();
 		document.getElementById("finishBtnDiv").appendChild(button);
@@ -9385,8 +9341,8 @@ function confirmFinishMemo() {
 
 		document.onkeydown = function (e) {
 			//If Enter is pressed
-			if (e.key == "Enter" && !ended && !competitionMode) {
-				confirmFinishRecall();
+			if (e.key == "Enter" && !ended) {
+				finishRecall();
 
 
 			}
@@ -11088,7 +11044,7 @@ function confirmFinishMemo() {
 					}
 
 				}
-				imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='confirmFinishRecall();'>Finish</button></div>";
+				imagesRecallString += "</table><br /><button class='btnDigital finishBtn' onclick='finishRecall();'>Finish</button></div>";
 				//	imagesRecallString += "</table><br /></div>";
 			}
 
@@ -11508,11 +11464,6 @@ function confirmFinishMemo() {
 		groupingH = Number(localStorage.getItem("groupingH"));
 		groupingW = Number(localStorage.getItem("groupingW"));
 		cardSet = localStorage.getItem("cardSet");
-		//use worn set for standard set if analogue skin
-		if (cardSet == 1 && skin.indexOf("analogue")>-1) {
-				cardSet = 3;
-			}
-
 		blnImageSkip = localStorage.getItem("blnImageSkip");
 
 		//get colour back
@@ -11924,9 +11875,20 @@ Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin
 	<label for="chkSkipFinalImage">Skip final image in row?</label><input type="checkbox" id="chkSkipFinalImage">
 	</div>
 	
-	
+	<div id="divGroupingCopy" style="flex:1">
+		Grouping:     <select id="selGrouping" onchange="resetMiniGroupings();resetSeparations();updatePreview();">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3" selected>3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			</select>
+	</div>
 
-<div id="divCardSet">
+<div id="divCardSet" display="flex" justify-content="space-between" flex-direction="row">
 		<div id="divDecks" style="flex:1">
 				Decks:     <input id="inpDecks" type="text" size=3>	
 
@@ -11937,13 +11899,10 @@ Draw lines every <input size=3 id="inpSeparationBin" onkeyup="applySeparationBin
 			<option value="1">Standard</option>
 			<option value="2">French (VDR)</option>
 		<!--	<option value="3">French (BDK)</option>		-->
-		<!--	<option value="3">Worn</option>			-->
+			<option value="3">Worn</option>			
 		</select>
 		</div>
-		<div style="flex:1">
-				<label for="chkLargerGap">Larger gap between cards:</label>     <input type="checkbox" id="chkLargerGap" onclick="this.checked?cardOffsetBig=42:cardOffsetBig=22;updatePreview();">
-			</div>
-		<div style="flex:1">
+		<div id="divDirection" style="flex:1">
 			<label for="chkLeftToRight">Cards from left to right:</label>     <input type="checkbox" id="chkLeftToRight" checked>
 		</div>
 
@@ -12112,11 +12071,11 @@ Highlight colour:     <select id="selHColour"  onchange="changeSelHColour()" >
   
 <div id="scoreContentDiv" class="scoreContent"></div>
 <div id="analogueCardsScoreContentDiv" class="scoreContent"></div>
+</div>
 
-
-<div id="bottomRow" class="bottom-right-timer row">
+<div class="bottom-right-timer row">
   <div class='col-md-10'></div>
-<div class='col-md-2' id='analogue1ScoreTimeOuter'><!--<span id="analogue1ScoreTimeInner"></span>--><button id="btnBackToSelection3" class="btnDigital" onclick="goToSelection();">Back</button></div>
+<div class='col-md-2' id='analogue1ScoreTimeOuter'><span id="analogue1ScoreTimeInner"></span></div>
 </div>
 
 <div class="col-md-1"></div>
